@@ -1558,35 +1558,300 @@
   }
 
   /* ==========================================================================
+     10B. VOUCHER WALLET VIEW (DOMPET VOUCHER DILA)
+     ========================================================================== */
+  .voucher-summary-banner {
+    border-radius: 24px;
+    padding: 15px 16px;
+    background: linear-gradient(135deg, rgba(255, 122, 162, 0.16), rgba(255, 216, 194, 0.32));
+    border: 1px solid var(--border-soft);
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .voucher-summary-stats {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .voucher-stat-num {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--rose);
+    display: block;
+    line-height: 1.15;
+  }
+
+  .voucher-filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px;
+    border-radius: 18px;
+    background: var(--surface-glass);
+    border: 1px solid var(--border-soft);
+  }
+
+  .voucher-filter-btn {
+    flex: 1;
+    min-height: 38px;
+    padding: 6px 10px;
+    border-radius: 14px;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .voucher-filter-btn.active {
+    background: var(--rose);
+    color: #FFFFFF;
+    box-shadow: 0 4px 12px rgba(255, 122, 162, 0.3);
+  }
+
+  .voucher-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .voucher-ticket {
+    position: relative;
+    border-radius: 24px;
+    background: var(--surface-card);
+    border: 1px solid var(--border-soft);
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .voucher-ticket::before,
+  .voucher-ticket::after {
+    content: '';
+    position: absolute;
+    top: 66%;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--bg-app);
+    border: 1px solid var(--border-soft);
+    z-index: 3;
+  }
+
+  .voucher-ticket::before {
+    left: -10px;
+  }
+
+  .voucher-ticket::after {
+    right: -10px;
+  }
+
+  .voucher-ticket-top {
+    padding: 16px 18px 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+  }
+
+  .voucher-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--peach), var(--pink));
+    color: #4A3B47;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .voucher-ticket.exhausted .voucher-icon-box {
+    background: rgba(142, 125, 136, 0.16);
+    filter: grayscale(0.4);
+  }
+
+  .voucher-main-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .voucher-meta-line {
+    font-size: 11px;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 3px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .voucher-meta-accent {
+    color: var(--rose);
+    font-weight: 600;
+  }
+
+  .voucher-title {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+
+  .voucher-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .voucher-perforation {
+    border-top: 1.5px dashed var(--border-soft);
+    margin: 0 14px;
+  }
+
+  .voucher-ticket-bottom {
+    padding: 11px 18px 13px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: rgba(255, 122, 162, 0.04);
+  }
+
+  .voucher-quota-text {
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .voucher-redeem-btn {
+    min-height: 38px;
+    padding: 8px 16px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--rose), #FF94B4);
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: 600;
+    box-shadow: 0 4px 14px rgba(255, 122, 162, 0.32);
+    transition: transform 0.16s ease, opacity 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .voucher-redeem-btn:active {
+    transform: scale(0.95);
+  }
+
+  .voucher-redeem-btn.secondary {
+    background: rgba(255, 122, 162, 0.14);
+    color: var(--rose);
+    box-shadow: none;
+  }
+
+  .voucher-custom-card {
+    border-radius: 24px;
+    padding: 16px;
+    background: var(--surface-card);
+    border: 1.5px dashed var(--rose);
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .voucher-input-field {
+    width: 100%;
+    padding: 11px 14px;
+    border-radius: 16px;
+    background: rgba(255, 122, 162, 0.08);
+    border: 1px solid var(--border-soft);
+    color: var(--text-primary);
+    font-size: 12.5px;
+    user-select: text;
+  }
+
+  .voucher-input-field::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.75;
+  }
+
+  .receipt-ticket-box {
+    padding: 16px;
+    border-radius: 20px;
+    background: linear-gradient(180deg, rgba(255, 122, 162, 0.1) 0%, rgba(255, 216, 194, 0.18) 100%);
+    border: 1.5px dashed var(--rose);
+    text-align: left;
+    position: relative;
+    margin-bottom: 12px;
+  }
+
+  .receipt-stamp {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 8px;
+    border: 1.5px solid var(--rose);
+    color: var(--rose);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    transform: rotate(-3deg);
+    margin-bottom: 8px;
+  }
+
+  .receipt-code-box {
+    margin-top: 10px;
+    padding: 10px 12px;
+    border-radius: 14px;
+    background: var(--surface-card);
+    border: 1px solid var(--border-soft);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ==========================================================================
      11. BOTTOM NAVIGATION BAR
      ========================================================================== */
   .bottom-nav {
     position: relative;
     z-index: 30;
-    margin: 0 14px calc(10px + var(--safe-bottom));
-    padding: 6px 8px;
+    margin: 0 12px calc(10px + var(--safe-bottom));
+    padding: 6px 6px;
     border-radius: 26px;
     background: var(--surface-glass);
     backdrop-filter: blur(16px);
     border: 1px solid var(--border-soft);
     box-shadow: var(--shadow-soft);
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 4px;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 3px;
     flex-shrink: 0;
   }
 
   .nav-tab-btn {
     min-height: 50px;
-    border-radius: 20px;
+    border-radius: 18px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 3px;
     color: var(--text-secondary);
-    font-size: 10px;
+    font-size: 9.5px;
     font-weight: 500;
+    white-space: nowrap;
     transition: all 0.22s ease;
   }
 
@@ -2456,6 +2721,57 @@
               </p>
 
               <div id="surprise-result-container" style="width:100%;display:none;"></div>
+
+              <button type="button" class="voucher-redeem-btn secondary" id="btn-goto-vouchers-from-surprise" style="margin-top:6px;">
+                🎟️ Buka Dompet Voucher Dila →
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================================================================
+             VIEW F: VOUCHER WALLET (DOMPET VOUCHER DILA)
+             ================================================================ -->
+        <div id="view-vouchers" class="tab-view">
+          <div class="section-container">
+            <div class="section-heading-box" style="display:flex;justify-content:space-between;align-items:flex-end;gap:8px;">
+              <div>
+                <h2 class="section-title">Voucher Dila 🎟️</h2>
+                <p class="section-subtitle">Klaim kupon spesial kapan aja, gasss!</p>
+              </div>
+              <button type="button" id="btn-reset-vouchers" style="font-size:11px;font-weight:600;color:var(--rose);padding:6px 10px;border-radius:12px;background:rgba(255,122,162,0.1);white-space:nowrap;">
+                Isi Ulang
+              </button>
+            </div>
+
+            <!-- Summary Banner -->
+            <div class="voucher-summary-banner">
+              <div class="voucher-summary-stats">
+                <div>
+                  <span class="voucher-stat-num" id="voucher-available-count">10</span>
+                  <span>Bisa Diklaim</span>
+                </div>
+                <span aria-hidden="true">·</span>
+                <div>
+                  <span class="voucher-stat-num" id="voucher-claimed-count">0</span>
+                  <span>Tiket Terklaim</span>
+                </div>
+              </div>
+              <button type="button" class="voucher-redeem-btn" id="btn-open-voucher-history" style="padding:7px 13px;min-height:36px;font-size:11px;">
+                Riwayat Klaim 📋
+              </button>
+            </div>
+
+            <!-- Interactive Filter Bar -->
+            <div class="voucher-filter-bar" role="tablist" aria-label="Filter Voucher">
+              <button type="button" class="voucher-filter-btn active" data-vfilter="all">Semua Kupon</button>
+              <button type="button" class="voucher-filter-btn" data-vfilter="available">Tersedia</button>
+              <button type="button" class="voucher-filter-btn" data-vfilter="claimed">Sudah Diklaim</button>
+            </div>
+
+            <!-- Voucher List Container -->
+            <div class="voucher-list" id="voucher-list-container">
+              <!-- Populated by Script.html -->
             </div>
           </div>
         </div>
@@ -2467,7 +2783,7 @@
            ================================================================== -->
       <nav class="bottom-nav" aria-label="Navigasi Utama">
         <button type="button" class="nav-tab-btn active" data-target="view-home">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
             <polyline points="9 22 9 12 15 12 15 22"></polyline>
           </svg>
@@ -2475,7 +2791,7 @@
         </button>
 
         <button type="button" class="nav-tab-btn" data-target="view-voice">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
             <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
             <line x1="12" y1="19" x2="12" y2="23"></line>
@@ -2485,22 +2801,32 @@
         </button>
 
         <button type="button" class="nav-tab-btn" data-target="view-memories">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
           </svg>
           <span>Memories</span>
         </button>
 
         <button type="button" class="nav-tab-btn" data-target="view-capsule">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
             <polyline points="22,6 12,13 2,6"></polyline>
           </svg>
           <span>Capsule</span>
         </button>
 
+        <button type="button" class="nav-tab-btn" data-target="view-vouchers" id="nav-btn-vouchers">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path>
+            <path d="M13 5v2"></path>
+            <path d="M13 17v2"></path>
+            <path d="M13 11v2"></path>
+          </svg>
+          <span>Voucher</span>
+        </button>
+
         <button type="button" class="nav-tab-btn" data-target="view-surprise">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="20 12 20 22 4 22 4 12"></polyline>
             <rect x="2" y="7" width="20" height="5"></rect>
             <line x1="12" y1="22" x2="12" y2="7"></line>
@@ -2545,6 +2871,8 @@ const APP_CONFIG = {
   RECIPIENT_NAME: "Sayang",
   OWNER_NAME: "Aku",
   OWNER_INITIAL: "A",
+  // Nomor WhatsApp kamu untuk tujuan klaim voucher Dila (awali dengan 62, contoh: "6285292192291")
+  WHATSAPP_NUMBER: "6285292192291",
   PIN: "0409",
   REQUIRE_PIN: true,
   WRONG_PIN_MESSAGE: "Masa kamu ga inget tanggal pertama kita chatan 😭",
@@ -2565,9 +2893,7 @@ const APP_CONFIG = {
 
   // Placeholder Audio Ambience (Ganti URL jika memiliki file MP3 sendiri)
   AMBIENT_SOUNDS: {
-    piano: { label: "Piano Hangat", audio: "YOUR_AUDIO_URL_HERE" },
-    rain: { label: "Hujan Sore", audio: "YOUR_AUDIO_URL_HERE" },
-    night: { label: "Malam Tenang", audio: "YOUR_AUDIO_URL_HERE" }
+    piano: { label: "Manusia Paling Menyebalkan", audio: "https://res.cloudinary.com/ptzjn0z7/video/upload/v1790439435/_Manusia_Paling_Menyebalkan__-_BIANCADIMAS_Official_Lyric_Video_tZLncLQIMoU.mp3" },
   }
 };
 
@@ -2843,6 +3169,113 @@ const SECRET_MESSAGES = [
   }
 ];
 
+// Daftar Voucher Spesial Buat Dila (Bisa Di-redeem)
+const LOVE_VOUCHERS = [
+  {
+    id: "v-jajan",
+    icon: "🧋",
+    category: "Kuliner · Prioritas",
+    title: "Voucher Traktir Jajan & Minuman Favorit",
+    desc: "Bebas pilih jajan, es krim, matcha, atau kopi favorit kamu. Klaim kupon ini terus kirim tiketnya ke aku buat langsung ditransfer/QRIS!",
+    maxQuota: 3,
+    codePrefix: "JAJAN-DILA",
+    defaultNote: "Sayang aku mau klaim voucher jajan hari ini hehe 🧋"
+  },
+  {
+    id: "v-geprek",
+    icon: "🍗",
+    category: "Date · Wishlist Kita",
+    title: "Voucher Makan Bareng (Bebas Pilih Menu)",
+    desc: "Pas kita ketemu nanti, kamu bebas nentuin tempat makan (termasuk ayam geprek favoritmu) dan aku traktir penuh tanpa protes!",
+    maxQuota: 5,
+    codePrefix: "DATE-GEPREK",
+    defaultNote: "Tabung voucher makan ayam geprek bareng pas ketemu nanti! 🍗"
+  },
+  {
+    id: "v-call",
+    icon: "📞",
+    category: "Waktu Kita · 24/7",
+    title: "Voucher Bebas Telepon / Sleep Call",
+    desc: "Lagi kangen, bosen, atau susah tidur? Klaim voucher ini kapan aja buat langsung teleponan ditemenin sampai kamu ketiduran.",
+    maxQuota: 99,
+    unlimited: true,
+    codePrefix: "CALL-KANGEN",
+    defaultNote: "Aku lagi pengen ditemenin telponan sekarang 📞💗"
+  },
+  {
+    id: "v-sumala",
+    icon: "👑",
+    category: "Kartu Sakti · Anti Ngambek",
+    title: "Kartu Sakti: 'Dila Selalu Benar'",
+    desc: "Kalau kita lagi debat atau kamu lagi mode Sumala, klaim kupon ini dan aku otomatis ngalah + minta maaf duluan dengan tulus.",
+    maxQuota: 2,
+    codePrefix: "DILA-WIN",
+    defaultNote: "Pakai kartu sakti Dila Selalu Benar! Ngga boleh bantah 😤👑"
+  },
+  {
+    id: "v-peluk",
+    icon: "🫂",
+    category: "Tabungan Rindu · Spesial",
+    title: "Voucher Peluk Panjang Tanpa Batas",
+    desc: "Klaim secara virtual sekarang buat ditabung, dan wajib dibayar lunas pakai pelukan beneran paling lama waktu kita ketemu nanti.",
+    maxQuota: 99,
+    unlimited: true,
+    codePrefix: "HUG-TABUNGAN",
+    defaultNote: "Nabung 1 pelukan panjang buat ditagih pas ketemu nanti 🫂"
+  },
+  {
+    id: "v-curhat",
+    icon: "💌",
+    category: "Perhatian · Pendengar Setia",
+    title: "Sesi Cerita & Keluh Kesah 100%",
+    desc: "Bebas cerita panjang lebar tentang hari kamu, capeknya kamu, atau hal random apa pun. Aku bakal dengerin penuh perhatian tanpa nyela.",
+    maxQuota: 99,
+    unlimited: true,
+    codePrefix: "CURHAT-AMAN",
+    defaultNote: "Sayang aku mau cerita banyak hal hari ini, dengerin yaa 💌"
+  },
+  {
+    id: "v-flower",
+    icon: "🌺",
+    category: "Kiriman Spesial · Eksklusif",
+    title: "Voucher Flowers Bucket",
+    desc: "Klaim kupon ini kalau kamu lagi pengen fresh flowers",
+    maxQuota: 5,
+    codePrefix: "REQ-FLOWERS",
+    defaultNote: "Klaim voucher minta bucket sekarang juga, ga boleh nolak! 🌺"
+  },
+  {
+    id: "v-nonton",
+    icon: "🎬",
+    category: "Date · Hiburan Kita",
+    title: "Voucher Nonton (Bebas Pilih Film)",
+    desc: "Klaim kupon ini buat nonton film pilihan kamu di bioskop lengkap sama popcorn & cemilannya!",
+    maxQuota: 5,
+    codePrefix: "DATE-NONTON",
+    defaultNote: "Sayang ayo klaim voucher nonton film pilihan aku! 🎬🍿"
+  },
+  {
+    id: "v-karaoke",
+    icon: "🎤",
+    category: "Seru-seruan",
+    title: "Voucher Karaoke Sepuasnya",
+    desc: "Kupon bebas nyanyi dan seru-seruansampai puas! Lagu apa aja bebas kamu yang pilih.",
+    maxQuota: 5,
+    codePrefix: "DATE-KARAOKE",
+    defaultNote: "Klaim voucher karaoke! Siap-siap nyanyi sepuasnya 🎤✨"
+  },
+  {
+    id: "v-transfer-200k",
+    icon: "💸",
+    category: "Spesial · Uang Jajan Dila",
+    title: "Voucher Transfer 200K",
+    desc: "Kupon spesial pencairan dana sayang senilai Rp200.000! Klaim tiket ini terus kirim buktinya ke chat aku buat langsung ditransfer.",
+    maxQuota: 3,
+    codePrefix: "TF-200K",
+    defaultNote: "Sayang aku klaim Voucher Transfer 200K yaa! Ditunggu notif masuknya hehe 💸💗"
+  }
+];
+
 // ==========================================
 // 2. APPLICATION STATE & STORAGE KEYS
 // ==========================================
@@ -2880,7 +3313,10 @@ const AppState = {
   },
   drawerTapCount: 0,
   drawerUnlocked: false,
-  activeChatThreadTimer: null
+  activeChatThreadTimer: null,
+  voucherFilter: "all",
+  voucherClaims: {},
+  voucherHistory: []
 };
 
 // Web Audio API Context for Fallback Melodies & Ambience
@@ -2958,6 +3394,14 @@ function cacheDOMReferences() {
   DOM.surpriseStatusTitle = document.getElementById("surprise-status-title");
   DOM.surpriseStatusDesc = document.getElementById("surprise-status-desc");
   DOM.surpriseResultContainer = document.getElementById("surprise-result-container");
+  DOM.btnGotoVouchersFromSurprise = document.getElementById("btn-goto-vouchers-from-surprise");
+
+  DOM.voucherListContainer = document.getElementById("voucher-list-container");
+  DOM.voucherAvailableCount = document.getElementById("voucher-available-count");
+  DOM.voucherClaimedCount = document.getElementById("voucher-claimed-count");
+  DOM.voucherFilterBtns = document.querySelectorAll(".voucher-filter-btn");
+  DOM.btnOpenVoucherHistory = document.getElementById("btn-open-voucher-history");
+  DOM.btnResetVouchers = document.getElementById("btn-reset-vouchers");
 
   DOM.navTabBtns = document.querySelectorAll(".nav-tab-btn");
   DOM.tabViews = document.querySelectorAll(".tab-view");
@@ -3006,6 +3450,12 @@ function loadState() {
     }
     if (parsed.dailyCare) AppState.dailyCare = parsed.dailyCare;
     if (parsed.dailySurprise) AppState.dailySurprise = parsed.dailySurprise;
+    if (parsed.voucherClaims && typeof parsed.voucherClaims === "object") {
+      AppState.voucherClaims = parsed.voucherClaims;
+    }
+    if (Array.isArray(parsed.voucherHistory)) {
+      AppState.voucherHistory = parsed.voucherHistory;
+    }
 
     if (!APP_CONFIG.REQUIRE_PIN && parsed.authenticated) {
       AppState.authenticated = true;
@@ -3027,6 +3477,8 @@ function saveState() {
       drawerUnlocked: AppState.drawerUnlocked,
       dailyCare: AppState.dailyCare,
       dailySurprise: AppState.dailySurprise,
+      voucherClaims: AppState.voucherClaims,
+      voucherHistory: AppState.voucherHistory,
       ambientAudio: {
         mode: AppState.ambientAudio.mode,
         volume: AppState.ambientAudio.volume
@@ -3088,6 +3540,7 @@ function initApp() {
   renderMemoryGalaxy();
   renderTimeCapsules();
   renderDailySurpriseState();
+  renderVouchers();
   createAmbientParticles();
   bindEventListeners();
   runSplashSequence();
@@ -3920,9 +4373,24 @@ function handleCapsuleClick(cap, isUnlocked, diffDays) {
       <div style="padding:14px;border-radius:18px;background:rgba(255,122,162,0.1);border:1px solid var(--border-soft);text-align:left;">
         <p style="font-size:13.5px;line-height:1.65;">${escapeHtml(cap.message)}</p>
       </div>
+      ${cap.id === "cap-4" ? `
+        <div style="margin-top:12px;">
+          <button type="button" id="btn-cap-goto-voucher" class="voucher-redeem-btn" style="width:100%;">
+            🎟️ Buka Menu Voucher Dila Sekarang →
+          </button>
+        </div>
+      ` : ""}
     `,
     buttonText: "Tutup Amplop"
   });
+
+  const capVoucherBtn = document.getElementById("btn-cap-goto-voucher");
+  if (capVoucherBtn) {
+    capVoucherBtn.addEventListener("click", () => {
+      closeModal();
+      switchToTabView("view-vouchers");
+    });
+  }
 }
 
 // ==========================================
@@ -3974,6 +4442,315 @@ function handleOpenDailySurprise() {
 }
 
 // ==========================================
+// 16B. LOVE VOUCHERS SYSTEM (VIRTUAL REDEEM FOR DILA)
+// ==========================================
+
+function switchToTabView(targetViewId) {
+  DOM.navTabBtns.forEach(b => {
+    if (b.getAttribute("data-target") === targetViewId) {
+      b.classList.add("active");
+    } else {
+      b.classList.remove("active");
+    }
+  });
+  DOM.tabViews.forEach(view => {
+    if (view.id === targetViewId) {
+      view.classList.add("active-view");
+    } else {
+      view.classList.remove("active-view");
+    }
+  });
+  if (targetViewId !== "view-voice" && AppState.voicePlaying) {
+    stopVoicePlayback();
+  }
+}
+
+function getVoucherUsedCount(voucherId) {
+  return Number(AppState.voucherClaims[voucherId] || 0);
+}
+
+function isVoucherExhausted(voucher) {
+  if (voucher.unlimited) return false;
+  return getVoucherUsedCount(voucher.id) >= voucher.maxQuota;
+}
+
+function renderVouchers() {
+  if (!DOM.voucherListContainer) return;
+  DOM.voucherListContainer.innerHTML = "";
+
+  // Calculate stats
+  const availableCount = LOVE_VOUCHERS.filter(v => !isVoucherExhausted(v)).length;
+  const totalClaimedCount = AppState.voucherHistory.length;
+
+  if (DOM.voucherAvailableCount) DOM.voucherAvailableCount.textContent = String(availableCount);
+  if (DOM.voucherClaimedCount) DOM.voucherClaimedCount.textContent = String(totalClaimedCount);
+
+  // Filter items
+  const filterMode = AppState.voucherFilter || "all";
+  const filtered = LOVE_VOUCHERS.filter(v => {
+    const used = getVoucherUsedCount(v.id);
+    const exhausted = isVoucherExhausted(v);
+    if (filterMode === "available") return !exhausted;
+    if (filterMode === "claimed") return used > 0;
+    return true;
+  });
+
+  if (!filtered.length) {
+    DOM.voucherListContainer.innerHTML = `
+      <div style="padding:26px 18px;border-radius:22px;background:var(--surface-card);border:1px solid var(--border-soft);text-align:center;color:var(--text-secondary);font-size:12.5px;">
+        ${filterMode === "claimed"
+          ? "Belum ada voucher dari daftar ini yang diklaim. Yuk klaim satu kupon buat hari ini! 🎟️"
+          : "Semua kupon di kategori ini sudah habis terpakai. Ketuk 'Isi Ulang' di pojok kanan atas ya!"}
+      </div>
+    `;
+    return;
+  }
+
+  filtered.forEach(v => {
+    const used = getVoucherUsedCount(v.id);
+    const exhausted = isVoucherExhausted(v);
+    const remaining = v.unlimited ? "∞" : Math.max(0, v.maxQuota - used);
+
+    const quotaLabel = v.unlimited
+      ? `Tanpa Batas · Dipakai ${used}x`
+      : (exhausted ? `Habis Terklaim (${used}/${v.maxQuota})` : `Tersisa ${remaining} dari ${v.maxQuota} kupon`);
+
+    const card = document.createElement("div");
+    card.className = `voucher-ticket ${exhausted ? "exhausted" : ""}`;
+    card.innerHTML = `
+      <div class="voucher-ticket-top">
+        <div class="voucher-icon-box">${v.icon}</div>
+        <div class="voucher-main-info">
+          <div class="voucher-meta-line">
+            <span class="voucher-meta-accent">${escapeHtml(v.category)}</span>
+            ${used > 0 ? `<span aria-hidden="true">·</span><span>Sudah diklaim ${used}x</span>` : ""}
+          </div>
+          <div class="voucher-title">${escapeHtml(v.title)}</div>
+          <div class="voucher-desc">${escapeHtml(v.desc)}</div>
+        </div>
+      </div>
+      <div class="voucher-perforation"></div>
+      <div class="voucher-ticket-bottom">
+        <span class="voucher-quota-text">${escapeHtml(quotaLabel)}</span>
+        <div style="display:flex;gap:6px;">
+          ${used > 0 ? `
+            <button type="button" class="voucher-redeem-btn secondary btn-view-last-ticket" data-vid="${v.id}">
+              Tiket 🧾
+            </button>
+          ` : ""}
+          <button type="button" class="voucher-redeem-btn ${exhausted ? "secondary" : ""} btn-redeem-now" data-vid="${v.id}">
+            ${exhausted ? "Habis ✓" : "Klaim Voucher →"}
+          </button>
+        </div>
+      </div>
+    `;
+
+    const redeemBtn = card.querySelector(".btn-redeem-now");
+    if (redeemBtn) {
+      redeemBtn.addEventListener("click", () => {
+        if (exhausted) {
+          showToast("🎟️ Kuota voucher ini udah habis! Ketuk 'Isi Ulang' di atas kalau mau nambah lagi hehe.");
+          return;
+        }
+        openClaimVoucherModal(v);
+      });
+    }
+
+    const viewTicketBtn = card.querySelector(".btn-view-last-ticket");
+    if (viewTicketBtn) {
+      viewTicketBtn.addEventListener("click", () => {
+        const lastReceipt = [...AppState.voucherHistory].reverse().find(r => r.voucherId === v.id);
+        if (lastReceipt) {
+          showVoucherReceiptModal(lastReceipt);
+        }
+      });
+    }
+
+    DOM.voucherListContainer.appendChild(card);
+  });
+}
+
+function openClaimVoucherModal(voucher) {
+  playSoftNote(659.25, 0.09);
+
+  openModal({
+    icon: voucher.icon,
+    title: `Klaim ${voucher.title}`,
+    bodyHtml: `
+      <p style="font-size:12.5px;color:var(--text-secondary);margin-bottom:12px;">
+        ${escapeHtml(voucher.desc)}
+      </p>
+      <div style="text-align:left;margin-bottom:6px;">
+        <label for="modal-voucher-note" style="font-size:11.5px;font-weight:600;color:var(--rose);display:block;margin-bottom:6px;">
+          Pesan / Request Tambahan dari Dila:
+        </label>
+        <input type="text" id="modal-voucher-note" class="voucher-input-field"
+          value="${escapeHtml(voucher.defaultNote || "")}"
+          placeholder="Tulis request kamu di sini sayang..." />
+      </div>
+    `,
+    buttonText: "Klaim Sekarang 🎟️",
+    onConfirm: () => {
+      const noteEl = document.getElementById("modal-voucher-note");
+      const customNote = noteEl && noteEl.value.trim() ? noteEl.value.trim() : voucher.defaultNote;
+      confirmRedeemVoucher(voucher, customNote);
+    }
+  });
+}
+
+function confirmRedeemVoucher(voucher, noteText) {
+  AppState.voucherClaims[voucher.id] = getVoucherUsedCount(voucher.id) + 1;
+
+  const now = new Date();
+  const dateStr = now.toLocaleDateString("id-ID", { day: "2-digit", month: "short", year: "numeric" });
+  const timeStr = now.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" });
+  const randomCode = Math.floor(1000 + Math.random() * 9000);
+  const ticketCode = `${voucher.codePrefix || "DILA"}-${randomCode}`;
+
+  const receipt = {
+    ticketCode,
+    voucherId: voucher.id,
+    icon: voucher.icon || "🎟️",
+    title: voucher.title,
+    note: noteText || "Klaim voucher spesial Dila ♥",
+    claimedAt: `${dateStr} · ${timeStr}`
+  };
+
+  AppState.voucherHistory.push(receipt);
+  saveState();
+  renderVouchers();
+
+  triggerDeviceVibrate([60, 40, 90]);
+  playSuccessChime();
+  spawnFloatingHearts(window.innerWidth / 2, window.innerHeight / 2, 12);
+  showPresenceMessage(`Asik! Kamu baru aja klaim "${voucher.title}". Jangan lupa kirim tiketnya ke aku ya sayang ♥`);
+
+  showVoucherReceiptModal(receipt);
+}
+
+function showVoucherReceiptModal(receipt) {
+  const shareMessage = `🎟️ *TIKET KLAIM VOUCHER DILA*\n━━━━━━━━━━━━━━━\n✨ *Voucher:* ${receipt.title}\n🔑 *Kode Tiket:* ${receipt.ticketCode}\n🕒 *Waktu Klaim:* ${receipt.claimedAt}\n💌 *Pesan Dila:* "${receipt.note}"\n━━━━━━━━━━━━━━━\n_Kupon resmi dari Kamar Kita · Wajib ditepati!_ ♥`;
+
+  openModal({
+    icon: receipt.icon || "🎟️",
+    title: "Tiket Voucher Berhasil Diklaim!",
+    bodyHtml: `
+      <div class="receipt-ticket-box">
+        <span class="receipt-stamp">✓ SAH & BERLAKU</span>
+        <div style="font-size:14px;font-weight:700;margin-bottom:4px;">${escapeHtml(receipt.title)}</div>
+        <div style="font-size:11.5px;color:var(--text-secondary);margin-bottom:8px;">Diklaim pada ${escapeHtml(receipt.claimedAt)}</div>
+        <div style="padding:9px 12px;border-radius:12px;background:rgba(255,255,255,0.55);font-size:12px;font-style:italic;color:#4A3B47;">
+          "${escapeHtml(receipt.note)}"
+        </div>
+        <div class="receipt-code-box">
+          <div>
+            <span style="font-size:10px;color:var(--text-secondary);display:block;">KODE TIKET VIRTUAL</span>
+            <strong style="font-size:13.5px;color:var(--rose);letter-spacing:0.05em;">${escapeHtml(receipt.ticketCode)}</strong>
+          </div>
+          <button type="button" id="btn-copy-ticket-code" class="voucher-redeem-btn secondary" style="min-height:32px;padding:6px 12px;font-size:11px;">
+            Salin Bukti 📋
+          </button>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <button type="button" id="btn-wa-ticket-share" class="voucher-redeem-btn" style="width:100%;justify-content:center;display:flex;align-items:center;gap:6px;">
+          <span>📲 Kirim Tiket Klaim ke WhatsApp Aku</span>
+        </button>
+      </div>
+    `,
+    buttonText: "Simpan di Dompet ♥"
+  });
+
+  const copyBtn = document.getElementById("btn-copy-ticket-code");
+  if (copyBtn) {
+    copyBtn.addEventListener("click", () => {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(shareMessage).then(() => {
+          showToast("📋 Bukti klaim disalin! Tinggal paste ke chat aku ya sayang.");
+        }).catch(() => {
+          showToast(`🔑 Kode Tiket: ${receipt.ticketCode}`);
+        });
+      } else {
+        showToast(`🔑 Kode Tiket: ${receipt.ticketCode}`);
+      }
+    });
+  }
+
+  const waBtn = document.getElementById("btn-wa-ticket-share");
+  if (waBtn) {
+    waBtn.addEventListener("click", () => {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(shareMessage).catch(() => {});
+      }
+      const rawPhone = String(APP_CONFIG.WHATSAPP_NUMBER || "").replace(/[^0-9]/g, "");
+      const cleanPhone = rawPhone.startsWith("0") ? "62" + rawPhone.slice(1) : rawPhone;
+      const phoneParam = cleanPhone ? `phone=${cleanPhone}&` : "";
+      const waUrl = `https://api.whatsapp.com/send?${phoneParam}text=${encodeURIComponent(shareMessage)}`;
+      const link = document.createElement("a");
+      link.href = waUrl;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      showToast("💌 Membuka WhatsApp & menyalin tiket klaim...");
+    });
+  }
+}
+
+function openVoucherHistoryModal() {
+  if (!AppState.voucherHistory.length) {
+    openModal({
+      icon: "📋",
+      title: "Riwayat Tiket Voucher Dila",
+      bodyHtml: `<p style="font-size:13px;color:var(--text-secondary);">Belum ada tiket voucher yang diklaim. Pilih kupon yang kamu mau terus klik <strong>Klaim Voucher</strong> ya!</p>`,
+      buttonText: "Siap!"
+    });
+    return;
+  }
+
+  const listHtml = [...AppState.voucherHistory].reverse().map((item, idx) => `
+    <button type="button" class="secret-note-item history-ticket-row" data-hidx="${AppState.voucherHistory.length - 1 - idx}" style="width:100%;text-align:left;display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;">
+      <div>
+        <div style="font-size:10px;font-weight:700;color:var(--rose);">${escapeHtml(item.ticketCode)} · ${escapeHtml(item.claimedAt)}</div>
+        <div style="font-size:13px;font-weight:600;margin:2px 0;">${escapeHtml(item.icon)} ${escapeHtml(item.title)}</div>
+        <div style="font-size:11.5px;color:var(--text-secondary);">"${escapeHtml(item.note)}"</div>
+      </div>
+      <span style="font-size:11px;font-weight:600;color:var(--rose);white-space:nowrap;">Buka →</span>
+    </button>
+  `).join("");
+
+  openModal({
+    icon: "🧾",
+    title: `Tiket Terklaim (${AppState.voucherHistory.length})`,
+    bodyHtml: `
+      <p style="font-size:12px;color:var(--text-secondary);margin-bottom:10px;">
+        Ketuk salah satu tiket di bawah untuk melihat kode bukti klaim atau kirim ulang ke WhatsApp:
+      </p>
+      <div class="secret-notes-grid" style="max-height:290px;overflow-y:auto;">${listHtml}</div>
+    `,
+    buttonText: "Tutup Riwayat"
+  });
+
+  document.querySelectorAll(".history-ticket-row").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const idx = Number(btn.getAttribute("data-hidx"));
+      const receipt = AppState.voucherHistory[idx];
+      if (receipt) showVoucherReceiptModal(receipt);
+    });
+  });
+}
+
+function handleResetVouchers() {
+  AppState.voucherClaims = {};
+  saveState();
+  renderVouchers();
+  playSuccessChime();
+  spawnFloatingHearts(window.innerWidth / 2, window.innerHeight / 2, 8);
+  showToast("🎟️ Semua kuota voucher Dila berhasil diisi penuh lagi!");
+}
+
+// ==========================================
 // 17. AMBIENT AUDIO SYSTEM (WEB AUDIO + FALLBACK)
 // ==========================================
 
@@ -4016,20 +4793,23 @@ function playSuccessChime() {
   setTimeout(() => playSoftNote(783.99, 0.22), 190);
 }
 
+let ambientAudioPlayer = null;
+
 function openAudioSettingsModal() {
   const isEnabled = AppState.ambientAudio.enabled;
   const volPct = Math.round(AppState.ambientAudio.volume * 100);
+  const soundObj = (APP_CONFIG.AMBIENT_SOUNDS && APP_CONFIG.AMBIENT_SOUNDS.piano) || { label: "Musik Kamar" };
 
   openModal({
     icon: "🎵",
     title: "Suara Ambience Kamar",
     bodyHtml: `
       <p style="font-size:12.5px;color:var(--text-secondary);margin-bottom:14px;">
-        Nyalakan musik latar lembut untuk menemani kamu di dalam kamar.
+        Lagu Latar: <strong>${escapeHtml(soundObj.label || "Ambience Lembut")}</strong>
       </p>
       <div style="display:flex;flex-direction:column;gap:12px;">
         <button type="button" id="modal-audio-power-btn" class="btn-primary-romance" style="width:100%;">
-          ${isEnabled ? "⏸ Matikan Ambience" : "▶ Nyalakan Ambience Lembut"}
+          ${isEnabled ? "⏸ Matikan Musik Latar" : "▶ Putar Musik Latar"}
         </button>
         <div style="text-align:left;padding:10px 14px;border-radius:16px;background:rgba(255,122,162,0.08);">
           <label for="modal-volume-slider" style="font-size:12px;font-weight:600;display:flex;justify-content:space-between;margin-bottom:6px;">
@@ -4051,8 +4831,8 @@ function openAudioSettingsModal() {
     powerBtn.addEventListener("click", () => {
       toggleAmbientLoop();
       powerBtn.textContent = AppState.ambientAudio.enabled
-        ? "⏸ Matikan Ambience"
-        : "▶ Nyalakan Ambience Lembut";
+        ? "⏸ Matikan Musik Latar"
+        : "▶ Putar Musik Latar";
     });
   }
 
@@ -4060,6 +4840,9 @@ function openAudioSettingsModal() {
     slider.addEventListener("input", (e) => {
       const val = Number(e.target.value) / 100;
       AppState.ambientAudio.volume = val;
+      if (ambientAudioPlayer) {
+        ambientAudioPlayer.volume = Math.min(1, Math.max(0, val));
+      }
       if (volLabel) volLabel.textContent = `${e.target.value}%`;
       saveState();
     });
@@ -4071,6 +4854,22 @@ function toggleAmbientLoop() {
 
   if (AppState.ambientAudio.enabled) {
     if (DOM.btnAudioToggle) DOM.btnAudioToggle.classList.add("active-toggle");
+    const soundObj = APP_CONFIG.AMBIENT_SOUNDS && APP_CONFIG.AMBIENT_SOUNDS.piano;
+    const customUrl = soundObj && soundObj.audio && soundObj.audio !== "YOUR_AUDIO_URL_HERE" ? soundObj.audio : null;
+
+    if (customUrl) {
+      try {
+        if (!ambientAudioPlayer) {
+          ambientAudioPlayer = new Audio(customUrl);
+          ambientAudioPlayer.loop = true;
+        }
+        ambientAudioPlayer.volume = Math.min(1, Math.max(0, AppState.ambientAudio.volume));
+        ambientAudioPlayer.play().catch(() => {});
+        showToast(`🎵 Memutar: ${soundObj.label || "Ambience Kamar"}`);
+        return;
+      } catch (e) {}
+    }
+
     const chordNotes = [261.63, 329.63, 392.0, 493.88, 523.25, 392.0];
     let idx = 0;
     playSoftNote(chordNotes[0], 0.8);
@@ -4084,6 +4883,11 @@ function toggleAmbientLoop() {
   } else {
     if (DOM.btnAudioToggle) DOM.btnAudioToggle.classList.remove("active-toggle");
     clearInterval(ambientIntervalId);
+    if (ambientAudioPlayer) {
+      try {
+        ambientAudioPlayer.pause();
+      } catch (e) {}
+    }
     showToast("🔇 Ambience kamar dimatikan");
   }
 }
@@ -4335,25 +5139,35 @@ function bindEventListeners() {
   if (DOM.btnOpenGift) {
     DOM.btnOpenGift.addEventListener("click", handleOpenDailySurprise);
   }
+  if (DOM.btnGotoVouchersFromSurprise) {
+    DOM.btnGotoVouchersFromSurprise.addEventListener("click", () => {
+      switchToTabView("view-vouchers");
+    });
+  }
+
+  // Love Vouchers Controls
+  if (DOM.voucherFilterBtns) {
+    DOM.voucherFilterBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        DOM.voucherFilterBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        AppState.voucherFilter = btn.getAttribute("data-vfilter") || "all";
+        renderVouchers();
+      });
+    });
+  }
+  if (DOM.btnOpenVoucherHistory) {
+    DOM.btnOpenVoucherHistory.addEventListener("click", openVoucherHistoryModal);
+  }
+  if (DOM.btnResetVouchers) {
+    DOM.btnResetVouchers.addEventListener("click", handleResetVouchers);
+  }
 
   // Bottom Navigation Tabs
   DOM.navTabBtns.forEach(btn => {
     btn.addEventListener("click", () => {
       const targetViewId = btn.getAttribute("data-target");
-      DOM.navTabBtns.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-
-      DOM.tabViews.forEach(view => {
-        if (view.id === targetViewId) {
-          view.classList.add("active-view");
-        } else {
-          view.classList.remove("active-view");
-        }
-      });
-
-      if (targetViewId !== "view-voice" && AppState.voicePlaying) {
-        stopVoicePlayback();
-      }
+      switchToTabView(targetViewId);
     });
   });
 
