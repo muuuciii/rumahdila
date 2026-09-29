@@ -1029,11 +1029,11 @@
   }
 
   /* ==========================================================================
-     6. HOME LOWER DECK: LOVE METER (DAILY CARE) & HUG BUTTON
+     6. HOME LOWER DECK: 3-IN-1 SWEET WIDGET & HUG BUTTON
      ========================================================================== */
   .home-widgets-grid {
     display: grid;
-    grid-template-columns: 1.25fr 0.95fr;
+    grid-template-columns: 1.32fr 0.88fr;
     gap: 10px;
     margin-top: 10px;
     flex-shrink: 0;
@@ -1044,11 +1044,188 @@
     backdrop-filter: blur(12px);
     border: 1px solid var(--border-soft);
     border-radius: 24px;
-    padding: 12px 14px;
+    padding: 11px 12px;
     box-shadow: var(--shadow-soft);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+  }
+
+  .sweet-multi-card {
+    justify-content: flex-start;
+    gap: 4px;
+  }
+
+  .sweet-mode-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+    background: rgba(255, 122, 162, 0.1);
+    padding: 3px;
+    border-radius: 12px;
+    margin-bottom: 4px;
+  }
+
+  body.dream-mode .sweet-mode-tabs,
+  body[data-time-period="night"] .sweet-mode-tabs {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .sweet-mode-tab {
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    padding: 4px 2px;
+    border-radius: 9px;
+    text-align: center;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .sweet-mode-tab.active {
+    background: var(--rose);
+    color: #FFFFFF;
+    box-shadow: 0 3px 8px rgba(255, 122, 162, 0.32);
+  }
+
+  .sweet-tab-panel {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+    animation: fadeInTab 0.22s ease;
+  }
+
+  .sweet-tab-panel.active {
+    display: flex;
+  }
+
+  /* Panel 1: Mood Dila Grid */
+  .mood-mini-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+
+  .mood-pick-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 8px;
+    min-height: 36px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.52);
+    border: 1px solid rgba(255, 122, 162, 0.2);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: left;
+    transition: all 0.2s ease;
+  }
+
+  body.dream-mode .mood-pick-btn,
+  body[data-time-period="night"] .mood-pick-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+
+  .mood-pick-btn:active {
+    transform: scale(0.95);
+  }
+
+  .mood-pick-btn.selected {
+    background: linear-gradient(135deg, rgba(255, 122, 162, 0.22), rgba(248, 200, 220, 0.42));
+    border-color: var(--rose);
+    box-shadow: 0 4px 12px rgba(255, 122, 162, 0.22);
+  }
+
+  .mood-emoji {
+    font-size: 15px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  /* Panel 2: Tangki Cinta / Love Battery */
+  .love-battery-shell {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    margin: 4px 0 7px;
+  }
+
+  .love-battery-body {
+    flex: 1;
+    height: 34px;
+    border-radius: 12px;
+    border: 2px solid var(--rose);
+    background: rgba(255, 255, 255, 0.45);
+    padding: 3px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  body.dream-mode .love-battery-body,
+  body[data-time-period="night"] .love-battery-body {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .love-battery-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 40%;
+    background: linear-gradient(90deg, #FFB3C6, var(--rose));
+    border-radius: 8px;
+    transition: width 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 1;
+  }
+
+  .love-battery-inner-text {
+    position: relative;
+    z-index: 2;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-shadow: 0 1px 4px rgba(255, 255, 255, 0.7);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 6px;
+  }
+
+  body.dream-mode .love-battery-inner-text,
+  body[data-time-period="night"] .love-battery-inner-text {
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.75);
+  }
+
+  .love-battery-cap {
+    width: 5px;
+    height: 14px;
+    border-radius: 0 4px 4px 0;
+    background: var(--rose);
+    flex-shrink: 0;
+  }
+
+  .love-charge-btn {
+    width: 100%;
+    min-height: 34px;
+    padding: 6px 10px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--rose), #FF94B4);
+    color: #FFFFFF;
+    font-size: 11px;
+    font-weight: 600;
+    text-align: center;
+    box-shadow: 0 6px 14px rgba(255, 122, 162, 0.32);
+    transition: transform 0.18s ease, box-shadow 0.2s ease;
+  }
+
+  .love-charge-btn:active {
+    transform: scale(0.96);
   }
 
   .widget-header {
@@ -1154,23 +1331,38 @@
   }
 
   .hug-main-btn {
-    width: 74px;
-    height: 74px;
-    border-radius: 50%;
+    width: 86px;
+    height: 82px;
+    border-radius: 26px;
     background: linear-gradient(145deg, #FF94B4, var(--rose));
-    box-shadow: 0 10px 24px rgba(255, 122, 162, 0.4);
+    box-shadow: 0 10px 24px rgba(255, 122, 162, 0.42);
     display: flex;
     align-items: center;
     justify-content: center;
     color: #FFFFFF;
-    margin: 4px auto 8px;
+    margin: 4px auto 6px;
+    overflow: hidden;
+    position: relative;
     transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+  }
+
+  .hug-btn-illust {
+    transform: translateY(4px);
+    transition: transform 0.3s ease;
+  }
+
+  .hug-main-btn:hover .hug-btn-illust {
+    transform: translateY(2px) scale(1.06);
+  }
+
+  .mini-hug-heart {
+    animation: gentleBreath 2s ease-in-out infinite;
   }
 
   .hug-main-btn:active,
   .hug-main-btn.hugging {
-    transform: scale(1.18);
-    box-shadow: 0 0 32px rgba(255, 122, 162, 0.75);
+    transform: scale(1.14);
+    box-shadow: 0 0 32px rgba(255, 122, 162, 0.8);
   }
 
   .hug-caption {
@@ -1185,13 +1377,217 @@
     inset: 0;
     pointer-events: none;
     z-index: 45;
-    box-shadow: inset 0 0 70px rgba(255, 122, 162, 0.65);
+    box-shadow: inset 0 0 85px rgba(255, 122, 162, 0.72);
     opacity: 0;
     transition: opacity 0.45s ease;
   }
 
   .screen-hug-pulse.active {
     opacity: 1;
+  }
+
+  /* Full-Screen Calming Hug Overlay */
+  .hug-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 110;
+    background: rgba(33, 22, 44, 0.62);
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.38s ease;
+  }
+
+  .hug-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .hug-overlay-card {
+    width: 100%;
+    max-width: 370px;
+    border-radius: 32px;
+    padding: 24px 22px 22px;
+    background: var(--surface-card);
+    border: 1.5px solid var(--border-soft);
+    box-shadow: 0 24px 56px rgba(255, 122, 162, 0.32), 0 12px 32px rgba(18, 10, 28, 0.35);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translateY(20px) scale(0.92);
+    transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hug-overlay.open .hug-overlay-card {
+    transform: translateY(0) scale(1);
+  }
+
+  .hug-counter-tag {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--rose);
+    letter-spacing: 0.03em;
+    margin-bottom: 8px;
+  }
+
+  .hug-visual-stage {
+    position: relative;
+    width: 186px;
+    height: 166px;
+    border-radius: 28px;
+    background: linear-gradient(160deg, rgba(255, 216, 194, 0.42) 0%, rgba(248, 200, 220, 0.52) 100%);
+    border: 1px solid var(--border-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 12px rgba(255, 255, 255, 0.5);
+  }
+
+  .hug-aura-ring {
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 122, 162, 0.32) 0%, rgba(255, 122, 162, 0) 70%);
+    animation: hugPulseRing 2.6s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  .hug-custom-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 26px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hug-scene-svg {
+    position: relative;
+    z-index: 2;
+    transform: translateY(8px);
+    animation: hugSway 3.2s ease-in-out infinite alternate;
+  }
+
+  .hug-scene-svg.squeeze-anim {
+    animation: hugSqueeze 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .hug-float-h1 {
+    animation: gentleBreath 2.2s ease-in-out infinite;
+  }
+
+  .hug-float-h2 {
+    animation: gentleBreath 2.7s ease-in-out infinite 0.4s;
+  }
+
+  .hug-float-h3 {
+    animation: gentleBreath 2.5s ease-in-out infinite 0.8s;
+  }
+
+  .hug-overlay-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+
+  .hug-calming-text {
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: var(--text-primary);
+    padding: 13px 15px;
+    border-radius: 20px;
+    background: rgba(255, 122, 162, 0.09);
+    border: 1px solid var(--border-soft);
+    margin-bottom: 12px;
+    width: 100%;
+    transition: opacity 0.22s ease, transform 0.22s ease;
+  }
+
+  .hug-breathing-guide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    font-size: 11.5px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+  }
+
+  .breath-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--rose);
+    box-shadow: 0 0 10px var(--rose);
+    animation: pulseDot 2.8s ease-in-out infinite;
+  }
+
+  .hug-overlay-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .hug-again-btn {
+    width: 100%;
+    min-height: 46px;
+    padding: 11px 20px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--rose), #FF94B4);
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: 0 8px 20px rgba(255, 122, 162, 0.35);
+    transition: transform 0.16s ease;
+  }
+
+  .hug-again-btn:active {
+    transform: scale(0.96);
+  }
+
+  .hug-close-btn {
+    width: 100%;
+    min-height: 42px;
+    padding: 9px 18px;
+    border-radius: 18px;
+    background: rgba(255, 122, 162, 0.12);
+    color: var(--rose);
+    font-size: 12.5px;
+    font-weight: 600;
+    transition: transform 0.16s ease;
+  }
+
+  .hug-close-btn:active {
+    transform: scale(0.97);
+  }
+
+  @keyframes hugSway {
+    0% { transform: translateY(8px) rotate(-1.5deg) scale(1); }
+    100% { transform: translateY(5px) rotate(1.5deg) scale(1.03); }
+  }
+
+  @keyframes hugSqueeze {
+    0% { transform: translateY(8px) scale(1); }
+    40% { transform: translateY(8px) scale(1.14, 0.92); }
+    75% { transform: translateY(6px) scale(0.97, 1.04); }
+    100% { transform: translateY(8px) scale(1); }
+  }
+
+  @keyframes hugPulseRing {
+    0%, 100% { transform: scale(0.9); opacity: 0.55; }
+    50% { transform: scale(1.22); opacity: 0.95; }
   }
 
   /* ==========================================================================
@@ -2243,6 +2639,97 @@
     <!-- Screen Hug Pulse Effect -->
     <div class="screen-hug-pulse" id="screen-hug-pulse" aria-hidden="true"></div>
 
+    <!-- Full-Screen Calming Hug Overlay -->
+    <div class="hug-overlay" id="hug-screen-overlay" role="dialog" aria-modal="true" aria-labelledby="hug-overlay-title">
+      <div class="hug-overlay-card">
+        <div class="hug-counter-tag" id="hug-counter-label">Pelukan Hangat Buat Kamu</div>
+
+        <!-- Gambar Peluk di Layar -->
+        <div class="hug-visual-stage" id="hug-visual-stage">
+          <div class="hug-aura-ring"></div>
+          <img id="hug-custom-img" class="hug-custom-img" src="" alt="Pelukan Hangat" style="display:none;" />
+          <svg id="hug-default-svg" class="hug-scene-svg" width="168" height="152" viewBox="0 0 168 152" fill="none" aria-hidden="true">
+            <!-- Soft Warm Glow Behind Couple -->
+            <circle cx="84" cy="78" r="60" fill="url(#hugGlowGrad)" />
+            <!-- Floating Mini Hearts -->
+            <path class="hug-float-h1" d="M84 26C84 26 76 19.8 76 15.2C76 12.6 78.1 10.6 80.6 10.6C82.2 10.6 83.5 11.5 84 12.7C84.5 11.5 85.8 10.6 87.4 10.6C89.9 10.6 92 12.6 92 15.2C92 19.8 84 26 84 26Z" fill="#FF6B98"/>
+            <path class="hug-float-h2" d="M40 42C40 42 35 38 35 35C35 33.3 36.3 32 38 32C39 32 39.7 32.6 40 33.4C40.3 32.6 41 32 42 32C43.7 32 45 33.3 45 35C45 38 40 42 40 42Z" fill="#FF94B4"/>
+            <path class="hug-float-h3" d="M128 38C128 38 123 34 123 31C123 29.3 124.3 28 126 28C127 28 127.7 28.6 128 29.4C128.3 28.6 129 28 130 28C131.7 28 133 29.3 133 31C133 34 128 38 128 38Z" fill="#FFB3C6"/>
+
+            <!-- Left Person (Aku) Hugging -->
+            <g class="hug-char-left">
+              <!-- Body/Sweater -->
+              <path d="M42 136C42 104 54 90 73 90C86 90 94 102 95 136H42Z" fill="#FF7AA2" stroke="#4A3B47" stroke-width="2.6" stroke-linejoin="round"/>
+              <!-- Head Tilted Warmly -->
+              <circle cx="68" cy="64" r="22" fill="#FFE6D6" stroke="#4A3B47" stroke-width="2.6"/>
+              <!-- Hair -->
+              <path d="M46 62C46 46 55 38 69 38C82 38 90 46 90 58C84 51 76 48 67 48C57 48 50 53 46 62Z" fill="#4A3B47"/>
+              <!-- Closed Happy/Peaceful Eyes -->
+              <path d="M59 64C61 66.5 64.5 66.5 66.5 64" stroke="#4A3B47" stroke-width="2.2" stroke-linecap="round"/>
+              <path d="M72 64C74 66.5 77.5 66.5 79.5 64" stroke="#4A3B47" stroke-width="2.2" stroke-linecap="round"/>
+              <!-- Blush & Gentle Smile -->
+              <ellipse cx="56" cy="69" rx="4" ry="2.2" fill="#FF7AA2" opacity="0.55"/>
+              <path d="M66 72C68 74.2 72 74.2 74 72" stroke="#4A3B47" stroke-width="2" stroke-linecap="round"/>
+            </g>
+
+            <!-- Right Person (Dila) Being Hugged -->
+            <g class="hug-char-right">
+              <!-- Body/Cardigan -->
+              <path d="M74 136C75 103 84 92 99 92C116 92 126 105 126 136H74Z" fill="#DCC6F0" stroke="#4A3B47" stroke-width="2.6" stroke-linejoin="round"/>
+              <!-- Head Resting on Shoulder -->
+              <circle cx="100" cy="68" r="21" fill="#FFE6D6" stroke="#4A3B47" stroke-width="2.6"/>
+              <!-- Hair /Hijab Soft Silhouette -->
+              <path d="M79 68C79 51 88 43 101 43C114 43 123 52 123 70C123 79 119 86 114 89C116 80 115 62 100 57C88 57 82 62 79 68Z" fill="#4A3B47"/>
+              <!-- Peaceful Closed Eyes -->
+              <path d="M90 68C92 70.5 95.5 70.5 97.5 68" stroke="#4A3B47" stroke-width="2.2" stroke-linecap="round"/>
+              <path d="M103 68C105 70.5 108.5 70.5 110.5 68" stroke="#4A3B47" stroke-width="2.2" stroke-linecap="round"/>
+              <!-- Soft Blush & Smile -->
+              <ellipse cx="111" cy="73" rx="4" ry="2.2" fill="#FF7AA2" opacity="0.6"/>
+              <path d="M96 75.5C98 77.5 101.5 77.5 103.5 75.5" stroke="#4A3B47" stroke-width="2" stroke-linecap="round"/>
+            </g>
+
+            <!-- Wrapping Arms Around Each Other (Foreground Embrace) -->
+            <g class="hug-arms-wrap">
+              <!-- Left Person's Arm Wrapping Around Right Person -->
+              <path d="M55 104C72 100 94 102 112 110" stroke="#FF7AA2" stroke-width="13" stroke-linecap="round"/>
+              <path d="M55 104C72 100 94 102 112 110" stroke="#4A3B47" stroke-width="2.4" stroke-linecap="round"/>
+              <circle cx="114" cy="110" r="6" fill="#FFE6D6" stroke="#4A3B47" stroke-width="2.2"/>
+              <!-- Right Person's Arm Holding Back -->
+              <path d="M112 118C94 122 74 120 58 112" stroke="#DCC6F0" stroke-width="12" stroke-linecap="round"/>
+              <path d="M112 118C94 122 74 120 58 112" stroke="#4A3B47" stroke-width="2.4" stroke-linecap="round"/>
+              <circle cx="56" cy="111" r="5.5" fill="#FFE6D6" stroke="#4A3B47" stroke-width="2.2"/>
+            </g>
+
+            <defs>
+              <radialGradient id="hugGlowGrad" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(84 78) rotate(90) scale(60)">
+                <stop offset="0%" stop-color="#FFD8C2" stop-opacity="0.85"/>
+                <stop offset="65%" stop-color="#F8C8DC" stop-opacity="0.45"/>
+                <stop offset="100%" stop-color="#F8C8DC" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+          </svg>
+        </div>
+
+        <h3 class="hug-overlay-title" id="hug-overlay-title">Sini Peluk Dulu Sayang... 🫂</h3>
+        <p class="hug-calming-text" id="hug-calming-text">
+          "Tarik napas pelan-pelan ya. Apa pun yang bikin hari kamu capek hari ini, kamu nggak sendirian. Aku selalu ada di sini buat kamu."
+        </p>
+        <div class="hug-breathing-guide" id="hug-breathing-guide">
+          <span class="breath-dot"></span>
+          <span>Rasakan pelukan hangat ini sebentar...</span>
+        </div>
+
+        <div class="hug-overlay-actions">
+          <button type="button" class="hug-again-btn" id="btn-hug-more">
+            🫂 Peluk Lebih Erat Lagi
+          </button>
+          <button type="button" class="hug-close-btn" id="btn-hug-close">
+            Udah Lebih Tenang ♥
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- ====================================================================
          1. SPLASH SCREEN
          ==================================================================== -->
@@ -2546,44 +3033,112 @@
             </button>
           </div>
 
-          <!-- LOWER DECK: DAILY CARE (LOVE METER) & HUG BUTTON -->
+          <!-- LOWER DECK: 3-IN-1 SWEET WIDGET & HUG BUTTON -->
           <div class="home-widgets-grid">
-            <!-- Playful Daily Care Checklist -->
-            <div class="widget-card">
-              <div class="widget-header">
-                <span class="widget-title">Kabar Kamu Hari Ini</span>
-                <span class="care-heart-badge" id="care-percent-label">♥ 0/3</span>
+            <!-- 3-in-1 Sweet Interactive Widget (Mood Dila, Baterai Sayang, Janji Manis) -->
+            <div class="widget-card sweet-multi-card">
+              <div class="sweet-mode-tabs" role="tablist" aria-label="Menu Manis Harian">
+                <button type="button" class="sweet-mode-tab active" data-sweet-tab="mood" role="tab" aria-selected="true">🥺 Mood</button>
+                <button type="button" class="sweet-mode-tab" data-sweet-tab="battery" role="tab" aria-selected="false">🔋 Cinta</button>
+                <button type="button" class="sweet-mode-tab" data-sweet-tab="care" role="tab" aria-selected="false">✨ Janji</button>
               </div>
 
-              <div class="care-checklist" role="group" aria-label="Ceklis Perhatian Harian">
-                <button type="button" class="care-item-btn" data-care="makan">
-                  <span class="care-checkbox">✓</span>
-                  <span>Sudah makan</span>
-                </button>
-                <button type="button" class="care-item-btn" data-care="minum">
-                  <span class="care-checkbox">✓</span>
-                  <span>Sudah minum</span>
-                </button>
-                <button type="button" class="care-item-btn" data-care="istirahat">
-                  <span class="care-checkbox">✓</span>
-                  <span>Sudah istirahat</span>
+              <!-- 1. MOOD DILA HARI INI -->
+              <div class="sweet-tab-panel active" id="sweet-panel-mood">
+                <div class="widget-header" style="margin-bottom:6px;">
+                  <span class="widget-title">Mood Kamu Hari Ini</span>
+                  <span class="care-heart-badge" id="mood-status-badge">Pilih yuk 💗</span>
+                </div>
+                <div class="mood-mini-grid" role="group" aria-label="Pilih Mood Hari Ini">
+                  <button type="button" class="mood-pick-btn" data-mood="seneng">
+                    <span class="mood-emoji">🥰</span>
+                    <span>Seneng</span>
+                  </button>
+                  <button type="button" class="mood-pick-btn" data-mood="kangen">
+                    <span class="mood-emoji">🥺</span>
+                    <span>Kangen</span>
+                  </button>
+                  <button type="button" class="mood-pick-btn" data-mood="capek">
+                    <span class="mood-emoji">🥀</span>
+                    <span>Capek</span>
+                  </button>
+                  <button type="button" class="mood-pick-btn" data-mood="manja">
+                    <span class="mood-emoji">🤍</span>
+                    <span>Butuh Kamu</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- 2. BATERAI KASIH SAYANG (TANGKI CINTA DILA) -->
+              <div class="sweet-tab-panel" id="sweet-panel-battery">
+                <div class="widget-header" style="margin-bottom:6px;">
+                  <span class="widget-title">Tangki Cinta Dila</span>
+                  <span class="care-heart-badge" id="love-battery-badge">⚡ 40%</span>
+                </div>
+                <div class="love-battery-shell">
+                  <div class="love-battery-body">
+                    <div class="love-battery-fill" id="love-battery-fill" style="width:40%;"></div>
+                    <span class="love-battery-inner-text" id="love-battery-text">Ketuk tombol buat isi sayang ♥</span>
+                  </div>
+                  <div class="love-battery-cap"></div>
+                </div>
+                <button type="button" class="love-charge-btn" id="btn-charge-love">
+                  ⚡ Isi Energi Sayang (+20%)
                 </button>
               </div>
 
-              <div class="care-progress-track" aria-hidden="true">
-                <div class="care-progress-fill" id="care-fill-bar"></div>
+              <!-- 3. JANJI MANIS HARI INI (SWEET CHECKLIST) -->
+              <div class="sweet-tab-panel" id="sweet-panel-care">
+                <div class="widget-header" style="margin-bottom:6px;">
+                  <span class="widget-title">Janji Manis Hari Ini</span>
+                  <span class="care-heart-badge" id="care-percent-label">♥ 0/3</span>
+                </div>
+
+                <div class="care-checklist" role="group" aria-label="Janji Manis Harian">
+                  <button type="button" class="care-item-btn" data-care="makan">
+                    <span class="care-checkbox">✓</span>
+                    <span>Senyum manis hari ini 😊</span>
+                  </button>
+                  <button type="button" class="care-item-btn" data-care="minum">
+                    <span class="care-checkbox">✓</span>
+                    <span>Makan enak & jangan telat 🍱</span>
+                  </button>
+                  <button type="button" class="care-item-btn" data-care="istirahat">
+                    <span class="care-checkbox">✓</span>
+                    <span>Inget aku sayang kamu 💖</span>
+                  </button>
+                </div>
+
+                <div class="care-progress-track" aria-hidden="true">
+                  <div class="care-progress-fill" id="care-fill-bar"></div>
+                </div>
               </div>
             </div>
 
-            <!-- Interactive Hug Button -->
+            <!-- Interactive Hug Button (Upgraded with Hugging Illustration) -->
             <div class="widget-card hug-widget-card">
-              <span class="widget-title">Butuh Peluk?</span>
+              <span class="widget-title">Butuh Peluk? 🫂</span>
               <button type="button" class="hug-main-btn" id="btn-hug-main" aria-label="Kirim Pelukan Virtual">
-                <svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                <svg class="hug-btn-illust" width="66" height="62" viewBox="0 0 120 112" fill="none" aria-hidden="true">
+                  <!-- Floating Heart Above Hugging Pair -->
+                  <path class="mini-hug-heart" d="M60 22C60 22 53 16.8 53 13C53 10.8 54.8 9 57 9C58.4 9 59.5 9.8 60 10.8C60.5 9.8 61.6 9 63 9C65.2 9 67 10.8 67 13C67 16.8 60 22 60 22Z" fill="#FFFFFF"/>
+                  <!-- Left Character -->
+                  <path d="M24 102C24 78 34 68 49 68C60 68 67 78 68 102H24Z" fill="#FFE6D6" stroke="#4A3B47" stroke-width="2.5"/>
+                  <circle cx="46" cy="46" r="16" fill="#FFF8F2" stroke="#4A3B47" stroke-width="2.5"/>
+                  <path d="M30 44C30 33 37 27 47 27C56 27 62 33 62 42C57 37 51 35 45 35C38 35 33 38 30 44Z" fill="#4A3B47"/>
+                  <path d="M40 46C41.5 48 44 48 45.5 46" stroke="#4A3B47" stroke-width="2" stroke-linecap="round"/>
+                  <!-- Right Character -->
+                  <path d="M52 102C53 78 61 70 73 70C87 70 96 80 96 102H52Z" fill="#DCC6F0" stroke="#4A3B47" stroke-width="2.5"/>
+                  <circle cx="74" cy="49" r="15.5" fill="#FFF8F2" stroke="#4A3B47" stroke-width="2.5"/>
+                  <path d="M58.5 49C58.5 37 66 31 75 31C84 31 91 38 91 51C91 57 88 62 84 65C85 58 84 44 74 41C65 41 61 45 58.5 49Z" fill="#4A3B47"/>
+                  <path d="M68 49C69.5 51 72 51 73.5 49" stroke="#4A3B47" stroke-width="2" stroke-linecap="round"/>
+                  <!-- Hugging Arms -->
+                  <path d="M36 78C50 74 68 76 83 82" stroke="#FF7AA2" stroke-width="10" stroke-linecap="round"/>
+                  <path d="M36 78C50 74 68 76 83 82" stroke="#4A3B47" stroke-width="2.2" stroke-linecap="round"/>
+                  <circle cx="84" cy="82" r="4.5" fill="#FFF8F2" stroke="#4A3B47" stroke-width="2"/>
                 </svg>
               </button>
-              <p class="hug-caption">Tekan buat peluk hangat dari jauh</p>
+              <p class="hug-caption">Ketuk buat dipeluk & ditenangin ♥</p>
             </div>
           </div>
         </div>
@@ -2877,6 +3432,8 @@ const APP_CONFIG = {
   REQUIRE_PIN: true,
   WRONG_PIN_MESSAGE: "Masa kamu ga inget tanggal pertama kita chatan 😭",
   HUG_MESSAGE: "Anggap aja aku lagi meluk kamu.",
+  // Opsional: Isi URL gambar/GIF peluk jika ingin mengganti ilustrasi pelukan bawaan
+  HUG_IMAGE_URL: "",
   AVATAR_DEFAULT_TEXT: "Aku lagi duduk di sebelah kamu.",
 
   // Surat Utama di Atas Meja Kamar
@@ -2945,6 +3502,97 @@ const PRESENCE_MESSAGES = [
   "Makasih udah selalu nyempetin waktu buat kita.",
   "Aku ada di sini sayang, ngga ke mana-mana kok."
 ];
+
+// Kalimat Menenangkan Saat Tombol "Butuh Peluk?" Ditekan
+const CALMING_HUG_MESSAGES = [
+  {
+    title: "Sini Peluk Dulu Sayang... 🫂",
+    text: "Tarik napas pelan-pelan ya. Apa pun yang bikin hari kamu terasa berat hari ini, kamu ngga sendirian. Aku selalu ada di sini buat kamu.",
+    guide: "Tarik napas dalam... hembuskan pelan-pelan ♥"
+  },
+  {
+    title: "Rebahan di Pelukan Aku Ya 🤍",
+    text: "Kalau hari ini capek banget, nggak apa-apa buat berhenti sebentar. Kamu udah berjuang sejauh ini, aku bangga banget sama kamu, Dila sayang.",
+    guide: "Lepasin semua tegang di pundak kamu..."
+  },
+  {
+    title: "Peluk Hangat Paling Erat 💗",
+    text: "Anggap aja sekarang aku lagi meluk kamu erat-erat sambil ngusap kepala kamu ya sayang. Semua bakal baik-baik aja, pelan-pelan kita lewatin bareng ya.",
+    guide: "Kamu aman di sini, tenangin pikiran kamu ya..."
+  },
+  {
+    title: "Jangan Keras-keras Sama Diri Sendiri 🌷",
+    text: "Kamu nggak harus sempurna setiap hari kok. Kalau lagi lelah atau sedih, sini bersandar dulu di aku sampai hati kamu terasa hangat lagi.",
+    guide: "Pejamkan mata sebentar, rasakan hangatnya..."
+  },
+  {
+    title: "Rumah Kamu Ada di Sini 🏡",
+    text: "Walau raga kita belum di tempat yang sama detik ini, doa dan rasa sayang aku selalu meluk kamu dari jauh. Jangan ngerasa sendiri ya cantik.",
+    guide: "Senyum tipis dulu yuk, kamu berharga banget ♥"
+  },
+  {
+    title: "Pelukan Pengusir Lelah ✨",
+    text: "Makasih ya udah bertahan melewati hari ini. Sekarang saatnya istirahatin pikiran kamu, biar sisanya dipeluk sama rasa tenang.",
+    guide: "Satu pelukan hangat lagi buat Dila kesayangan aku..."
+  },
+  {
+    title: "Aku Selalu di Pihak Kamu 🫂",
+    text: "Dunia luar boleh berisik, tapi di kamar kita ini kamu bebas jadi diri kamu sendiri tanpa harus pura-pura kuat terus.",
+    guide: "Tenang ya sayang, ada aku yang selalu jagain kamu."
+  }
+];
+
+// Respon Manis Saat Dila Memilih Mood Hari Ini
+const MOOD_RESPONSES = {
+  seneng: {
+    emoji: "🥰",
+    label: "Lagi Seneng",
+    badge: "Seneng 🥰",
+    title: "Yeay! Ikut Seneng Dengernya 🥰",
+    reply: "Seneng banget liat kamu bahagia hari ini! Pertahanin senyum manis kamu itu yaa. Nanti ceritain ke aku hari ini ada hal seru apa aja, aku pengen denger semuanya!",
+    waText: "Sayang! Hari ini mood aku lagi seneng banget 🥰✨ Aku mau cerita!"
+  },
+  kangen: {
+    emoji: "🥺",
+    label: "Lagi Kangen",
+    badge: "Kangen 🥺",
+    title: "Sini Peluk, Aku Juga Kangen Banget! 🥺💗",
+    reply: "Tau ngga? Dari tadi aku juga kepikiran kamu terus. Sini telepon aku atau langsung klaim voucher ketemu/makan bareng ya biar kangennya cepet lunas!",
+    waText: "Sayang... aku lagi kangen banget sama kamu hari ini 🥺💗 Telepon/chat aku yaa!"
+  },
+  capek: {
+    emoji: "🥀",
+    label: "Lagi Capek",
+    badge: "Capek 🥀",
+    title: "Sini Istirahat Dulu Sayangku 🥀🫂",
+    reply: "Jangan dipaksain terus ya cantik. Kamu udah hebat banget hari ini. Sekarang rebahan dulu, tarik napas pelan-pelan, biar aku yang nemenin dan jagain kamu dari sini.",
+    waText: "Sayang, hari ini aku lagi capek banget 🥀 Butuh ditemenin dan disemangatin kamu..."
+  },
+  manja: {
+    emoji: "🤍",
+    label: "Butuh Kamu",
+    badge: "Manja 🤍",
+    title: "Aku Selalu Ada Buat Kamu Sayang 🤍",
+    reply: "Sini manja-manjaan sama aku sepuasnya! Kamu ngga perlu sungkan, kapan pun kamu butuh ditemenin, didengerin, atau dipeluk, aku selalu siap buat Dila kesayangan aku.",
+    waText: "Sayang, aku lagi mode manja dan butuh ditemenin kamu sekarang 🤍🫂"
+  }
+};
+
+// Kalimat Manis Saat Mengisi Tangki Cinta / Baterai Sayang
+const LOVE_BATTERY_QUOTES = [
+  "Cas dulu biar Dila makin semangat hari ini! ⚡💗",
+  "Tambah 20% dosis kasih sayang spesial dari aku buat kamu 😘",
+  "Dikit lagi penuh! Inget ya kamu itu kesayangan aku satu-satunya 🌷",
+  "Tangki Cinta 100% PENUH! Hari ini kamu resmi disayang aku tanpa batas! 💖✨",
+  "Overload Sayang!! Rasa sayang aku ke kamu emang ngga muat kalau cuma 100% ♾️💗"
+];
+
+// Pujian Manis Saat Ceklis "Janji Manis Hari Ini" Dicentang
+const SWEET_CARE_PRAISES = {
+  makan: "Nah gitu dong senyum! Senyum kamu itu pemandangan favorit aku tau 😊💗",
+  minum: "Anak pinter! Perut kenyang biar hati kamu ikut seneng terus ya sayang 🍱♥",
+  istirahat: "Jangan pernah ragu ya, kemarin, hari ini, besok, aku selalu sayang banget sama kamu! 💖"
+};
 
 // Pesan Boneka Teddy Saat Diketuk
 const TEDDY_MESSAGES = [
@@ -3299,7 +3947,9 @@ const AppState = {
     date: "",
     makan: false,
     minum: false,
-    istirahat: false
+    istirahat: false,
+    mood: "",
+    loveBattery: 40
   },
   dailySurprise: {
     date: "",
@@ -3370,8 +4020,25 @@ function cacheDOMReferences() {
   DOM.carePercentLabel = document.getElementById("care-percent-label");
   DOM.careFillBar = document.getElementById("care-fill-bar");
   DOM.careItemBtns = document.querySelectorAll(".care-item-btn");
+  DOM.sweetModeTabs = document.querySelectorAll(".sweet-mode-tab");
+  DOM.sweetTabPanels = document.querySelectorAll(".sweet-tab-panel");
+  DOM.moodStatusBadge = document.getElementById("mood-status-badge");
+  DOM.moodPickBtns = document.querySelectorAll(".mood-pick-btn");
+  DOM.loveBatteryBadge = document.getElementById("love-battery-badge");
+  DOM.loveBatteryFill = document.getElementById("love-battery-fill");
+  DOM.loveBatteryText = document.getElementById("love-battery-text");
+  DOM.btnChargeLove = document.getElementById("btn-charge-love");
   DOM.btnHugMain = document.getElementById("btn-hug-main");
   DOM.screenHugPulse = document.getElementById("screen-hug-pulse");
+  DOM.hugScreenOverlay = document.getElementById("hug-screen-overlay");
+  DOM.hugCounterLabel = document.getElementById("hug-counter-label");
+  DOM.hugOverlayTitle = document.getElementById("hug-overlay-title");
+  DOM.hugCalmingText = document.getElementById("hug-calming-text");
+  DOM.hugBreathingGuide = document.getElementById("hug-breathing-guide");
+  DOM.hugDefaultSvg = document.getElementById("hug-default-svg");
+  DOM.hugCustomImg = document.getElementById("hug-custom-img");
+  DOM.btnHugMore = document.getElementById("btn-hug-more");
+  DOM.btnHugClose = document.getElementById("btn-hug-close");
 
   DOM.voiceCategoryGrid = document.getElementById("voice-category-grid");
   DOM.voicePlayerCard = document.getElementById("voice-player-card");
@@ -3503,8 +4170,17 @@ function resetDailyState() {
       date: today,
       makan: false,
       minum: false,
-      istirahat: false
+      istirahat: false,
+      mood: "",
+      loveBattery: 40
     };
+  } else {
+    if (typeof AppState.dailyCare.loveBattery !== "number") {
+      AppState.dailyCare.loveBattery = 40;
+    }
+    if (typeof AppState.dailyCare.mood !== "string") {
+      AppState.dailyCare.mood = "";
+    }
   }
   if (AppState.dailySurprise.date !== today) {
     // Deterministic daily index based on date + length
@@ -4051,8 +4727,100 @@ function openMemoryChatModal(threadIndex = 0) {
 }
 
 // ==========================================
-// 12. LOVE METER (DAILY CARE) & HUG BUTTON
+// 12. 3-IN-1 SWEET WIDGET (MOOD, LOVE BATTERY, JANJI MANIS) & HUG BUTTON
 // ==========================================
+
+function switchSweetWidgetTab(tabKey) {
+  playSoftNote(587.33, 0.06);
+  if (DOM.sweetModeTabs) {
+    DOM.sweetModeTabs.forEach(btn => {
+      const isMatch = btn.getAttribute("data-sweet-tab") === tabKey;
+      btn.classList.toggle("active", isMatch);
+      btn.setAttribute("aria-selected", isMatch ? "true" : "false");
+    });
+  }
+  const panelMap = {
+    mood: "sweet-panel-mood",
+    battery: "sweet-panel-battery",
+    care: "sweet-panel-care"
+  };
+  const targetId = panelMap[tabKey];
+  if (DOM.sweetTabPanels) {
+    DOM.sweetTabPanels.forEach(panel => {
+      panel.classList.toggle("active", panel.id === targetId);
+    });
+  }
+}
+
+function handleSelectMood(moodKey) {
+  const moodData = MOOD_RESPONSES[moodKey];
+  if (!moodData) return;
+
+  AppState.dailyCare.mood = moodKey;
+  saveState();
+  renderDailyCareUI();
+
+  playSuccessChime();
+  spawnFloatingHearts(window.innerWidth / 2, window.innerHeight - 150, 10);
+  showPresenceMessage(moodData.reply);
+  triggerAvatarReaction(moodData.reply);
+
+  const rawPhone = String(APP_CONFIG.WHATSAPP_NUMBER || "").replace(/[^0-9]/g, "");
+  const normalizedPhone = rawPhone.startsWith("0") ? "62" + rawPhone.slice(1) : rawPhone;
+  const waUrl = normalizedPhone
+    ? `https://wa.me/${normalizedPhone}?text=${encodeURIComponent(moodData.waText)}`
+    : `https://wa.me/?text=${encodeURIComponent(moodData.waText)}`;
+
+  openModal({
+    icon: moodData.emoji,
+    title: moodData.title,
+    bodyHtml: `
+      <div style="background:rgba(255,122,162,0.1);border:1px solid var(--border-soft);border-radius:18px;padding:14px;margin-bottom:12px;text-align:center;">
+        <div style="font-size:11px;font-weight:700;color:var(--rose);margin-bottom:4px;">Balasan Spesial Dari ${escapeHtml(APP_CONFIG.OWNER_NAME)} ♥</div>
+        <p style="font-size:13px;line-height:1.55;color:var(--text-primary);font-weight:500;">
+          "${escapeHtml(moodData.reply)}"
+        </p>
+      </div>
+      <a href="${waUrl}" target="_blank" rel="noopener noreferrer"
+         style="display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:11px 14px;border-radius:16px;background:linear-gradient(135deg,#25D366,#1DA851);color:#FFFFFF;font-size:12.5px;font-weight:600;text-decoration:none;box-shadow:0 8px 18px rgba(37,211,102,0.28);">
+        <span>💌 Kirim Sinyal "${escapeHtml(moodData.label)}" ke WhatsApp Aku</span>
+      </a>
+    `,
+    buttonText: "Peluk Hangat ♥"
+  });
+}
+
+function handleChargeLoveBattery() {
+  const current = typeof AppState.dailyCare.loveBattery === "number" ? AppState.dailyCare.loveBattery : 40;
+  const nextVal = Math.min(100, current + 20);
+  AppState.dailyCare.loveBattery = nextVal;
+  saveState();
+  renderDailyCareUI();
+
+  triggerDeviceVibrate(45);
+  const noteFreq = nextVal >= 100 ? 783.99 : 523.25 + (nextVal * 1.8);
+  playSoftNote(noteFreq, 0.11);
+  spawnFloatingHearts(window.innerWidth / 2, window.innerHeight - 140, nextVal >= 100 ? 12 : 6);
+
+  let quote = LOVE_BATTERY_QUOTES[0];
+  if (current >= 100) {
+    quote = LOVE_BATTERY_QUOTES[4];
+    playSuccessChime();
+  } else if (nextVal >= 100) {
+    quote = LOVE_BATTERY_QUOTES[3];
+    playSuccessChime();
+  } else if (nextVal === 80) {
+    quote = LOVE_BATTERY_QUOTES[2];
+  } else if (nextVal === 60) {
+    quote = LOVE_BATTERY_QUOTES[1];
+  }
+
+  if (DOM.loveBatteryText) {
+    DOM.loveBatteryText.textContent = quote;
+  }
+  showPresenceMessage(quote);
+  showToast(nextVal >= 100 ? "💖 Tangki Cinta Dila 100% Penuh!" : `⚡ Energi Sayang bertambah jadi ${nextVal}%!`);
+}
 
 function toggleDailyCareItem(careKey) {
   if (!["makan", "minum", "istirahat"].includes(careKey)) return;
@@ -4062,13 +4830,17 @@ function toggleDailyCareItem(careKey) {
 
   if (AppState.dailyCare[careKey]) {
     playSoftNote(659.25, 0.09);
+    const praiseMsg = SWEET_CARE_PRAISES[careKey] || "Satu janji manis buat diri kamu hari ini tercatat ♥";
     const completedCount = [AppState.dailyCare.makan, AppState.dailyCare.minum, AppState.dailyCare.istirahat].filter(Boolean).length;
     if (completedCount === 3) {
-      spawnFloatingHearts(window.innerWidth / 2, window.innerHeight - 140, 8);
-      showPresenceMessage("Anak pinter! Udah makan, minum, sama istirahat hari ini. Aku lega dengernya ♥");
-      showToast("💗 Semua perhatian harian terisi penuh!");
+      playSuccessChime();
+      spawnFloatingHearts(window.innerWidth / 2, window.innerHeight - 140, 10);
+      showPresenceMessage("Anak pinter kesayangan aku! Semua janji manis hari ini udah kamu penuhi, makin sayang deh ♥");
+      showToast("💗 Yeay! Semua Janji Manis hari ini lengkap 3/3!");
     } else {
-      showToast("✓ Satu kebaikan buat diri kamu hari ini tercatat");
+      spawnFloatingHearts(window.innerWidth / 2, window.innerHeight - 140, 5);
+      showPresenceMessage(praiseMsg);
+      showToast(`💗 ${praiseMsg}`);
     }
   }
 }
@@ -4095,10 +4867,40 @@ function renderDailyCareUI() {
       btn.setAttribute("aria-pressed", "false");
     }
   });
+
+  // Render Mood UI
+  if (DOM.moodPickBtns) {
+    DOM.moodPickBtns.forEach(btn => {
+      const mKey = btn.getAttribute("data-mood");
+      btn.classList.toggle("selected", c.mood === mKey);
+    });
+  }
+  if (DOM.moodStatusBadge) {
+    const activeMood = MOOD_RESPONSES[c.mood];
+    DOM.moodStatusBadge.textContent = activeMood ? activeMood.badge : "Pilih yuk 💗";
+  }
+
+  // Render Love Battery UI
+  const batteryVal = typeof c.loveBattery === "number" ? c.loveBattery : 40;
+  if (DOM.loveBatteryBadge) {
+    DOM.loveBatteryBadge.textContent = batteryVal >= 100 ? "💖 100% MAX" : `⚡ ${batteryVal}%`;
+  }
+  if (DOM.loveBatteryFill) {
+    DOM.loveBatteryFill.style.width = `${batteryVal}%`;
+  }
+  if (DOM.btnChargeLove) {
+    DOM.btnChargeLove.textContent = batteryVal >= 100
+      ? "💖 Penuh! Tap Buat Extra Sayang"
+      : "⚡ Isi Energi Sayang (+20%)";
+  }
 }
 
+let hugSessionCount = 0;
+let lastCalmingHugIdx = -1;
+
 function triggerHugInteraction() {
-  triggerDeviceVibrate([90, 50, 120]);
+  hugSessionCount += 1;
+  triggerDeviceVibrate([90, 50, 140]);
   playSuccessChime();
 
   if (DOM.btnHugMain) {
@@ -4108,17 +4910,66 @@ function triggerHugInteraction() {
 
   if (DOM.screenHugPulse) {
     DOM.screenHugPulse.classList.add("active");
-    setTimeout(() => DOM.screenHugPulse.classList.remove("active"), 900);
+    setTimeout(() => DOM.screenHugPulse.classList.remove("active"), 1100);
   }
 
-  const rect = DOM.btnHugMain
-    ? DOM.btnHugMain.getBoundingClientRect()
-    : { left: window.innerWidth / 2, top: window.innerHeight / 2 };
+  // Pick a soothing calming message (avoid immediate repeat)
+  let nextIdx = Math.floor(Math.random() * CALMING_HUG_MESSAGES.length);
+  if (CALMING_HUG_MESSAGES.length > 1 && nextIdx === lastCalmingHugIdx) {
+    nextIdx = (nextIdx + 1) % CALMING_HUG_MESSAGES.length;
+  }
+  lastCalmingHugIdx = nextIdx;
+  const calmItem = CALMING_HUG_MESSAGES[nextIdx];
 
-  spawnFloatingHearts(rect.left + 30, rect.top, 10);
-  showPresenceMessage(APP_CONFIG.HUG_MESSAGE);
+  // Configure custom hug image if provided in APP_CONFIG.HUG_IMAGE_URL
+  const hasCustomHugImg = APP_CONFIG.HUG_IMAGE_URL && APP_CONFIG.HUG_IMAGE_URL !== "YOUR_IMAGE_URL_HERE";
+  if (DOM.hugCustomImg && DOM.hugDefaultSvg) {
+    if (hasCustomHugImg) {
+      DOM.hugCustomImg.src = APP_CONFIG.HUG_IMAGE_URL;
+      DOM.hugCustomImg.style.display = "block";
+      DOM.hugDefaultSvg.style.display = "none";
+    } else {
+      DOM.hugCustomImg.style.display = "none";
+      DOM.hugDefaultSvg.style.display = "block";
+      DOM.hugDefaultSvg.classList.remove("squeeze-anim");
+      void DOM.hugDefaultSvg.offsetWidth;
+      DOM.hugDefaultSvg.classList.add("squeeze-anim");
+    }
+  }
+
+  if (DOM.hugCounterLabel) {
+    DOM.hugCounterLabel.textContent = `Pelukan Hangat ke-${hugSessionCount} Hari Ini ♥`;
+  }
+  if (DOM.hugOverlayTitle) {
+    DOM.hugOverlayTitle.textContent = calmItem.title;
+  }
+  if (DOM.hugCalmingText) {
+    DOM.hugCalmingText.style.opacity = "0.4";
+    setTimeout(() => {
+      if (DOM.hugCalmingText) {
+        DOM.hugCalmingText.textContent = `"${calmItem.text}"`;
+        DOM.hugCalmingText.style.opacity = "1";
+      }
+    }, 120);
+  }
+  if (DOM.hugBreathingGuide) {
+    DOM.hugBreathingGuide.innerHTML = `<span class="breath-dot"></span><span>${escapeHtml(calmItem.guide)}</span>`;
+  }
+
+  if (DOM.hugScreenOverlay) {
+    DOM.hugScreenOverlay.classList.add("open");
+  }
+
+  spawnFloatingHearts(window.innerWidth / 2, window.innerHeight / 2, 12);
+  showPresenceMessage(calmItem.text);
   triggerAvatarReaction(APP_CONFIG.HUG_MESSAGE);
-  showToast(`🫂 "${APP_CONFIG.HUG_MESSAGE}"`);
+}
+
+function closeHugOverlay() {
+  if (DOM.hugScreenOverlay) {
+    DOM.hugScreenOverlay.classList.remove("open");
+  }
+  playSoftNote(523.25, 0.08);
 }
 
 // ==========================================
@@ -5117,7 +5968,26 @@ function bindEventListeners() {
   if (DOM.objChatShelf) DOM.objChatShelf.addEventListener("click", () => openMemoryChatModal(0));
   if (DOM.objAvatar) DOM.objAvatar.addEventListener("click", handleAvatarClick);
 
-  // Daily Care Checklist
+  // 3-in-1 Sweet Widget (Mood, Love Battery, & Janji Manis Checklist)
+  if (DOM.sweetModeTabs) {
+    DOM.sweetModeTabs.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const tabKey = btn.getAttribute("data-sweet-tab");
+        if (tabKey) switchSweetWidgetTab(tabKey);
+      });
+    });
+  }
+  if (DOM.moodPickBtns) {
+    DOM.moodPickBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const moodKey = btn.getAttribute("data-mood");
+        if (moodKey) handleSelectMood(moodKey);
+      });
+    });
+  }
+  if (DOM.btnChargeLove) {
+    DOM.btnChargeLove.addEventListener("click", handleChargeLoveBattery);
+  }
   DOM.careItemBtns.forEach(btn => {
     btn.addEventListener("click", () => {
       const careKey = btn.getAttribute("data-care");
@@ -5125,9 +5995,20 @@ function bindEventListeners() {
     });
   });
 
-  // Hug Button
+  // Hug Button & Calming Hug Overlay Controls
   if (DOM.btnHugMain) {
     DOM.btnHugMain.addEventListener("click", triggerHugInteraction);
+  }
+  if (DOM.btnHugMore) {
+    DOM.btnHugMore.addEventListener("click", triggerHugInteraction);
+  }
+  if (DOM.btnHugClose) {
+    DOM.btnHugClose.addEventListener("click", closeHugOverlay);
+  }
+  if (DOM.hugScreenOverlay) {
+    DOM.hugScreenOverlay.addEventListener("click", (e) => {
+      if (e.target === DOM.hugScreenOverlay) closeHugOverlay();
+    });
   }
 
   // Voice Play Button
