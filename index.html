@@ -2072,6 +2072,24 @@
   /* ==========================================================================
      8. MEMORY GALAXY VIEW
      ========================================================================== */
+  .memories-lock-gate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 16px 22px;
+    border-radius: 28px;
+    background: var(--surface-card);
+    border: 1px solid var(--border-soft);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .memories-keypad .pin-key {
+    height: 54px;
+    border-radius: 20px;
+    font-size: 19px;
+  }
+
   .galaxy-universe {
     position: relative;
     width: 100%;
@@ -2524,34 +2542,34 @@
   }
 
   /* ==========================================================================
-     11. BOTTOM NAVIGATION BAR
+     11. BOTTOM NAVIGATION BAR & HORROR ROOM (RUANG TERLARANG)
      ========================================================================== */
   .bottom-nav {
     position: relative;
     z-index: 30;
-    margin: 0 12px calc(10px + var(--safe-bottom));
-    padding: 6px 6px;
+    margin: 0 10px calc(10px + var(--safe-bottom));
+    padding: 5px 5px;
     border-radius: 26px;
     background: var(--surface-glass);
     backdrop-filter: blur(16px);
     border: 1px solid var(--border-soft);
     box-shadow: var(--shadow-soft);
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 3px;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
     flex-shrink: 0;
   }
 
   .nav-tab-btn {
-    min-height: 50px;
-    border-radius: 18px;
+    min-height: 48px;
+    border-radius: 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 3px;
+    gap: 2px;
     color: var(--text-secondary);
-    font-size: 9.5px;
+    font-size: 9px;
     font-weight: 500;
     white-space: nowrap;
     transition: all 0.22s ease;
@@ -2562,6 +2580,473 @@
     color: #FFFFFF;
     font-weight: 600;
     box-shadow: 0 4px 14px rgba(255, 122, 162, 0.38);
+  }
+
+  .nav-tab-btn.nav-tab-horror.active {
+    background: linear-gradient(135deg, #9E0B28, #FF1E42);
+    color: #FFFFFF;
+    box-shadow: 0 0 16px rgba(255, 30, 66, 0.65);
+  }
+
+  .horror-door-top-btn {
+    color: #D91E48;
+    border-color: rgba(217, 30, 72, 0.28);
+  }
+
+  .horror-door-top-btn.active-horror-door {
+    background: linear-gradient(135deg, #8A0A23, #E01941);
+    color: #FFFFFF;
+    border-color: #FF2A55;
+    box-shadow: 0 0 16px rgba(255, 42, 85, 0.6);
+  }
+
+  /* ==========================================================================
+     11B. VIEW G: RUANG TERLARANG / HORROR ROOM STYLES
+     ========================================================================== */
+  .horror-theme-view {
+    background: radial-gradient(circle at 50% 15%, #2B0914 0%, #110409 65%, #070204 100%);
+    color: #FFE8EC;
+  }
+
+  .horror-container {
+    padding-bottom: 28px;
+  }
+
+  .horror-header-box {
+    padding: 6px 4px 2px;
+  }
+
+  .horror-kicker {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #FF3358;
+    margin-bottom: 3px;
+  }
+
+  .horror-title {
+    color: #FFF0F3;
+    text-shadow: 0 0 16px rgba(255, 30, 66, 0.55);
+  }
+
+  .horror-subtitle {
+    color: #D4A6B2 !important;
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
+  /* Interactive Haunted Room Stage */
+  .horror-room-stage {
+    position: relative;
+    width: 100%;
+    height: 170px;
+    border-radius: 24px;
+    background: linear-gradient(180deg, #1E0710 0%, #2E0A17 65%, #14040A 65.5%, #0B0205 100%);
+    border: 1.5px solid rgba(255, 42, 85, 0.36);
+    box-shadow: inset 0 0 42px rgba(0, 0, 0, 0.85), 0 12px 28px rgba(0, 0, 0, 0.55);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 12px 16px;
+  }
+
+  .horror-blood-vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, transparent 45%, rgba(160, 10, 40, 0.38) 100%);
+    pointer-events: none;
+    animation: pulseDot 3.2s infinite ease-in-out;
+  }
+
+  .horror-lightning-flash {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 230, 235, 0.75);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9;
+    transition: opacity 0.08s ease;
+  }
+
+  .horror-lightning-flash.flash-now {
+    opacity: 1;
+  }
+
+  .horror-eyes-pair {
+    position: absolute;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 14px;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .horror-eye {
+    width: 7px;
+    height: 4px;
+    border-radius: 50%;
+    background: #FF1E42;
+    box-shadow: 0 0 10px 2px #FF1E42;
+    animation: blinkCursor 3.4s infinite;
+  }
+
+  .horror-obj {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    transition: transform 0.22s ease, filter 0.22s ease;
+  }
+
+  .horror-obj:hover {
+    filter: drop-shadow(0 0 12px rgba(255, 30, 66, 0.65));
+  }
+
+  .horror-obj:active {
+    transform: scale(0.92);
+  }
+
+  .obj-hghost {
+    animation: gentleBreath 2.8s ease-in-out infinite;
+  }
+
+  .candle-flame-svg {
+    transform-origin: 23px 26px;
+    animation: twinkleStar 0.9s ease-in-out infinite alternate;
+  }
+
+  .horror-obj-label {
+    padding: 2px 8px;
+    border-radius: 8px;
+    background: rgba(20, 5, 11, 0.85);
+    border: 1px solid rgba(255, 42, 85, 0.35);
+    color: #FFD6DF;
+    font-size: 9.5px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* Sub-Tabs in Horror Room */
+  .horror-subtabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    padding: 4px;
+    border-radius: 16px;
+    background: rgba(36, 9, 19, 0.9);
+    border: 1px solid rgba(255, 42, 85, 0.28);
+  }
+
+  .horror-subtab {
+    padding: 8px 6px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #CFA0AE;
+    text-align: center;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+  }
+
+  .horror-subtab.active {
+    background: linear-gradient(135deg, #9E0B28, #E01941);
+    color: #FFFFFF;
+    box-shadow: 0 4px 12px rgba(224, 25, 65, 0.45);
+  }
+
+  .horror-panel {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .horror-panel.active {
+    display: flex;
+  }
+
+  .horror-warning-banner {
+    padding: 10px 12px;
+    border-radius: 16px;
+    background: rgba(224, 25, 65, 0.14);
+    border: 1px dashed rgba(255, 51, 88, 0.45);
+    color: #FFD2DC;
+    font-size: 11.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    line-height: 1.4;
+  }
+
+  .horror-dislike-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .horror-dislike-card {
+    width: 100%;
+    padding: 13px 14px;
+    border-radius: 20px;
+    background: linear-gradient(145deg, rgba(40, 10, 21, 0.95), rgba(24, 6, 13, 0.95));
+    border: 1px solid rgba(255, 42, 85, 0.28);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    text-align: left;
+    transition: transform 0.18s ease, border-color 0.2s ease;
+  }
+
+  .horror-dislike-card:active {
+    transform: scale(0.98);
+    border-color: #FF2A55;
+  }
+
+  .horror-dislike-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    background: rgba(224, 25, 65, 0.2);
+    border: 1px solid rgba(255, 42, 85, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .horror-dislike-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #FFF0F3;
+    margin-bottom: 3px;
+    line-height: 1.3;
+  }
+
+  .horror-dislike-desc {
+    font-size: 11.5px;
+    color: #D4A6B2;
+    line-height: 1.45;
+  }
+
+  .horror-dislike-tag {
+    display: inline-block;
+    margin-top: 5px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #FF4769;
+  }
+
+  /* Horror Card & Sidang Dosa */
+  .horror-card {
+    padding: 16px;
+    border-radius: 22px;
+    background: linear-gradient(145deg, rgba(40, 10, 21, 0.95), rgba(22, 5, 12, 0.95));
+    border: 1px solid rgba(255, 42, 85, 0.3);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+  }
+
+  .horror-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .horror-card-title {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #FFF0F3;
+  }
+
+  .horror-terror-badge {
+    font-size: 11px;
+    font-weight: 700;
+    color: #FF3358;
+  }
+
+  .horror-card-desc {
+    font-size: 11.5px;
+    color: #D4A6B2;
+    line-height: 1.45;
+    margin-bottom: 10px;
+  }
+
+  .horror-meter-track {
+    width: 100%;
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+    margin-bottom: 8px;
+    border: 1px solid rgba(255, 42, 85, 0.3);
+  }
+
+  .horror-meter-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #FF7A00, #E01941, #9E0B28);
+    border-radius: 999px;
+    transition: width 0.35s ease;
+  }
+
+  .horror-sins-checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .horror-sin-btn {
+    width: 100%;
+    padding: 9px 11px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 42, 85, 0.22);
+    color: #FFE8EC;
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    text-align: left;
+    transition: all 0.18s ease;
+  }
+
+  .horror-sin-btn.sin-checked {
+    background: rgba(224, 25, 65, 0.24);
+    border-color: #FF2A55;
+  }
+
+  .horror-sin-box {
+    width: 18px;
+    height: 18px;
+    border-radius: 6px;
+    border: 2px solid #FF3358;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .horror-sin-btn.sin-checked .horror-sin-box {
+    background: #E01941;
+    color: #FFFFFF;
+  }
+
+  .horror-roulette-box {
+    padding: 14px;
+    border-radius: 16px;
+    background: rgba(12, 3, 7, 0.85);
+    border: 1.5px dashed #FF3358;
+    color: #FFF0F3;
+    font-size: 12.5px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+
+  .horror-primary-btn {
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 16px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #9E0B28, #E01941);
+    color: #FFFFFF;
+    font-size: 12.5px;
+    font-weight: 700;
+    box-shadow: 0 6px 18px rgba(224, 25, 65, 0.42);
+    transition: transform 0.16s ease;
+  }
+
+  .horror-primary-btn:active {
+    transform: scale(0.96);
+  }
+
+  .horror-secondary-btn {
+    min-height: 42px;
+    padding: 9px 12px;
+    border-radius: 14px;
+    background: rgba(255, 42, 85, 0.16);
+    border: 1px solid rgba(255, 42, 85, 0.4);
+    color: #FFD2DC;
+    font-size: 11.5px;
+    font-weight: 600;
+  }
+
+  .horror-danger-btn {
+    min-height: 42px;
+    padding: 9px 12px;
+    border-radius: 14px;
+    background: #2B0711;
+    border: 1.5px solid #FF1E42;
+    color: #FF4769;
+    font-size: 11.5px;
+    font-weight: 700;
+    box-shadow: inset 0 0 12px rgba(255, 30, 66, 0.25);
+  }
+
+  /* Full-Screen Jumpscare / Peringatan Posesif Overlay */
+  .horror-jumpscare-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 125;
+    background: radial-gradient(circle, rgba(90, 5, 22, 0.94) 0%, rgba(8, 2, 5, 0.98) 100%);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 22px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .horror-jumpscare-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+    animation: shakePin 0.45s ease-in-out;
+  }
+
+  .horror-jumpscare-card {
+    width: 100%;
+    max-width: 360px;
+    padding: 24px 20px;
+    border-radius: 28px;
+    background: #16040A;
+    border: 2px solid #FF1E42;
+    box-shadow: 0 0 50px rgba(255, 30, 66, 0.65);
+    text-align: center;
+    color: #FFF0F3;
+  }
+
+  .jumpscare-giant-eye {
+    font-size: 46px;
+    margin-bottom: 10px;
+    animation: pulseDot 1.2s infinite ease-in-out;
+  }
+
+  .jumpscare-title {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    color: #FF2A55;
+    letter-spacing: 0.04em;
+    margin-bottom: 10px;
+    text-shadow: 0 0 14px rgba(255, 42, 85, 0.7);
+  }
+
+  .jumpscare-text {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #FFD6DF;
+    margin-bottom: 16px;
   }
 
   /* ==========================================================================
@@ -3178,6 +3663,15 @@
           </div>
 
           <div class="top-controls">
+            <!-- Forbidden Horror Door Quick Button -->
+            <button type="button" class="icon-btn horror-door-top-btn" id="btn-top-horror-door" aria-label="Buka Pintu Ruang Terlarang (Mode Horror)" title="Pintu Terlarang 🚪">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"></path>
+                <path d="M2 20h20"></path>
+                <path d="M14 12v.01"></path>
+              </svg>
+            </button>
+
             <!-- Color Palette Theme Picker Button -->
             <button type="button" class="icon-btn" id="btn-color-theme" aria-label="Ganti Tema Warna Kamar" title="Ganti Warna & Suasana">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -3654,22 +4148,59 @@
         </div>
 
         <!-- ================================================================
-             VIEW C: MEMORY GALAXY
+             VIEW C: MEMORY GALAXY (DENGAN KUNCI PASSWORD TANPA CLUE)
              ================================================================ -->
         <div id="view-memories" class="tab-view">
           <div class="section-container">
-            <div class="section-heading-box" style="display:flex;justify-content:space-between;align-items:flex-end;">
-              <div>
-                <h2 class="section-title">Memory Galaxy</h2>
-                <p class="section-subtitle">Setiap bintang menyimpan satu potongan cerita kita.</p>
+            <!-- Password Gate for Memories (No Clue) -->
+            <div class="memories-lock-gate" id="memories-lock-gate">
+              <div class="pin-lock-icon" aria-hidden="true" style="margin-bottom:10px;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="3" ry="3"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
               </div>
-              <span style="font-size:11.5px;font-weight:600;color:var(--rose);" id="galaxy-visited-count">22 Bintang</span>
+              <h2 class="section-title" style="text-align:center;margin-bottom:4px;">Memory Galaxy Terkunci</h2>
+              <p class="section-subtitle" style="text-align:center;margin-bottom:12px;">Masukkan password untuk membuka akses.</p>
+
+              <div class="pin-dots-container" id="memories-pin-dots-box" style="margin:8px auto 16px;padding:12px 24px;">
+                <span class="pin-dot mem-pin-dot" data-midx="0"></span>
+                <span class="pin-dot mem-pin-dot" data-midx="1"></span>
+                <span class="pin-dot mem-pin-dot" data-midx="2"></span>
+                <span class="pin-dot mem-pin-dot" data-midx="3"></span>
+              </div>
+
+              <div class="pin-keypad memories-keypad" role="group" aria-label="Papan Angka Password Memories" style="margin:0 auto;">
+                <button type="button" class="pin-key mem-pin-key" data-mkey="1">1</button>
+                <button type="button" class="pin-key mem-pin-key" data-mkey="2">2</button>
+                <button type="button" class="pin-key mem-pin-key" data-mkey="3">3</button>
+                <button type="button" class="pin-key mem-pin-key" data-mkey="4">4</button>
+                <button type="button" class="pin-key mem-pin-key" data-mkey="5">5</button>
+                <button type="button" class="pin-key mem-pin-key" data-mkey="6">6</button>
+                <button type="button" class="pin-key mem-pin-key" data-mkey="7">7</button>
+                <button type="button" class="pin-key mem-pin-key" data-mkey="8">8</button>
+                <button type="button" class="pin-key mem-pin-key" data-mkey="9">9</button>
+                <button type="button" class="pin-key pin-key-action mem-pin-key" data-mkey="clear">Ulang</button>
+                <button type="button" class="pin-key mem-pin-key" data-mkey="0">0</button>
+                <button type="button" class="pin-key pin-key-action mem-pin-key" data-mkey="back">⌫</button>
+              </div>
             </div>
 
-            <div class="galaxy-universe" id="galaxy-universe">
-              <div class="galaxy-nebula"></div>
-              <div id="galaxy-stars-container"></div>
-              <div class="galaxy-hint-pill">✨ Sentuh bintang yang bersinar untuk membuka kenangan</div>
+            <!-- Unlocked Memory Galaxy Content -->
+            <div id="memories-unlocked-content" style="display:none;flex-direction:column;gap:14px;">
+              <div class="section-heading-box" style="display:flex;justify-content:space-between;align-items:flex-end;">
+                <div>
+                  <h2 class="section-title">Memory Galaxy</h2>
+                  <p class="section-subtitle">Setiap bintang menyimpan satu potongan cerita kita.</p>
+                </div>
+                <span style="font-size:11.5px;font-weight:600;color:var(--rose);" id="galaxy-visited-count">22 Bintang</span>
+              </div>
+
+              <div class="galaxy-universe" id="galaxy-universe">
+                <div class="galaxy-nebula"></div>
+                <div id="galaxy-stars-container"></div>
+                <div class="galaxy-hint-pill">✨ Sentuh bintang yang bersinar untuk membuka kenangan</div>
+              </div>
             </div>
           </div>
         </div>
@@ -3776,6 +4307,161 @@
           </div>
         </div>
 
+        <!-- ================================================================
+             VIEW G: RUANG TERLARANG / HORROR ROOM (PINTU RAHASIA)
+             ================================================================ -->
+        <div id="view-horror" class="tab-view horror-theme-view">
+          <div class="section-container horror-container">
+            <!-- Haunted Header -->
+            <div class="horror-header-box" style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">
+              <div>
+                <div class="horror-kicker">🚪 RUANG TERLARANG · AREA KERAMAT</div>
+                <h2 class="section-title horror-title">Kamar Gelap Peringatan 🩸</h2>
+                <p class="section-subtitle horror-subtitle">
+                  Berisi hal-hal yang paling aku gasuka kalau kamu lakuin. Jangan dilanggar kalau gamau kena teror!
+                </p>
+              </div>
+              <button type="button" class="horror-secondary-btn" id="btn-horror-music-toggle" style="white-space:nowrap;padding:7px 11px;min-height:34px;font-size:10.5px;">
+                🔊 Musik Horror: ON
+              </button>
+            </div>
+
+            <!-- Interactive Haunted Room Mini Stage -->
+            <div class="horror-room-stage" id="horror-room-stage">
+              <div class="horror-lightning-flash" id="horror-lightning-flash"></div>
+              <div class="horror-blood-vignette"></div>
+
+              <!-- Creepy Floating Eyes in the Dark -->
+              <div class="horror-eyes-pair" aria-hidden="true">
+                <span class="horror-eye"></span>
+                <span class="horror-eye"></span>
+              </div>
+
+              <!-- 1. Interactive Cursed Mirror -->
+              <button type="button" class="horror-obj obj-hmirror" id="btn-horror-mirror" aria-label="Cermin Jujur">
+                <svg width="56" height="68" viewBox="0 0 56 68" fill="none">
+                  <ellipse cx="28" cy="34" rx="22" ry="28" fill="#1A0B12" stroke="#8B1E3F" stroke-width="3"/>
+                  <ellipse cx="28" cy="34" rx="17" ry="23" fill="url(#mirrorDarkGrad)" stroke="#DC143C" stroke-width="1.2" stroke-dasharray="3 2"/>
+                  <path d="M20 20L34 46M22 44L36 22" stroke="rgba(255,50,80,0.35)" stroke-width="1.5" stroke-linecap="round"/>
+                  <defs>
+                    <radialGradient id="mirrorDarkGrad" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(28 34) rotate(90) scale(24)">
+                      <stop offset="0%" stop-color="#4A0E24"/>
+                      <stop offset="100%" stop-color="#0D050A"/>
+                    </radialGradient>
+                  </defs>
+                </svg>
+                <span class="horror-obj-label">🪞 Cermin Dosa</span>
+              </button>
+
+              <!-- 2. Interactive Possessive Ghost -->
+              <button type="button" class="horror-obj obj-hghost" id="btn-horror-ghost" aria-label="Arwah Posesif">
+                <svg width="68" height="74" viewBox="0 0 68 74" fill="none">
+                  <path d="M14 36C14 20 22 12 34 12C46 12 54 20 54 36V62L47 56L40 62L34 56L28 62L21 56L14 62V36Z" fill="#2A1220" stroke="#FF2A55" stroke-width="2.2"/>
+                  <!-- Glowing Red Eyes -->
+                  <circle cx="27" cy="32" r="3.5" fill="#FF1E42"/>
+                  <circle cx="41" cy="32" r="3.5" fill="#FF1E42"/>
+                  <path d="M27 42C30 39 38 39 41 42" stroke="#FF1E42" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <span class="horror-obj-label">👻 Arwah Posesif</span>
+              </button>
+
+              <!-- 3. Interactive Blood Candle -->
+              <button type="button" class="horror-obj obj-hcandle" id="btn-horror-candle" aria-label="Lilin Keramat">
+                <svg width="46" height="64" viewBox="0 0 46 64" fill="none">
+                  <path class="candle-flame-svg" d="M23 8C23 8 16 17 16 22C16 26 19.1 29 23 29C26.9 29 30 26 30 22C30 17 23 8 23 8Z" fill="#FF4D00"/>
+                  <path d="M23 13C23 13 19 19 19 22C19 24.5 20.8 26.5 23 26.5C25.2 26.5 27 24.5 27 22C27 19 23 13 23 13Z" fill="#FFCC00"/>
+                  <rect x="16" y="29" width="14" height="26" rx="3" fill="#3B0D1A" stroke="#FF2A55" stroke-width="1.8"/>
+                  <path d="M17 30V39M22 30V43M27 30V36" stroke="#DC143C" stroke-width="2.2" stroke-linecap="round"/>
+                  <rect x="10" y="54" width="26" height="5" rx="2.5" fill="#591527"/>
+                </svg>
+                <span class="horror-obj-label">🕯️ Lilin Teror</span>
+              </button>
+            </div>
+
+            <!-- Horror Sub-Navigation Tabs -->
+            <div class="horror-subtabs" role="tablist" aria-label="Menu Ruang Terlarang">
+              <button type="button" class="horror-subtab active" data-htab="pantangan">🩸 Pantangan</button>
+              <button type="button" class="horror-subtab" data-htab="sidang">⚖️ Sidang Dosa</button>
+              <button type="button" class="horror-subtab" data-htab="roulette">💀 Hukuman & Segel</button>
+            </div>
+
+            <!-- PANEL 1: DAFTAR HAL YANG AKU GASUKA (PANTANGAN KERAMAT) -->
+            <div class="horror-panel active" id="horror-panel-pantangan">
+              <div class="horror-warning-banner">
+                <span>⚠️</span>
+                <span>Ketuk salah satu pantangan di bawah buat baca alasan & ancaman hukumannya!</span>
+              </div>
+              <div class="horror-dislike-list" id="horror-dislike-list">
+                <!-- Populated by Script.html -->
+              </div>
+            </div>
+
+            <!-- PANEL 2: RUANG SIDANG PENGAKUAN DOSA & METERAN TEROR -->
+            <div class="horror-panel" id="horror-panel-sidang">
+              <div class="horror-card">
+                <div class="horror-card-header">
+                  <span class="horror-card-title">🔥 Meteran Kemarahan & Teror</span>
+                  <span class="horror-terror-badge" id="horror-terror-percent">0% Aman</span>
+                </div>
+                <div class="horror-meter-track">
+                  <div class="horror-meter-fill" id="horror-terror-fill" style="width:0%;"></div>
+                </div>
+                <p class="horror-card-desc" id="horror-terror-status">
+                  Centang jujur di bawah ini kalau hari ini kamu ada ngelakuin salah satu pantangan!
+                </p>
+
+                <div class="horror-sins-checklist" id="horror-sins-checklist">
+                  <!-- Populated by Script.html -->
+                </div>
+
+                <button type="button" class="horror-primary-btn" id="btn-confess-wa" style="margin-top:12px;">
+                  🕯️ Ngaku Dosa & Minta Ampun ke WA Aku
+                </button>
+              </div>
+            </div>
+
+            <!-- PANEL 3: ROULETTE HUKUMAN & SEGEL JUMPSCARE + SUMPAH SETIA -->
+            <div class="horror-panel" id="horror-panel-roulette">
+              <!-- Roulette Hukuman Keramat -->
+              <div class="horror-card" style="margin-bottom:12px;">
+                <div class="horror-card-header">
+                  <span class="horror-card-title">🎰 Dadu Hukuman Keramat</span>
+                  <span class="horror-terror-badge">Wajib Ditebus!</span>
+                </div>
+                <p class="horror-card-desc">
+                  Ketahuan ngelanggar pantangan? Putar dadu kutukan ini dan lakuin hukumannya tanpa bantah!
+                </p>
+                <div class="horror-roulette-box" id="horror-roulette-result">
+                  💀 Ketuk tombol di bawah buat mengacak hukuman kamu...
+                </div>
+                <button type="button" class="horror-primary-btn" id="btn-spin-punishment">
+                  🎲 Putar Hukuman Sekarang!
+                </button>
+              </div>
+
+              <!-- Sumpah Setia & Tombol Terlarang -->
+              <div class="horror-card">
+                <div class="horror-card-header">
+                  <span class="horror-card-title">📜 Segel Sumpah & Mata Pengawas</span>
+                  <span class="horror-terror-badge" id="horror-oath-badge">Belum Disegel</span>
+                </div>
+                <p class="horror-card-desc">
+                  Tempelkan segel janji biar kamu ngga ngulangin hal-hal yang aku gasuka lagi:
+                </p>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
+                  <button type="button" class="horror-secondary-btn" id="btn-sign-blood-oath">
+                    🩸 Cap Sumpah Janji
+                  </button>
+                  <button type="button" class="horror-danger-btn" id="btn-trigger-jumpscare">
+                    👁️ Jangan Dipencet!
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
       </main>
 
       <!-- ==================================================================
@@ -3835,9 +4521,34 @@
           </svg>
           <span>Surprise</span>
         </button>
+
+        <button type="button" class="nav-tab-btn nav-tab-horror" data-target="view-horror" id="nav-btn-horror">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"></path>
+            <path d="M2 20h20"></path>
+            <path d="M14 12v.01"></path>
+          </svg>
+          <span>Pintu</span>
+        </button>
       </nav>
 
     </section>
+
+    <!-- ====================================================================
+         HORROR JUMPSCARE / PERINGATAN POSESIF OVERLAY
+         ==================================================================== -->
+    <div class="horror-jumpscare-overlay" id="horror-jumpscare-overlay" role="dialog" aria-modal="true">
+      <div class="horror-jumpscare-card">
+        <div class="jumpscare-giant-eye">👁️🩸👁️</div>
+        <h3 class="jumpscare-title">AKU SELALU MENGAWASIMU...</h3>
+        <p class="jumpscare-text" id="jumpscare-text">
+          "Awas ya kalau kamu berani ngilang tanpa kabar, telat makan, atau bikin aku cemburu! Walau jauh, arwah posesifku selalu nempel di sebelah kamu karena aku sayang banget sama kamu!"
+        </p>
+        <button type="button" class="horror-primary-btn" id="btn-close-jumpscare">
+          😭 Iya Ampun Sayang, Aku Janji Patuh!
+        </button>
+      </div>
+    </div>
 
     <!-- ====================================================================
          GLOBAL REUSABLE MODAL SYSTEM
@@ -3874,11 +4585,13 @@ const APP_CONFIG = {
   // Nomor WhatsApp kamu untuk tujuan klaim voucher Dila (awali dengan 62, contoh: "6285292192291")
   WHATSAPP_NUMBER: "6285292192291",
   PIN: "0409",
+  MEMORIES_PIN: "1345",
   REQUIRE_PIN: true,
-  WRONG_PIN_MESSAGE: "Masa kamu ga inget tanggal pertama kita chatan 😭",
   HUG_MESSAGE: "Anggap aja aku lagi meluk kamu.",
   // Opsional: Isi URL gambar/GIF peluk jika ingin mengganti ilustrasi pelukan bawaan
   HUG_IMAGE_URL: "",
+  // Opsional: Isi URL MP3 musik horror jika ingin memakai file audio sendiri (jika kosong, otomatis memakai musik horror kotak musik berhantu bawaan)
+  HORROR_BGM_URL: "",
   AVATAR_DEFAULT_TEXT: "Aku lagi duduk di sebelah kamu.",
 
   // Surat Utama di Atas Meja Kamar
@@ -4413,7 +5126,12 @@ const AppState = {
   activeChatThreadTimer: null,
   voucherFilter: "all",
   voucherClaims: {},
-  voucherHistory: []
+  voucherHistory: [],
+  horrorSins: [],
+  horrorOathSigned: false,
+  memoriesUnlocked: false,
+  enteredMemoriesPin: "",
+  horrorMusicEnabled: true
 };
 
 // Web Audio API Context for Fallback Melodies & Ambience
@@ -4437,11 +5155,12 @@ function cacheDOMReferences() {
 
   DOM.pinScreen = document.getElementById("pin-screen");
   DOM.pinDotsBox = document.getElementById("pin-dots-box");
-  DOM.pinDots = document.querySelectorAll(".pin-dot");
-  DOM.pinKeys = document.querySelectorAll(".pin-key");
+  DOM.pinDots = document.querySelectorAll("#pin-dots-box .pin-dot");
+  DOM.pinKeys = document.querySelectorAll("#pin-screen .pin-key:not(.mem-pin-key)");
 
   DOM.mainScreen = document.getElementById("main-screen");
   DOM.roomStatusLabel = document.getElementById("room-status-label");
+  DOM.btnTopHorrorDoor = document.getElementById("btn-top-horror-door");
   DOM.btnColorTheme = document.getElementById("btn-color-theme");
   DOM.btnDreamMode = document.getElementById("btn-dream-mode");
   DOM.btnAudioToggle = document.getElementById("btn-audio-toggle");
@@ -4504,6 +5223,11 @@ function cacheDOMReferences() {
 
   DOM.galaxyStarsContainer = document.getElementById("galaxy-stars-container");
   DOM.galaxyVisitedCount = document.getElementById("galaxy-visited-count");
+  DOM.memoriesLockGate = document.getElementById("memories-lock-gate");
+  DOM.memoriesUnlockedContent = document.getElementById("memories-unlocked-content");
+  DOM.memoriesPinDotsBox = document.getElementById("memories-pin-dots-box");
+  DOM.memPinDots = document.querySelectorAll(".mem-pin-dot");
+  DOM.memPinKeys = document.querySelectorAll(".mem-pin-key");
 
   DOM.capsuleListContainer = document.getElementById("capsule-list-container");
 
@@ -4519,6 +5243,27 @@ function cacheDOMReferences() {
   DOM.voucherFilterBtns = document.querySelectorAll(".voucher-filter-btn");
   DOM.btnOpenVoucherHistory = document.getElementById("btn-open-voucher-history");
   DOM.btnResetVouchers = document.getElementById("btn-reset-vouchers");
+
+  DOM.horrorLightningFlash = document.getElementById("horror-lightning-flash");
+  DOM.btnHorrorMirror = document.getElementById("btn-horror-mirror");
+  DOM.btnHorrorGhost = document.getElementById("btn-horror-ghost");
+  DOM.btnHorrorCandle = document.getElementById("btn-horror-candle");
+  DOM.horrorSubtabs = document.querySelectorAll(".horror-subtab");
+  DOM.horrorPanels = document.querySelectorAll(".horror-panel");
+  DOM.horrorDislikeList = document.getElementById("horror-dislike-list");
+  DOM.horrorTerrorPercent = document.getElementById("horror-terror-percent");
+  DOM.horrorTerrorFill = document.getElementById("horror-terror-fill");
+  DOM.horrorTerrorStatus = document.getElementById("horror-terror-status");
+  DOM.horrorSinsChecklist = document.getElementById("horror-sins-checklist");
+  DOM.btnConfessWa = document.getElementById("btn-confess-wa");
+  DOM.horrorRouletteResult = document.getElementById("horror-roulette-result");
+  DOM.btnSpinPunishment = document.getElementById("btn-spin-punishment");
+  DOM.horrorOathBadge = document.getElementById("horror-oath-badge");
+  DOM.btnSignBloodOath = document.getElementById("btn-sign-blood-oath");
+  DOM.btnTriggerJumpscare = document.getElementById("btn-trigger-jumpscare");
+  DOM.horrorJumpscareOverlay = document.getElementById("horror-jumpscare-overlay");
+  DOM.btnCloseJumpscare = document.getElementById("btn-close-jumpscare");
+  DOM.btnHorrorMusicToggle = document.getElementById("btn-horror-music-toggle");
 
   DOM.navTabBtns = document.querySelectorAll(".nav-tab-btn");
   DOM.tabViews = document.querySelectorAll(".tab-view");
@@ -4575,6 +5320,12 @@ function loadState() {
     if (Array.isArray(parsed.voucherHistory)) {
       AppState.voucherHistory = parsed.voucherHistory;
     }
+    if (Array.isArray(parsed.horrorSins)) {
+      AppState.horrorSins = parsed.horrorSins;
+    }
+    if (typeof parsed.horrorOathSigned === "boolean") {
+      AppState.horrorOathSigned = parsed.horrorOathSigned;
+    }
 
     if (!APP_CONFIG.REQUIRE_PIN && parsed.authenticated) {
       AppState.authenticated = true;
@@ -4600,6 +5351,8 @@ function saveState() {
       dailySurprise: AppState.dailySurprise,
       voucherClaims: AppState.voucherClaims,
       voucherHistory: AppState.voucherHistory,
+      horrorSins: AppState.horrorSins,
+      horrorOathSigned: AppState.horrorOathSigned,
       ambientAudio: {
         mode: AppState.ambientAudio.mode,
         volume: AppState.ambientAudio.volume
@@ -4672,6 +5425,7 @@ function initApp() {
   renderTimeCapsules();
   renderDailySurpriseState();
   renderVouchers();
+  renderHorrorRoom();
   createAmbientParticles();
   bindEventListeners();
   runSplashSequence();
@@ -4755,6 +5509,7 @@ function switchScreen(screenId) {
 // ==========================================
 
 function handlePinKeyPress(keyVal) {
+  if (keyVal === null || keyVal === undefined || keyVal === "") return;
   if (keyVal === "clear") {
     AppState.enteredPin = "";
     updatePinDotsUI();
@@ -4821,7 +5576,7 @@ function verifyPinInput() {
       openModal({
         icon: "😭",
         title: "Hmm, Kodenya Belum Pas...",
-        bodyHtml: `<p style="font-size:15px;font-weight:500;">${APP_CONFIG.WRONG_PIN_MESSAGE}</p>`,
+        bodyHtml: `<p style="font-size:15px;font-weight:500;">${APP_CONFIG.WRONG_PIN_MESSAGE || "Kodenya belum pas, coba diinget-inget lagi ya 😭"}</p>`,
         buttonText: "COBA LAGI",
         onConfirm: () => closeModal()
       });
@@ -5119,15 +5874,15 @@ function triggerAvatarReaction(text) {
 }
 
 // ==========================================
-// 9B. FITUR BARU: ANABUL KITA (MOCHI SI KUCING KAMAR) & KOTAK P3K HATI
+// 9B. FITUR BARU: ANABUL KITA (MAUL SI KUCING KAMAR) & KOTAK P3K HATI
 // ==========================================
 
 const ANABUL_SECRET_QUOTES = [
   "Meong~ Kata Muci, senyum Dila itu obat paling ampuh buat ngilangin capeknya dia! 🐾💗",
-  "Purrr... Mochi dititipin pesan: 'Jangan lupa makan enak hari ini ya sayangku!' 🐟✨",
+  "Purrr... Maul dititipin pesan: 'Jangan lupa makan enak hari ini ya sayangku!' 🐟✨",
   "Meong! Aku disuruh jagain Dila di kamar ini biar ngga pernah ngerasa kesepian 🐱🤍",
   "Purrr~ Kata Muci, dari sekian banyak hal indah di dunia, Dila tetep favorit nomor satunya! 🌸",
-  "Meong~ Kalau Dila lagi kangen, elus kepala Mochi aja ya, nanti Mochi sampein ke Muci! 🐾💌",
+  "Meong~ Kalau Dila lagi kangen, elus kepala Maul aja ya, nanti Maul sampein ke Muci! 🐾💌",
   "Nyaw~ Kata yang punya kamar ini, dia sayang banget sama Dila lebih dari kemarin! 💖"
 ];
 
@@ -5171,7 +5926,7 @@ function openCatPetModal() {
 
   openModal({
     icon: "🐾",
-    title: "Mochi · Anabul Kamar Kita",
+    title: "Maul · Anabul Kamar Kita",
     bodyHtml: `
       <div class="pet-card-stage">
         <div style="font-size:38px;line-height:1;margin-bottom:2px;" id="pet-modal-emoji">🐱💗</div>
@@ -5194,14 +5949,14 @@ function openCatPetModal() {
           🐟 Kasih Creamy Treat
         </button>
         <button type="button" class="pet-action-btn" id="btn-pet-stroke">
-          🧶 Elus Kepala Mochi
+          🧶 Elus Kepala Maul
         </button>
         <button type="button" class="pet-action-btn full-span" id="btn-pet-secret">
           💌 Baca Titipan Pesan Baru dari Aku
         </button>
       </div>
     `,
-    buttonText: "Sayang Mochi ♥",
+    buttonText: "Sayang Maul ♥",
     onConfirm: () => closeModal()
   });
 
@@ -5226,10 +5981,10 @@ function openCatPetModal() {
       playCuteMeowSound();
       updatePetUI(
         15,
-        "Nyam nyam nyam~ Makasih snack-nya Kak Dila cantik! Mochi makin gendut & sayang Dila! 🐟😻",
+        "Nyam nyam nyam~ Makasih snack-nya Kak Dila cantik! Maul makin gendut & sayang Dila! 🐟😻",
         "😻🐟"
       );
-      showToast("🐟 Mochi seneng banget dikasih Creamy Treat!");
+      showToast("🐟 Maul seneng banget dikasih Creamy Treat!");
     });
   }
 
@@ -5242,7 +5997,7 @@ function openCatPetModal() {
         "Purrrrr~ Adem banget dielus sama kesayangannya Muci. Jangan capek-capek hari ini yaa! 🧶💗",
         "😽💞"
       );
-      showToast("🐾 Mochi mendengkur manja di pangkuanmu~");
+      showToast("🐾 Maul mendengkur manja di pangkuanmu~");
     });
   }
 
@@ -6138,8 +6893,102 @@ function switchToTabView(targetViewId) {
       view.classList.remove("active-view");
     }
   });
+  if (DOM.btnTopHorrorDoor) {
+    if (targetViewId === "view-horror") {
+      DOM.btnTopHorrorDoor.classList.add("active-horror-door");
+    } else {
+      DOM.btnTopHorrorDoor.classList.remove("active-horror-door");
+    }
+  }
+  if (targetViewId === "view-memories") {
+    // Setiap kali masuk ke tab Memories, kunci kembali agar meminta password 1345 tanpa clue
+    AppState.memoriesUnlocked = false;
+    AppState.enteredMemoriesPin = "";
+    updateMemoriesPinDotsUI(false);
+    syncMemoriesLockView();
+  }
+  if (targetViewId === "view-horror") {
+    playCreepyDoorSound();
+    triggerHorrorLightning();
+    startHorrorMusicLoop();
+    showToast("🚪 Krieeek... Kamu memasuki Ruang Terlarang!");
+  } else {
+    stopHorrorMusicLoop();
+  }
   if (targetViewId !== "view-voice" && AppState.voicePlaying) {
     stopVoicePlayback();
+  }
+}
+
+function syncMemoriesLockView() {
+  if (!DOM.memoriesLockGate || !DOM.memoriesUnlockedContent) return;
+  if (AppState.memoriesUnlocked) {
+    DOM.memoriesLockGate.style.display = "none";
+    DOM.memoriesUnlockedContent.style.display = "flex";
+  } else {
+    DOM.memoriesLockGate.style.display = "flex";
+    DOM.memoriesUnlockedContent.style.display = "none";
+  }
+}
+
+function handleMemoriesPinKeyPress(keyVal) {
+  if (keyVal === null || keyVal === undefined || keyVal === "") return;
+  if (keyVal === "clear") {
+    AppState.enteredMemoriesPin = "";
+    updateMemoriesPinDotsUI(false);
+    return;
+  }
+  if (keyVal === "back") {
+    AppState.enteredMemoriesPin = AppState.enteredMemoriesPin.slice(0, -1);
+    updateMemoriesPinDotsUI(false);
+    return;
+  }
+  if (AppState.enteredMemoriesPin.length >= 4) return;
+
+  AppState.enteredMemoriesPin += String(keyVal);
+  updateMemoriesPinDotsUI(false);
+  playSoftNote(587.33, 0.08);
+
+  if (AppState.enteredMemoriesPin.length === 4) {
+    setTimeout(verifyMemoriesPinInput, 160);
+  }
+}
+
+function updateMemoriesPinDotsUI(isSuccess = false) {
+  if (!DOM.memPinDots) return;
+  DOM.memPinDots.forEach((dot, idx) => {
+    dot.classList.remove("filled", "success");
+    if (idx < AppState.enteredMemoriesPin.length) {
+      dot.classList.add(isSuccess ? "success" : "filled");
+    }
+  });
+}
+
+function verifyMemoriesPinInput() {
+  const targetPin = APP_CONFIG.MEMORIES_PIN || "1345";
+  if (AppState.enteredMemoriesPin === targetPin) {
+    updateMemoriesPinDotsUI(true);
+    playSuccessChime();
+    spawnFloatingHearts(window.innerWidth / 2, window.innerHeight / 2, 8);
+    setTimeout(() => {
+      AppState.memoriesUnlocked = true;
+      AppState.enteredMemoriesPin = "";
+      updateMemoriesPinDotsUI(false);
+      syncMemoriesLockView();
+      showToast("✨ Akses Memory Galaxy dibuka");
+    }, 380);
+  } else {
+    triggerDeviceVibrate([70, 40, 70]);
+    if (DOM.memoriesPinDotsBox) {
+      DOM.memoriesPinDotsBox.classList.remove("shake-error");
+      void DOM.memoriesPinDotsBox.offsetWidth;
+      DOM.memoriesPinDotsBox.classList.add("shake-error");
+    }
+    setTimeout(() => {
+      AppState.enteredMemoriesPin = "";
+      updateMemoriesPinDotsUI(false);
+      showToast("🔒 Password salah.");
+    }, 340);
   }
 }
 
@@ -6426,6 +7275,469 @@ function handleResetVouchers() {
   playSuccessChime();
   spawnFloatingHearts(window.innerWidth / 2, window.innerHeight / 2, 8);
   showToast("🎟️ Semua kuota voucher Dila berhasil diisi penuh lagi!");
+}
+
+// ==========================================
+// 16C. RUANG TERLARANG / HORROR ROOM SYSTEM (HAL YANG AKU GASUKA & FITUR HORROR)
+// ==========================================
+
+const HORROR_DISLIKES_LIST = [
+  {
+    id: "dislike-1",
+    icon: "👻",
+    title: "1. Ngilang Tanpa Kabar / Lama Bales Padahal Online",
+    shortDesc: "Tiba-tiba ngilang berjam-jam tanpa bilang lagi ngapain.",
+    fullReason: "Aku paling gasuka kalau kamu tiba-tiba ngilang tanpa kabar, apalagi kalau posisinya lagi online. Itu bikin pikiran aku kemana-mana, cemas takut kamu kenapa-napa, dan ngerasa diabaikan.",
+    consequence: "💀 Ancaman Teror: Arwah spam chat & telepon beruntun bakal menghantui HP kamu sampai kamu muncul!",
+    level: "TEROR LEVEL TINGGI 🔥"
+  },
+  {
+    id: "dislike-2",
+    icon: "🥀",
+    title: "2. Telat Makan / Sengaja Nggak Makan Sampai Sakit",
+    shortDesc: "Nunda-nunda jam makan pakai alasan 'belum laper' atau 'mager'.",
+    fullReason: "Aku benci banget kalau kamu cuek sama kesehatan kamu sendiri. Kalau maag kamu kambuh atau kamu jatuh sakit, yang paling sedih dan khawatir di sini itu aku.",
+    consequence: "💀 Ancaman Teror: Hantu cerewet bakal ngomel nonstop 24 jam dan nyita jajan es/pedes kamu!",
+    level: "DILARang KERAS 🩸"
+  },
+  {
+    id: "dislike-3",
+    icon: "🔪",
+    title: "3. Mendem Masalah Sendiri & Tiba-Tiba Sikapnya Dingin",
+    shortDesc: "Lagi ada apa-apa tapi disembunyiin, tau-tau chat jadi singkat & cuek.",
+    fullReason: "Aku itu pasangan kamu, tempat cerita kamu. Aku gasuka kalau kamu mendem beban sendirian atau ngasih sikap dingin tanpa ngasih tau salahku di mana.",
+    consequence: "💀 Ancaman Teror: Dikutuk ngga bisa tidur nyenyak sebelum kamu cerita jujur semuanya ke aku!",
+    level: "BIKIN OVERTHINKING ⚠️"
+  },
+  {
+    id: "dislike-4",
+    icon: "👁️",
+    title: "4. Terlalu Ramah / Deket Sama orang Lain yang Modus",
+    shortDesc: "Nanggepin orang lain yang jelas-jelas punya niat lebih.",
+    fullReason: "Jujur aja, aku itu cemburuan dan posesif kalau menyangkut kamu. Aku gasuka milikku dibagi perhatiannya atau dideketin orang lain dengan alasan 'cuma temen'.",
+    consequence: "💀 Ancaman Teror: Mode Posesif Tingkat Iblis aktif seketika! Siap-siap diinterogasi habis-habisan.",
+    level: "BAHAYA MAKSIMAL 🔥"
+  },
+  {
+    id: "dislike-5",
+    icon: "🕸️",
+    title: "5. Bilang 'Gapapa' atau 'Terserah' Padahal Lagi Kesel",
+    shortDesc: "Mulut bilang gapapa, tapi ketikan chat udah kayak kulkas 10 pintu.",
+    fullReason: "Aku bukan dukun yang bisa nerawang isi hati kamu tiap detik. Aku jauh lebih suka kamu marah atau ngomel langsung ke aku daripada bilang 'gapapa' tapi makan hati.",
+    consequence: "💀 Ancaman Teror: Bakal diteror voice note & digelitikin pas ketemu sampai kamu ngaku!",
+    level: "PANTANGAN KERAMAT 🕯️"
+  },
+  {
+    id: "dislike-6",
+    icon: "🦇",
+    title: "6. Begadang Sampai Subuh Buat Scroll HP Ngga Jelas",
+    shortDesc: "Udah jam 12 malem lewat tapi matanya masih melek tahan ngantuk.",
+    fullReason: "Aku gasuka kalau jam tidur kamu berantakan terus besok paginya kamu lemes, pusing, dan badmood seharian.",
+    consequence: "💀 Ancaman Teror: Arwah pengantar tidur bakal muncul di mimpi kamu dan nyita HP kamu!",
+    level: "AWAS MATA PANDA 💀"
+  }
+];
+
+const HORROR_SINS_LIST = [
+  { id: "sin-makan", text: "Hari ini aku telat makan / lupa makan 🍱" },
+  { id: "sin-slowresp", text: "Tadi sempet lama bales chat kamu 📱" },
+  { id: "sin-begadang", text: "Semalem aku begadang tidur kemaleman 🌙" },
+  { id: "sin-mendem", text: "Lagi mendem sesuatu / bilang 'gapapa' bohongan 🙊" },
+  { id: "sin-ngambek", text: "Tadi sempet bete / cemberut ke kamu 😤" }
+];
+
+const HORROR_PUNISHMENTS = [
+  "📸 HUKUMAN #1: Wajib kirim PAP selfie muka paling imut/cemberut ke WA aku SEKARANG JUGA tanpa alasan!",
+  "🎙️ HUKUMAN #2: Wajib kirim Voice Note bilang 'Maafin Dila sayang, aku sayang banget sama kamu' pakai nada paling manja!",
+  "🫂 HUKUMAN #3: Denda Hutang 10x Pelukan Erat + Cium Kening yang wajib dibayar lunas pas kita ketemu nanti!",
+  "📞 HUKUMAN #4: Malam ini wajib nemenin aku Sleep Call dan DILARANG matiin telepon duluan!",
+  "💌 HUKUMAN #5: Wajib ketik 5 hal yang paling kamu suka dari aku terus kirim ke chat WhatsApp aku sekarang!",
+  "🍦 HUKUMAN #6: Pas ketemu nanti, kamu wajib nurut 1 hari penuh tanpa boleh bilang kata 'Terserah'!"
+];
+
+function playCreepyDoorSound() {
+  try {
+    ensureAudioContext();
+    if (!audioCtx) return;
+    const now = audioCtx.currentTime;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = "sawtooth";
+    osc.frequency.setValueAtTime(140, now);
+    osc.frequency.linearRampToValueAtTime(92, now + 0.28);
+    osc.frequency.linearRampToValueAtTime(65, now + 0.55);
+    gain.gain.setValueAtTime(0.01, now);
+    gain.gain.linearRampToValueAtTime(0.09, now + 0.1);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.58);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start(now);
+    osc.stop(now + 0.6);
+  } catch (e) {}
+}
+
+function playJumpscareStinger() {
+  try {
+    ensureAudioContext();
+    if (!audioCtx) return;
+    const now = audioCtx.currentTime;
+    [110, 116.5, 233].forEach(freq => {
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = "sawtooth";
+      osc.frequency.setValueAtTime(freq, now);
+      osc.frequency.exponentialRampToValueAtTime(freq * 1.4, now + 0.15);
+      gain.gain.setValueAtTime(0.08, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(now);
+      osc.stop(now + 0.46);
+    });
+  } catch (e) {}
+}
+
+function triggerHorrorLightning() {
+  if (!DOM.horrorLightningFlash) return;
+  DOM.horrorLightningFlash.classList.add("flash-now");
+  setTimeout(() => {
+    if (DOM.horrorLightningFlash) DOM.horrorLightningFlash.classList.remove("flash-now");
+  }, 110);
+  setTimeout(() => {
+    if (DOM.horrorLightningFlash) DOM.horrorLightningFlash.classList.add("flash-now");
+  }, 210);
+  setTimeout(() => {
+    if (DOM.horrorLightningFlash) DOM.horrorLightningFlash.classList.remove("flash-now");
+  }, 310);
+}
+
+function renderHorrorRoom() {
+  // 1. Render Dislikes List
+  if (DOM.horrorDislikeList) {
+    DOM.horrorDislikeList.innerHTML = "";
+    HORROR_DISLIKES_LIST.forEach(item => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "horror-dislike-card";
+      btn.innerHTML = `
+        <div class="horror-dislike-icon">${item.icon}</div>
+        <div style="flex:1;">
+          <div class="horror-dislike-title">${escapeHtml(item.title)}</div>
+          <div class="horror-dislike-desc">${escapeHtml(item.shortDesc)}</div>
+          <span class="horror-dislike-tag">${escapeHtml(item.level)} · Ketuk untuk buka →</span>
+        </div>
+      `;
+      btn.addEventListener("click", () => openHorrorDislikeModal(item));
+      DOM.horrorDislikeList.appendChild(btn);
+    });
+  }
+
+  // 2. Render Sins Checklist & Terror Meter
+  renderHorrorSinsUI();
+
+  // 3. Render Oath Status
+  if (DOM.horrorOathBadge) {
+    DOM.horrorOathBadge.textContent = AppState.horrorOathSigned ? "🩸 Sudah Disegel" : "Belum Disegel";
+  }
+}
+
+function openHorrorDislikeModal(item) {
+  playCreepyDoorSound();
+  triggerHorrorLightning();
+  triggerDeviceVibrate([50, 30, 60]);
+
+  openModal({
+    icon: item.icon,
+    title: item.title,
+    bodyHtml: `
+      <div style="padding:14px;border-radius:18px;background:#1A060E;border:1.5px solid #E01941;color:#FFF0F3;text-align:left;margin-bottom:10px;">
+        <div style="font-size:10.5px;font-weight:700;color:#FF3358;margin-bottom:6px;letter-spacing:0.05em;">
+          🩸 KENAPA AKU PALING GASUKA INI:
+        </div>
+        <p style="font-size:13px;line-height:1.6;margin-bottom:12px;color:#FFE4EC;">
+          "${escapeHtml(item.fullReason)}"
+        </p>
+        <div style="padding:10px 12px;border-radius:12px;background:rgba(224,25,65,0.2);border:1px dashed #FF3358;font-size:11.5px;font-weight:600;color:#FFD2DC;line-height:1.45;">
+          ${escapeHtml(item.consequence)}
+        </div>
+      </div>
+    `,
+    buttonText: "Iya Sayang, Aku Janji Ngga Lakuin! 🤍",
+    onConfirm: () => {
+      closeModal();
+      showToast("🕯️ Janji kamu udah dicatat di Ruang Terlarang!");
+    }
+  });
+}
+
+function renderHorrorSinsUI() {
+  if (!DOM.horrorSinsChecklist) return;
+  DOM.horrorSinsChecklist.innerHTML = "";
+
+  HORROR_SINS_LIST.forEach(sin => {
+    const isChecked = AppState.horrorSins.includes(sin.id);
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = `horror-sin-btn ${isChecked ? "sin-checked" : ""}`;
+    btn.innerHTML = `
+      <span class="horror-sin-box">${isChecked ? "✓" : ""}</span>
+      <span>${escapeHtml(sin.text)}</span>
+    `;
+    btn.addEventListener("click", () => {
+      const idx = AppState.horrorSins.indexOf(sin.id);
+      if (idx >= 0) {
+        AppState.horrorSins.splice(idx, 1);
+        playSoftNote(440, 0.08);
+      } else {
+        AppState.horrorSins.push(sin.id);
+        playCreepyDoorSound();
+        triggerDeviceVibrate([40]);
+      }
+      saveState();
+      renderHorrorSinsUI();
+    });
+    DOM.horrorSinsChecklist.appendChild(btn);
+  });
+
+  const count = AppState.horrorSins.length;
+  const pct = Math.round((count / HORROR_SINS_LIST.length) * 100);
+  if (DOM.horrorTerrorFill) DOM.horrorTerrorFill.style.width = `${pct}%`;
+
+  if (DOM.horrorTerrorPercent) {
+    if (pct === 0) DOM.horrorTerrorPercent.textContent = "0% Aman Terkendali";
+    else if (pct <= 40) DOM.horrorTerrorPercent.textContent = `${pct}% Mulai Rawan ⚠️`;
+    else if (pct <= 80) DOM.horrorTerrorPercent.textContent = `${pct}% Siaga Teror 🔥`;
+    else DOM.horrorTerrorPercent.textContent = `${pct}% BAHAYA MAKSIMAL 💀`;
+  }
+
+  if (DOM.horrorTerrorStatus) {
+    if (count === 0) {
+      DOM.horrorTerrorStatus.textContent = "Wah anak baik! Hari ini belum ada pantangan yang dilanggar. Pertahankan ya sayang! 🤍";
+    } else {
+      DOM.horrorTerrorStatus.textContent = `Kamu ngaku udah ngelanggar ${count} pantangan hari ini! Buruan minta ampun lewat tombol di bawah sebelum kena hukuman! 👀🩸`;
+    }
+  }
+}
+
+function handleConfessSinsToWa() {
+  const chosenTexts = HORROR_SINS_LIST
+    .filter(s => AppState.horrorSins.includes(s.id))
+    .map(s => `- ${s.text}`);
+
+  const msg = chosenTexts.length > 0
+    ? `Sayang ampun 😭🕯️ Aku barusan masuk ke Pintu Ruang Horror dan mau ngaku dosa hari ini:\n${chosenTexts.join("\n")}\n\nJangan marah yaa, aku janji bakal perbaiki! Peluk dulu 🥺💗`
+    : `Sayang! Aku barusan masuk ke Pintu Ruang Horror 🚪🕯️ Hari ini aku patuh banget 0 pelanggaran loh, puji aku sekarang! 🥰🤍`;
+
+  const rawPhone = String(APP_CONFIG.WHATSAPP_NUMBER || "").replace(/[^0-9]/g, "");
+  const cleanPhone = rawPhone.startsWith("0") ? "62" + rawPhone.slice(1) : rawPhone;
+  const waUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`;
+  const link = document.createElement("a");
+  link.href = waUrl;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+}
+
+let lastPunishmentIdx = -1;
+function handleSpinHorrorPunishment() {
+  playCreepyDoorSound();
+  triggerHorrorLightning();
+  triggerDeviceVibrate([60, 40, 60]);
+
+  if (!DOM.horrorRouletteResult) return;
+  DOM.horrorRouletteResult.textContent = "🎲 Mengocok dadu kutukan...";
+
+  setTimeout(() => {
+    let idx = Math.floor(Math.random() * HORROR_PUNISHMENTS.length);
+    if (idx === lastPunishmentIdx) idx = (idx + 1) % HORROR_PUNISHMENTS.length;
+    lastPunishmentIdx = idx;
+    DOM.horrorRouletteResult.textContent = HORROR_PUNISHMENTS[idx];
+    showToast("💀 Hukuman keramat telah keluar! Wajib dilaksanakan!");
+  }, 420);
+}
+
+function handleSignHorrorOath() {
+  AppState.horrorOathSigned = true;
+  saveState();
+  renderHorrorRoom();
+  playSuccessChime();
+  spawnFloatingHearts(window.innerWidth / 2, window.innerHeight / 2, 10);
+
+  openModal({
+    icon: "🩸",
+    title: "Segel Sumpah Setia Dila",
+    bodyHtml: `
+      <div style="padding:14px;border-radius:18px;background:#1A060E;border:1.5px dashed #FF2A55;color:#FFF0F3;text-align:center;">
+        <div style="font-size:32px;margin-bottom:6px;">📜🩸</div>
+        <p style="font-size:13px;line-height:1.6;">
+          "Dengan ini aku (<strong>${escapeHtml(APP_CONFIG.RECIPIENT_NAME)}</strong>) berjanji bakal selalu jaga kesehatan, ngga ngilang tanpa kabar, selalu jujur kalau ada masalah, dan cuma sayang sama <strong>${escapeHtml(APP_CONFIG.OWNER_NAME)}</strong> seorang!"
+        </p>
+        <div style="margin-top:10px;font-size:11px;font-weight:700;color:#FF3358;">
+          ✓ TERTANDA & TERSEGEL SELAMANYA
+        </div>
+      </div>
+    `,
+    buttonText: "Janji Seumur Hidup ♥"
+  });
+}
+
+function triggerHorrorJumpscare() {
+  playJumpscareStinger();
+  triggerDeviceVibrate([120, 50, 140, 50, 180]);
+  if (DOM.horrorJumpscareOverlay) {
+    DOM.horrorJumpscareOverlay.classList.add("open");
+  }
+}
+
+function closeHorrorJumpscare() {
+  if (DOM.horrorJumpscareOverlay) {
+    DOM.horrorJumpscareOverlay.classList.remove("open");
+  }
+  playSoftNote(587.33, 0.1);
+  showToast("🤍 Makanya jangan bandel ya kesayanganku!");
+}
+
+// ==========================================
+// 16D. HORROR BACKGROUND MUSIC ENGINE (EERIE MUSIC BOX & DRONE)
+// ==========================================
+
+let horrorMusicIntervalId = null;
+let horrorCustomAudioPlayer = null;
+let horrorNoteStep = 0;
+
+// Melodi kotak musik horor minor/diminished yang merinding
+const HORROR_MELODY_NOTES = [
+  293.66, // D4
+  349.23, // F4
+  466.16, // Bb4
+  440.00, // A4
+  415.30, // G#4
+  349.23, // F4
+  277.18, // C#4
+  293.66, // D4
+  246.94, // B3
+  261.63  // C4
+];
+
+function playEerieHorrorTick(freq, withSubHeartbeat = false) {
+  try {
+    ensureAudioContext();
+    if (!audioCtx) return;
+    const now = audioCtx.currentTime;
+
+    // 1. Eerie detuned music box chime
+    const osc1 = audioCtx.createOscillator();
+    const osc2 = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    osc1.type = "triangle";
+    osc2.type = "sine";
+    osc1.frequency.setValueAtTime(freq, now);
+    // Slight creepy detune (+4.5 Hz) for haunted music box effect
+    osc2.frequency.setValueAtTime(freq + 4.5, now);
+
+    gain.gain.setValueAtTime(0.001, now);
+    gain.gain.linearRampToValueAtTime(0.065, now + 0.03);
+    gain.gain.exponentialRampToValueAtTime(0.0008, now + 0.82);
+
+    osc1.connect(gain);
+    osc2.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    osc1.start(now);
+    osc2.start(now);
+    osc1.stop(now + 0.85);
+    osc2.stop(now + 0.85);
+
+    // 2. Low dark ambient drone / heartbeat thud every 2 steps
+    if (withSubHeartbeat) {
+      const subOsc = audioCtx.createOscillator();
+      const subGain = audioCtx.createGain();
+      subOsc.type = "sine";
+      subOsc.frequency.setValueAtTime(73.42, now); // Low D2
+      subOsc.frequency.exponentialRampToValueAtTime(42, now + 0.55);
+
+      subGain.gain.setValueAtTime(0.001, now);
+      subGain.gain.linearRampToValueAtTime(0.11, now + 0.05);
+      subGain.gain.exponentialRampToValueAtTime(0.001, now + 0.65);
+
+      subOsc.connect(subGain);
+      subGain.connect(audioCtx.destination);
+      subOsc.start(now);
+      subOsc.stop(now + 0.68);
+    }
+  } catch (e) {}
+}
+
+function startHorrorMusicLoop() {
+  stopHorrorMusicLoop();
+  if (!AppState.horrorMusicEnabled) return;
+
+  // Pause normal room ambient audio while in horror room so they don't clash
+  if (ambientAudioPlayer && AppState.ambientAudio.enabled) {
+    try { ambientAudioPlayer.pause(); } catch (e) {}
+  }
+
+  const customHorrorUrl = APP_CONFIG.HORROR_BGM_URL && APP_CONFIG.HORROR_BGM_URL.trim();
+  if (customHorrorUrl) {
+    try {
+      if (!horrorCustomAudioPlayer) {
+        horrorCustomAudioPlayer = new Audio(customHorrorUrl);
+        horrorCustomAudioPlayer.loop = true;
+      }
+      horrorCustomAudioPlayer.volume = 0.55;
+      horrorCustomAudioPlayer.play().catch(() => {});
+      return;
+    } catch (e) {}
+  }
+
+  horrorNoteStep = 0;
+  playEerieHorrorTick(HORROR_MELODY_NOTES[0], true);
+
+  horrorMusicIntervalId = setInterval(() => {
+    const isHorrorActive = document.getElementById("view-horror")?.classList.contains("active-view");
+    if (!isHorrorActive || !AppState.horrorMusicEnabled) {
+      stopHorrorMusicLoop();
+      return;
+    }
+    horrorNoteStep = (horrorNoteStep + 1) % HORROR_MELODY_NOTES.length;
+    const noteFreq = HORROR_MELODY_NOTES[horrorNoteStep];
+    playEerieHorrorTick(noteFreq, horrorNoteStep % 2 === 0);
+  }, 680);
+}
+
+function stopHorrorMusicLoop() {
+  if (horrorMusicIntervalId) {
+    clearInterval(horrorMusicIntervalId);
+    horrorMusicIntervalId = null;
+  }
+  if (horrorCustomAudioPlayer) {
+    try {
+      horrorCustomAudioPlayer.pause();
+    } catch (e) {}
+  }
+  // Resume normal room ambient audio if it was enabled
+  if (ambientAudioPlayer && AppState.ambientAudio.enabled) {
+    try { ambientAudioPlayer.play().catch(() => {}); } catch (e) {}
+  }
+}
+
+function toggleHorrorMusic() {
+  AppState.horrorMusicEnabled = !AppState.horrorMusicEnabled;
+  if (DOM.btnHorrorMusicToggle) {
+    DOM.btnHorrorMusicToggle.textContent = AppState.horrorMusicEnabled
+      ? "🔊 Musik Horror: ON"
+      : "🔇 Musik Horror: OFF";
+  }
+  if (AppState.horrorMusicEnabled) {
+    startHorrorMusicLoop();
+    showToast("🔊 Musik Horror dinyalakan");
+  } else {
+    stopHorrorMusicLoop();
+    showToast("🔇 Musik Horror dimatikan");
+  }
 }
 
 // ==========================================
@@ -6749,12 +8061,26 @@ function bindEventListeners() {
       } else if (e.key === "Escape") {
         handlePinKeyPress("clear");
       }
+    } else if (document.getElementById("view-memories")?.classList.contains("active-view") && !AppState.memoriesUnlocked) {
+      if (e.key >= "0" && e.key <= "9") {
+        handleMemoriesPinKeyPress(e.key);
+      } else if (e.key === "Backspace") {
+        handleMemoriesPinKeyPress("back");
+      } else if (e.key === "Escape") {
+        handleMemoriesPinKeyPress("clear");
+      }
     } else if (e.key === "Escape" && DOM.globalModal && DOM.globalModal.classList.contains("open")) {
       closeModal();
     }
   });
 
   // Top Bar Controls
+  if (DOM.btnTopHorrorDoor) {
+    DOM.btnTopHorrorDoor.addEventListener("click", () => {
+      const isHorrorOpen = document.getElementById("view-horror")?.classList.contains("active-view");
+      switchToTabView(isHorrorOpen ? "view-home" : "view-horror");
+    });
+  }
   if (DOM.btnColorTheme) {
     DOM.btnColorTheme.addEventListener("click", openColorThemeModal);
   }
@@ -6767,6 +8093,7 @@ function bindEventListeners() {
   if (DOM.btnLockRoom) {
     DOM.btnLockRoom.addEventListener("click", () => {
       stopVoicePlayback();
+      stopHorrorMusicLoop();
       AppState.enteredPin = "";
       updatePinDotsUI(false);
       switchScreen("pin-screen");
@@ -6883,6 +8210,80 @@ function bindEventListeners() {
       switchToTabView(targetViewId);
     });
   });
+
+  // Horror Room Interactive Listeners
+  if (DOM.horrorSubtabs) {
+    DOM.horrorSubtabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        const key = tab.getAttribute("data-htab");
+        DOM.horrorSubtabs.forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+        DOM.horrorPanels.forEach(p => {
+          if (p.id === `horror-panel-${key}`) p.classList.add("active");
+          else p.classList.remove("active");
+        });
+        playSoftNote(392.0, 0.08);
+      });
+    });
+  }
+  if (DOM.btnHorrorMirror) {
+    DOM.btnHorrorMirror.addEventListener("click", () => {
+      playCreepyDoorSound();
+      triggerHorrorLightning();
+      openModal({
+        icon: "🪞",
+        title: "Cermin Kejujuran Kamar Gelap",
+        bodyHtml: `<p style="font-size:13.5px;line-height:1.6;">Cermin ini memantulkan bayangan cewek paling cantik tapi kadang suka bikin kangen & gemes sendiri... Hayo ngaku, hari ini udah makan tepat waktu belum?! 👀🩸</p>`,
+        buttonText: "Hehe Udah Sayang ♥"
+      });
+    });
+  }
+  if (DOM.btnHorrorGhost) {
+    DOM.btnHorrorGhost.addEventListener("click", () => {
+      playCreepyDoorSound();
+      openModal({
+        icon: "👻",
+        title: "Pesan dari Arwah Posesif",
+        bodyHtml: `<p style="font-size:13.5px;line-height:1.6;">"Booo! Aku adalah hantu kiriman ${escapeHtml(APP_CONFIG.OWNER_NAME)} yang ditugaskan buat nempelin kamu 24 jam biar ngga ada yang berani gangguin kamu dan biar kamu inget terus sama aku!" 👻🩸</p>`,
+        buttonText: "Siap Hantu Sayang ♥"
+      });
+    });
+  }
+  if (DOM.btnHorrorCandle) {
+    DOM.btnHorrorCandle.addEventListener("click", () => {
+      playCreepyDoorSound();
+      triggerHorrorLightning();
+      showToast("🕯️ Api lilin berkedip... Jangan sampai pantangan di bawah dilanggar!");
+    });
+  }
+  if (DOM.btnConfessWa) {
+    DOM.btnConfessWa.addEventListener("click", handleConfessSinsToWa);
+  }
+  if (DOM.btnSpinPunishment) {
+    DOM.btnSpinPunishment.addEventListener("click", handleSpinHorrorPunishment);
+  }
+  if (DOM.btnSignBloodOath) {
+    DOM.btnSignBloodOath.addEventListener("click", handleSignHorrorOath);
+  }
+  if (DOM.btnTriggerJumpscare) {
+    DOM.btnTriggerJumpscare.addEventListener("click", triggerHorrorJumpscare);
+  }
+  if (DOM.btnCloseJumpscare) {
+    DOM.btnCloseJumpscare.addEventListener("click", closeHorrorJumpscare);
+  }
+  if (DOM.btnHorrorMusicToggle) {
+    DOM.btnHorrorMusicToggle.addEventListener("click", toggleHorrorMusic);
+  }
+
+  // Memories Password Keypad (1345, no clue)
+  if (DOM.memPinKeys) {
+    DOM.memPinKeys.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const mkey = btn.getAttribute("data-mkey");
+        if (mkey) handleMemoriesPinKeyPress(mkey);
+      });
+    });
+  }
 
   // Global Modal Close
   if (DOM.modalCloseBtn) {
