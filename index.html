@@ -69,6 +69,32 @@
     --safe-bottom: env(safe-area-inset-bottom, 0px);
   }
 
+  /* THEME 0 (DEFAULT): RAINY COZY (Hujan Syahdu, Dusty Rose & Warm Cocoa) */
+  body[data-color-theme="rainy-cozy"] {
+    --cream: #F4F5FA;
+    --peach: #E2E6F4;
+    --pink: #D6DCF0;
+    --rose: #C84B78;
+    --rose-light: #E87A9F;
+    --lavender: #CFD8EC;
+    --text: #232234;
+    --muted: #62637B;
+    --bg-outer: #D5DBE8;
+    --bg-app: #F4F5FA;
+    --surface-glass: rgba(247, 248, 253, 0.84);
+    --surface-card: rgba(255, 255, 255, 0.93);
+    --border-soft: rgba(200, 75, 120, 0.18);
+    --shadow-soft: 0 14px 36px -6px rgba(35, 34, 52, 0.11), inset 0 1px 0 rgba(255, 255, 255, 0.92);
+    --shadow-float: 0 10px 26px -4px rgba(200, 75, 120, 0.32);
+    --room-wall-top: #E9ECF6;
+    --room-wall-bottom: #DAE0F0;
+    --room-floor-top: #D4C3CE;
+    --room-floor-bottom: #BEA9B7;
+    --sky-top: #5C7396 !important;
+    --sky-bottom: #9BB0CE !important;
+    --lamp-glow-opacity: 0.56;
+  }
+
   /* THEME 2: LILAC DREAM (Korean Cafe Pastel Violet & Periwinkle) */
   body[data-color-theme="lilac-dream"] {
     --cream: #F8F6FE;
@@ -1002,6 +1028,83 @@
     animation: twinkleStar 2.2s infinite ease-in-out alternate;
   }
 
+  /* Animated Rain Streaks Inside Window & Global Rain Layer */
+  .global-rain-layer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 40;
+    overflow: hidden;
+    opacity: 0.7;
+    transition: opacity 0.4s ease;
+  }
+
+  .global-rain-layer.rain-off,
+  body .window-rain-box.rain-off {
+    opacity: 0 !important;
+  }
+
+  .ambient-rain-streak {
+    position: absolute;
+    top: -30px;
+    width: 1.5px;
+    height: 22px;
+    background: linear-gradient(180deg, transparent, rgba(165, 196, 235, 0.55));
+    border-radius: 99px;
+    animation: rainFallDrop 1.2s linear infinite;
+  }
+
+  .window-rain-box {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 2;
+    background: linear-gradient(180deg, rgba(75, 98, 135, 0.28) 0%, rgba(155, 180, 215, 0.18) 100%);
+  }
+
+  .win-raindrop {
+    position: absolute;
+    top: -18px;
+    width: 1.8px;
+    height: 16px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85));
+    border-radius: 99px;
+    animation: winRainFall 0.85s linear infinite;
+  }
+
+  .win-raindrop.r1 { left: 14%; animation-delay: 0s; animation-duration: 0.75s; }
+  .win-raindrop.r2 { left: 28%; animation-delay: 0.3s; animation-duration: 0.9s; }
+  .win-raindrop.r3 { left: 44%; animation-delay: 0.15s; animation-duration: 0.8s; }
+  .win-raindrop.r4 { left: 58%; animation-delay: 0.5s; animation-duration: 0.78s; }
+  .win-raindrop.r5 { left: 72%; animation-delay: 0.22s; animation-duration: 0.88s; }
+  .win-raindrop.r6 { left: 85%; animation-delay: 0.42s; animation-duration: 0.82s; }
+  .win-raindrop.r7 { left: 36%; animation-delay: 0.62s; animation-duration: 0.92s; }
+
+  @keyframes winRainFall {
+    0% { transform: translateY(-10px) translateX(4px) rotate(12deg); opacity: 0; }
+    20% { opacity: 0.9; }
+    100% { transform: translateY(155px) translateX(-16px) rotate(12deg); opacity: 0.2; }
+  }
+
+  @keyframes rainFallDrop {
+    0% { transform: translateY(-25px) translateX(8px) rotate(10deg); opacity: 0; }
+    20% { opacity: 0.75; }
+    100% { transform: translateY(100vh) translateX(-45px) rotate(10deg); opacity: 0; }
+  }
+
+  .window-fog-heart {
+    position: absolute;
+    bottom: 10px;
+    right: 12px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.82);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+    z-index: 3;
+    pointer-events: none;
+    animation: gentleBreath 3s ease-in-out infinite;
+  }
+
   /* OBJECT 2: LIVE WALL CLOCK */
   .obj-clock {
     top: 24px;
@@ -1121,6 +1224,70 @@
   .cat-tail-path {
     transform-origin: 46px 44px;
     animation: waveHand 2.4s ease-in-out infinite;
+  }
+
+  /* OBJECT 11: POJOK PENGHANGAT HUJAN (STEAMING HOT COCOA MUG) */
+  .obj-warm-mug {
+    bottom: 92px;
+    left: 92px;
+    z-index: 8;
+  }
+
+  .mug-steam {
+    animation: floatUpSteam 2.2s ease-in-out infinite;
+  }
+
+  .mug-steam.s2 {
+    animation-delay: 0.9s;
+  }
+
+  @keyframes floatUpSteam {
+    0% { transform: translateY(3px); opacity: 0.2; }
+    50% { transform: translateY(-3px); opacity: 0.9; }
+    100% { transform: translateY(-7px); opacity: 0; }
+  }
+
+  /* Foggy Window Interactive Finger Drawing Canvas */
+  .foggy-window-stage {
+    position: relative;
+    width: 100%;
+    height: 210px;
+    border-radius: 20px;
+    background: linear-gradient(180deg, #35496B 0%, #5F799E 60%, #8CA3C4 100%);
+    border: 3px solid #FFFFFF;
+    box-shadow: 0 8px 24px rgba(35, 34, 52, 0.18), inset 0 0 24px rgba(0, 0, 0, 0.28);
+    overflow: hidden;
+    margin-bottom: 10px;
+    touch-action: none;
+    user-select: none;
+  }
+
+  .foggy-secret-msg {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    text-align: center;
+    color: #FFFFFF;
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .foggy-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    cursor: crosshair;
+    touch-action: none;
   }
 
   /* ==========================================================================
@@ -3488,7 +3655,8 @@
 </style>
 
 </head>
-<body data-time-period="morning">
+<body data-time-period="morning" data-color-theme="rainy-cozy">
+  <div class="global-rain-layer" id="global-rain-layer" aria-hidden="true"></div>
 
   <div class="app-shell" id="app-shell">
     <!-- Screen Hug Pulse Effect -->
@@ -3663,6 +3831,16 @@
           </div>
 
           <div class="top-controls">
+            <!-- Rain Sound & Rain Effect Toggle Button -->
+            <button type="button" class="icon-btn active-toggle" id="btn-rain-toggle" aria-label="Suara & Efek Hujan" title="Suara Rintik Hujan 🌧️">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 16.2A4.5 4.5 0 0 0 17.5 8h-1.8A7 7 0 1 0 4 14.9"></path>
+                <path d="M16 14v6"></path>
+                <path d="M8 14v6"></path>
+                <path d="M12 16v6"></path>
+              </svg>
+            </button>
+
             <!-- Forbidden Horror Door Quick Button -->
             <button type="button" class="icon-btn horror-door-top-btn" id="btn-top-horror-door" aria-label="Buka Pintu Ruang Terlarang (Mode Horror)" title="Pintu Terlarang 🚪">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -3767,8 +3945,8 @@
             <!-- Ambient Room Floating Dust/Sparkles -->
             <div class="room-particles" id="room-particles"></div>
 
-            <!-- 1. INTERACTIVE WINDOW -->
-            <button type="button" class="room-object obj-window" id="obj-window" aria-label="Jendela Kamar">
+            <!-- 1. INTERACTIVE WINDOW (WITH COZY RAIN & FOGGY GLASS DRAWING) -->
+            <button type="button" class="room-object obj-window" id="obj-window" aria-label="Jendela Kamar Hujan">
               <div class="window-frame-box">
                 <div class="window-sun"></div>
                 <div class="window-moon"></div>
@@ -3781,10 +3959,22 @@
                 </div>
                 <div class="window-cloud c1"></div>
                 <div class="window-cloud c2"></div>
+                <!-- Falling Rain Streaks in Window -->
+                <div class="window-rain-box" aria-hidden="true">
+                  <span class="win-raindrop r1"></span>
+                  <span class="win-raindrop r2"></span>
+                  <span class="win-raindrop r3"></span>
+                  <span class="win-raindrop r4"></span>
+                  <span class="win-raindrop r5"></span>
+                  <span class="win-raindrop r6"></span>
+                  <span class="win-raindrop r7"></span>
+                </div>
+                <!-- Cute Foggy Heart Trace on Glass -->
+                <div class="window-fog-heart" aria-hidden="true">♥</div>
                 <div class="window-pane-v"></div>
                 <div class="window-pane-h"></div>
               </div>
-              <span class="obj-label">Jendela</span>
+              <span class="obj-label">Kaca Hujan 🌧️</span>
             </button>
 
             <!-- 2. INTERACTIVE LIVE CLOCK -->
@@ -3969,6 +4159,28 @@
                 <ellipse cx="36" cy="50" rx="4" ry="2.8" fill="#FFF9F5" stroke="#4A3B47" stroke-width="1.8"/>
               </svg>
               <span class="obj-label">Anabul Kita 🐾</span>
+            </button>
+
+            <!-- 11. INTERACTIVE POJOK PENGHANGAT HUJAN (STEAMING HOT COCOA MUG) -->
+            <button type="button" class="room-object obj-warm-mug" id="obj-warm-mug" aria-label="Pojok Penghangat Hujan">
+              <svg width="52" height="54" viewBox="0 0 52 54" fill="none">
+                <!-- Rising Warm Steam Wisp & Mini Heart -->
+                <path class="mug-steam s1" d="M20 16C18 12 22 9 20 5" stroke="#E13D73" stroke-width="1.8" stroke-linecap="round"/>
+                <path class="mug-steam s2" d="M30 15C28 11 32 8 30 4" stroke="#E13D73" stroke-width="1.8" stroke-linecap="round"/>
+                <!-- Saucer -->
+                <ellipse cx="25" cy="46" rx="18" ry="4" fill="#FFE0EC" stroke="#4A3B47" stroke-width="1.8"/>
+                <!-- Mug Handle -->
+                <path d="M37 26H41C43.8 26 46 28.2 46 31C46 33.8 43.8 36 41 36H37" stroke="#4A3B47" stroke-width="2.2" stroke-linecap="round"/>
+                <!-- Mug Body -->
+                <path d="M12 22H38V36C38 41.5 33.5 45 25 45C16.5 45 12 41.5 12 36V22Z" fill="#FFF9FB" stroke="#4A3B47" stroke-width="2"/>
+                <!-- Hot Cocoa Surface & Cute Marshmallows -->
+                <ellipse cx="25" cy="22" rx="13" ry="3.5" fill="#8C584C" stroke="#4A3B47" stroke-width="1.6"/>
+                <rect x="19" y="19.5" width="5" height="3.5" rx="1.5" fill="#FFFFFF"/>
+                <rect x="26" y="20" width="4.5" height="3" rx="1.5" fill="#FFD6E4"/>
+                <!-- Cute Heart on Mug -->
+                <path d="M25 37C25 37 20.5 34.2 20.5 31.8C20.5 30.5 21.5 29.5 22.8 29.5C23.6 29.5 24.4 30 25 30.7C25.6 30 26.4 29.5 27.2 29.5C28.5 29.5 29.5 30.5 29.5 31.8C29.5 34.2 25 37 25 37Z" fill="#E13D73"/>
+              </svg>
+              <span class="obj-label">Penghangat ☕</span>
             </button>
           </div>
 
@@ -5092,7 +5304,9 @@ const AppState = {
   authenticated: false,
   enteredPin: "",
   lampOn: true,
-  colorTheme: "velvet-berry",
+  colorTheme: "rainy-cozy",
+  rainEnabled: true,
+  rainAudioPlaying: false,
   catAffection: 75,
   dreamModeOverride: null, // null = auto, true = forced night, false = forced day
   currentTimePeriod: "morning",
@@ -5160,6 +5374,8 @@ function cacheDOMReferences() {
 
   DOM.mainScreen = document.getElementById("main-screen");
   DOM.roomStatusLabel = document.getElementById("room-status-label");
+  DOM.globalRainLayer = document.getElementById("global-rain-layer");
+  DOM.btnRainToggle = document.getElementById("btn-rain-toggle");
   DOM.btnTopHorrorDoor = document.getElementById("btn-top-horror-door");
   DOM.btnColorTheme = document.getElementById("btn-color-theme");
   DOM.btnDreamMode = document.getElementById("btn-dream-mode");
@@ -5185,6 +5401,7 @@ function cacheDOMReferences() {
   DOM.objTeddy = document.getElementById("obj-teddy");
   DOM.objFirstAid = document.getElementById("obj-first-aid");
   DOM.objCat = document.getElementById("obj-cat");
+  DOM.objWarmMug = document.getElementById("obj-warm-mug");
 
   DOM.carePercentLabel = document.getElementById("care-percent-label");
   DOM.careFillBar = document.getElementById("care-fill-bar");
@@ -5417,7 +5634,12 @@ function initApp() {
   updateTimeEnvironment();
   setInterval(updateTimeEnvironment, 15000);
 
+  // Set default rainy theme if previous default was velvet-berry
+  if (!AppState.colorTheme || AppState.colorTheme === "velvet-berry") {
+    AppState.colorTheme = "rainy-cozy";
+  }
   applyColorTheme(AppState.colorTheme, false);
+  initGlobalRainStreaks();
   applyLampState(false);
   renderDailyCareUI();
   renderVoiceCorner();
@@ -5634,7 +5856,8 @@ function updateTimeEnvironment() {
   }
 
   if (DOM.roomStatusLabel) {
-    DOM.roomStatusLabel.textContent = `Kamar Kita · ${ isDreamActive ? "Dream Mode" : statusText }`;
+    const rainPrefix = AppState.rainEnabled ? "🌧️ Hujan Syahdu · " : "Kamar Kita · ";
+    DOM.roomStatusLabel.textContent = `${rainPrefix}${ isDreamActive ? "Dream Mode" : statusText }`;
   }
 }
 
@@ -5652,6 +5875,12 @@ function toggleDreamModeManual() {
 }
 
 const COLOR_THEMES = [
+  {
+    id: "rainy-cozy",
+    name: "🌧️ Hujan Syahdu",
+    desc: "Mendung romantis, dusty rose & cokelat hangat",
+    colors: ["#C84B78", "#5C7396", "#E2E6F4"]
+  },
   {
     id: "velvet-berry",
     name: "🌸 Berry Velvet",
@@ -5756,33 +5985,280 @@ function applyLampState(withFeedback = true) {
   }
 }
 
-function handleWindowClick() {
-  const periodMap = {
-    morning: {
-      title: "Langit Pagi dari Jendela",
-      text: "Matahari udah naik. Semoga hari kamu dimulai dengan perasaan yang tenang dan langkah yang ringan ya."
-    },
-    afternoon: {
-      title: "Langit Siang Hari Ini",
-      text: "Di luar lagi terang. Jangan terlalu diforsir kerjanya ya, sempetin minum dan istirahat sebentar."
-    },
-    evening: {
-      title: "Warna Senja di Jendela",
-      text: "Langit sore selalu ngingetin aku kalau satu hari lagi udah berhasil kita lewati. Selamat beristirahat sore ini."
-    },
-    night: {
-      title: "Bulan & Bintang Malam Ini",
-      text: "Walau kita lihat dari jendela yang berbeda, langit malam di atas kita tetep sama. Selamat malam ya."
-    }
-  };
+// ==========================================
+// 8B. RAIN AMBIENCE & FOGGY WINDOW + WARM MUG FEATURES
+// ==========================================
 
-  const info = periodMap[AppState.currentTimePeriod] || periodMap.night;
+let rainNoiseNode = null;
+let rainGainNode = null;
+
+function initGlobalRainStreaks() {
+  if (!DOM.globalRainLayer) return;
+  DOM.globalRainLayer.innerHTML = "";
+  for (let i = 0; i < 24; i++) {
+    const drop = document.createElement("span");
+    drop.className = "ambient-rain-streak";
+    drop.style.left = `${Math.random() * 100}%`;
+    drop.style.animationDuration = `${0.9 + Math.random() * 0.7}s`;
+    drop.style.animationDelay = `${Math.random() * 1.5}s`;
+    drop.style.opacity = String(0.35 + Math.random() * 0.45);
+    DOM.globalRainLayer.appendChild(drop);
+  }
+}
+
+function startCozyRainAudio() {
+  try {
+    ensureAudioContext();
+    if (!audioCtx) return;
+    stopCozyRainAudio();
+
+    // Create 2-second buffer of soft filtered pink/brown noise for realistic gentle rain
+    const bufferSize = audioCtx.sampleRate * 2;
+    const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+    const output = buffer.getChannelData(0);
+    let lastOut = 0.0;
+    for (let i = 0; i < bufferSize; i++) {
+      const white = Math.random() * 2 - 1;
+      output[i] = (lastOut + (0.04 * white)) / 1.04;
+      lastOut = output[i];
+      output[i] *= 0.35;
+    }
+
+    rainNoiseNode = audioCtx.createBufferSource();
+    rainNoiseNode.buffer = buffer;
+    rainNoiseNode.loop = true;
+
+    const filter = audioCtx.createBiquadFilter();
+    filter.type = "bandpass";
+    filter.frequency.value = 950;
+    filter.Q.value = 0.7;
+
+    rainGainNode = audioCtx.createGain();
+    rainGainNode.gain.value = 0.14;
+
+    rainNoiseNode.connect(filter);
+    filter.connect(rainGainNode);
+    rainGainNode.connect(audioCtx.destination);
+    rainNoiseNode.start();
+    AppState.rainAudioPlaying = true;
+  } catch (e) {}
+}
+
+function stopCozyRainAudio() {
+  if (rainNoiseNode) {
+    try {
+      rainNoiseNode.stop();
+      rainNoiseNode.disconnect();
+    } catch (e) {}
+    rainNoiseNode = null;
+  }
+  AppState.rainAudioPlaying = false;
+}
+
+function toggleRainEffect() {
+  if (!AppState.rainAudioPlaying && AppState.rainEnabled) {
+    // First click turns ON the soothing rain sound while keeping rain visual ON
+    startCozyRainAudio();
+    if (DOM.btnRainToggle) DOM.btnRainToggle.classList.add("active-toggle");
+    showToast("🌧️ Suara gemericik hujan syahdu dinyalakan~");
+    return;
+  }
+
+  AppState.rainEnabled = !AppState.rainEnabled;
+  const winRainBox = document.querySelector(".window-rain-box");
+
+  if (AppState.rainEnabled) {
+    if (DOM.globalRainLayer) DOM.globalRainLayer.classList.remove("rain-off");
+    if (winRainBox) winRainBox.classList.remove("rain-off");
+    if (DOM.btnRainToggle) DOM.btnRainToggle.classList.add("active-toggle");
+    startCozyRainAudio();
+    showToast("🌧️ Hujan turun lagi di luar kamar kita~");
+  } else {
+    if (DOM.globalRainLayer) DOM.globalRainLayer.classList.add("rain-off");
+    if (winRainBox) winRainBox.classList.add("rain-off");
+    if (DOM.btnRainToggle) DOM.btnRainToggle.classList.remove("active-toggle");
+    stopCozyRainAudio();
+    showToast("🌤️ Hujan reda, suara hujan dimatikan");
+  }
+  updateTimeEnvironment();
+}
+
+const FOGGY_SECRET_NOTES = [
+  "I Love You Dila ♥\nDi luar lagi hujan, jangan lupa pake selimut ya!",
+  "Hujan-hujan gini paling enak peluk kamu 🌧️🫂",
+  "Dingin ya di luar? Tenang, hati aku selalu hangat buat Dila 🤍",
+  "Walau lagi hujan deras, rasa sayangku ke kamu ga pernah luntur ☔💗"
+];
+let foggyNoteIdx = 0;
+
+function handleWindowClick() {
+  playSoftNote(587.33, 0.09);
+  const secretText = FOGGY_SECRET_NOTES[foggyNoteIdx % FOGGY_SECRET_NOTES.length];
+  foggyNoteIdx++;
+
   openModal({
-    icon: AppState.currentTimePeriod === "night" ? "🌙" : "🌤️",
-    title: info.title,
-    bodyHtml: `<p>${info.text}</p>`,
-    buttonText: "Tutup Jendela"
+    icon: "🌧️",
+    title: "Kaca Jendela Berembun",
+    bodyHtml: `
+      <p style="font-size:12px;color:var(--text-secondary);margin-bottom:8px;">
+        Di luar lagi hujan syahdu! <strong>Usap kaca berembun di bawah pakai jari kamu</strong> buat nulis/gambar sesuatu atau lihat pesan rahasia di balik kaca:
+      </p>
+      <div class="foggy-window-stage" id="foggy-window-stage">
+        <div class="foggy-secret-msg" id="foggy-secret-msg">${escapeHtml(secretText).replace(/\n/g, "<br>")}</div>
+        <canvas class="foggy-canvas" id="foggy-glass-canvas" width="310" height="210"></canvas>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:6px;">
+        <button type="button" class="voucher-redeem-btn secondary" id="btn-refog-window" style="flex:1;">
+          💨 Hembuskan Napas (Embunin Lagi)
+        </button>
+      </div>
+    `,
+    buttonText: "Tutup Jendela ♥"
   });
+
+  setTimeout(() => {
+    const canvas = document.getElementById("foggy-glass-canvas");
+    const stage = document.getElementById("foggy-window-stage");
+    const secretEl = document.getElementById("foggy-secret-msg");
+    if (!canvas || !stage) return;
+
+    const rect = stage.getBoundingClientRect();
+    canvas.width = rect.width || 300;
+    canvas.height = rect.height || 210;
+    const ctx = canvas.getContext("2d");
+
+    function fillFogLayer() {
+      ctx.globalCompositeOperation = "source-over";
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+      grad.addColorStop(0, "rgba(235, 242, 252, 0.92)");
+      grad.addColorStop(1, "rgba(212, 224, 242, 0.94)");
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Instruction text on the fog
+      ctx.fillStyle = "rgba(75, 90, 120, 0.65)";
+      ctx.font = "600 13px 'Plus Jakarta Sans', sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("✍️ Usap & Gambar Hati di Sini Pakai Jari", canvas.width / 2, canvas.height / 2 + 4);
+    }
+
+    fillFogLayer();
+
+    let isDrawing = false;
+    function scratchAt(clientX, clientY) {
+      const r = canvas.getBoundingClientRect();
+      const x = clientX - r.left;
+      const y = clientY - r.top;
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.beginPath();
+      ctx.arc(x, y, 20, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    canvas.addEventListener("pointerdown", (e) => {
+      isDrawing = true;
+      scratchAt(e.clientX, e.clientY);
+    });
+    canvas.addEventListener("pointermove", (e) => {
+      if (!isDrawing) return;
+      scratchAt(e.clientX, e.clientY);
+    });
+    window.addEventListener("pointerup", () => {
+      isDrawing = false;
+    }, { once: false });
+
+    const refogBtn = document.getElementById("btn-refog-window");
+    if (refogBtn) {
+      refogBtn.addEventListener("click", () => {
+        playSoftNote(523.25, 0.08);
+        const nextSecret = FOGGY_SECRET_NOTES[foggyNoteIdx % FOGGY_SECRET_NOTES.length];
+        foggyNoteIdx++;
+        if (secretEl) secretEl.innerHTML = escapeHtml(nextSecret).replace(/\n/g, "<br>");
+        fillFogLayer();
+        showToast("💨 Haaah~ Kaca jendela berembun lagi!");
+      });
+    }
+  }, 60);
+}
+
+const WARM_RAINY_TREATS = [
+  {
+    id: "cocoa",
+    icon: "☕",
+    name: "Hot Chocolate Marshmallow",
+    desc: "Cokelat panas kental manis dengan topping marshmallow lembut",
+    reply: "Ini Cokelat Panas Marshmallow spesial buatan aku buat Dila! Tiup dulu pelan-pelan yaa biar ngga kepanasan, semoga hati & badan kamu langsung anget 🍫☕💗"
+  },
+  {
+    id: "matcha",
+    icon: "🍵",
+    name: "Matcha Latte Hangat",
+    desc: "Matcha creamy hangat pas banget ditemenin suara hujan",
+    reply: "Matcha Latte hangat siap disajikan buat tuan putri! Sambil dengerin rintik hujan di kamar ini, rileks dulu yaa sayangku 🍵🌧️✨"
+  },
+  {
+    id: "indomie",
+    icon: "🍜",
+    name: "Indomie Kuah Telur + Rawit",
+    desc: "Menu wajib paling nikmat pas di luar lagi hujan deras",
+    reply: "Ta-daaa! Indomie kuah hangat pakai telur setengah matang & sawi udah mateng nih! Makan yang lahap yaa sayang, jangan sampai perutnya kosong pas hujan 🍜🥚🔥"
+  },
+  {
+    id: "hoodie",
+    icon: "🧥",
+    name: "Pinjem Hoodie & Selimut Aku",
+    desc: "Masuk ke dalam selimut tebal + wangi parfum aku",
+    reply: "Sini masuk ke bawah selimut terus pake hoodie aku biar kamu ngga kedinginan! Anggap aja aku lagi meluk kamu dari belakang sambil dengerin hujan 🧥🫂🤍"
+  }
+];
+
+function openWarmMugModal() {
+  playSoftNote(659.25, 0.09);
+  const itemsHtml = WARM_RAINY_TREATS.map(t => `
+    <button type="button" class="p3k-capsule-btn" data-treat-id="${t.id}">
+      <div class="p3k-pill-icon">${t.icon}</div>
+      <div style="flex:1;">
+        <div class="p3k-pill-title">${t.name}</div>
+        <div class="p3k-pill-sub">${t.desc}</div>
+      </div>
+      <span style="color:var(--rose);font-weight:700;font-size:13px;">Pesan →</span>
+    </button>
+  `).join("");
+
+  openModal({
+    icon: "☕",
+    title: "Pojok Penghangat Hujan Dila",
+    bodyHtml: `
+      <p style="font-size:12.5px;color:var(--text-secondary);margin-bottom:10px;">
+        Di luar lagi hujan dingin nih sayang, kamu mau aku bikinin atau siapin apa biar anget?
+      </p>
+      <div class="p3k-capsule-grid" id="warm-treat-list">
+        ${itemsHtml}
+      </div>
+      <div id="warm-treat-result" style="display:none;margin-top:10px;padding:12px 14px;border-radius:16px;background:rgba(200,75,120,0.1);border:1.5px dashed var(--rose);font-size:12.5px;line-height:1.55;color:var(--text-primary);text-align:left;"></div>
+    `,
+    buttonText: "Makasih Sayang, Anget Banget ♥"
+  });
+
+  if (DOM.modalBody) {
+    const btns = DOM.modalBody.querySelectorAll("[data-treat-id]");
+    const resBox = document.getElementById("warm-treat-result");
+    btns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const tid = btn.getAttribute("data-treat-id");
+        const treat = WARM_RAINY_TREATS.find(x => x.id === tid);
+        if (!treat) return;
+        playSuccessChime();
+        spawnFloatingHearts(window.innerWidth / 2, window.innerHeight / 2, 8);
+        if (resBox) {
+          resBox.style.display = "block";
+          resBox.innerHTML = `<div style="font-weight:700;color:var(--rose);margin-bottom:4px;">${treat.icon} Disajikan Hangat Buat Dila:</div>${escapeHtml(treat.reply)}`;
+        }
+        showToast(`${treat.icon} ${treat.name} siap menghangatkan kamu!`);
+      });
+    });
+  }
 }
 
 function handleClockClick() {
@@ -8075,6 +8551,9 @@ function bindEventListeners() {
   });
 
   // Top Bar Controls
+  if (DOM.btnRainToggle) {
+    DOM.btnRainToggle.addEventListener("click", toggleRainEffect);
+  }
   if (DOM.btnTopHorrorDoor) {
     DOM.btnTopHorrorDoor.addEventListener("click", () => {
       const isHorrorOpen = document.getElementById("view-horror")?.classList.contains("active-view");
@@ -8126,6 +8605,7 @@ function bindEventListeners() {
   if (DOM.objAvatar) DOM.objAvatar.addEventListener("click", handleAvatarClick);
   if (DOM.objFirstAid) DOM.objFirstAid.addEventListener("click", openFirstAidModal);
   if (DOM.objCat) DOM.objCat.addEventListener("click", openCatPetModal);
+  if (DOM.objWarmMug) DOM.objWarmMug.addEventListener("click", openWarmMugModal);
 
   // 3-in-1 Sweet Widget (Mood, Love Battery, & Janji Manis Checklist)
   if (DOM.sweetModeTabs) {
