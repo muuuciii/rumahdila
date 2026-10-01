@@ -1028,30 +1028,9 @@
     animation: twinkleStar 2.2s infinite ease-in-out alternate;
   }
 
-  /* Animated Rain Streaks Inside Window & Global Rain Layer */
-  .global-rain-layer {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 40;
-    overflow: hidden;
-    opacity: 0.7;
-    transition: opacity 0.4s ease;
-  }
-
-  .global-rain-layer.rain-off,
+  /* Animated Rain Streaks & Canvas Strictly Inside Window */
   body .window-rain-box.rain-off {
     opacity: 0 !important;
-  }
-
-  .ambient-rain-streak {
-    position: absolute;
-    top: -30px;
-    width: 1.5px;
-    height: 22px;
-    background: linear-gradient(180deg, transparent, rgba(165, 196, 235, 0.55));
-    border-radius: 99px;
-    animation: rainFallDrop 1.2s linear infinite;
   }
 
   .window-rain-box {
@@ -1060,17 +1039,28 @@
     overflow: hidden;
     pointer-events: none;
     z-index: 2;
-    background: linear-gradient(180deg, rgba(75, 98, 135, 0.28) 0%, rgba(155, 180, 215, 0.18) 100%);
+    background: linear-gradient(180deg, rgba(42, 64, 98, 0.45) 0%, rgba(105, 138, 182, 0.25) 100%);
+    transition: opacity 0.35s ease;
+  }
+
+  .window-rain-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
   }
 
   .win-raindrop {
     position: absolute;
     top: -18px;
-    width: 1.8px;
-    height: 16px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85));
+    width: 2.2px;
+    height: 18px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0), #FFFFFF);
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.85);
     border-radius: 99px;
-    animation: winRainFall 0.85s linear infinite;
+    animation: winRainFall 0.72s linear infinite;
   }
 
   .win-raindrop.r1 { left: 14%; animation-delay: 0s; animation-duration: 0.75s; }
@@ -3644,19 +3634,10 @@
     -webkit-box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .30), 0 1px 3px 1px rgba(60, 64, 67, .15);
     box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .30), 0 1px 3px 1px rgba(60, 64, 67, .15);
   }
-
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
-  }
 </style>
 
 </head>
 <body data-time-period="morning" data-color-theme="rainy-cozy">
-  <div class="global-rain-layer" id="global-rain-layer" aria-hidden="true"></div>
 
   <div class="app-shell" id="app-shell">
     <!-- Screen Hug Pulse Effect -->
@@ -3959,8 +3940,9 @@
                 </div>
                 <div class="window-cloud c1"></div>
                 <div class="window-cloud c2"></div>
-                <!-- Falling Rain Streaks in Window -->
-                <div class="window-rain-box" aria-hidden="true">
+                <!-- Falling Rain Streaks & Canvas strictly inside Window -->
+                <div class="window-rain-box" id="window-rain-box" aria-hidden="true">
+                  <canvas class="window-rain-canvas" id="window-rain-canvas" width="118" height="142"></canvas>
                   <span class="win-raindrop r1"></span>
                   <span class="win-raindrop r2"></span>
                   <span class="win-raindrop r3"></span>
@@ -5991,19 +5973,97 @@ function applyLampState(withFeedback = true) {
 
 let rainNoiseNode = null;
 let rainGainNode = null;
+let rainCanvasAnimId = null;
 
 function initGlobalRainStreaks() {
-  if (!DOM.globalRainLayer) return;
-  DOM.globalRainLayer.innerHTML = "";
-  for (let i = 0; i < 24; i++) {
-    const drop = document.createElement("span");
-    drop.className = "ambient-rain-streak";
-    drop.style.left = `${Math.random() * 100}%`;
-    drop.style.animationDuration = `${0.9 + Math.random() * 0.7}s`;
-    drop.style.animationDelay = `${Math.random() * 1.5}s`;
-    drop.style.opacity = String(0.35 + Math.random() * 0.45);
-    DOM.globalRainLayer.appendChild(drop);
+  startRainCanvasLoop();
+}
+
+function startRainCanvasLoop() {
+  const canvas = document.getElementById("window-rain-canvas");
+  if (!canvas) return;
+
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+
+  canvas.width = 118;
+  canvas.height = 142;
+
+  const drops = [];
+  const splashes = [];
+  const dropCount = 18;
+
+  for (let i = 0; i < dropCount; i++) {
+    drops.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      len: 10 + Math.random() * 10,
+      speedY: 2.8 + Math.random() * 2.2,
+      speedX: -0.6 - Math.random() * 0.4,
+      alpha: 0.55 + Math.random() * 0.4
+    });
   }
+
+  if (rainCanvasAnimId) cancelAnimationFrame(rainCanvasAnimId);
+
+  function renderFrame() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    if (AppState.rainEnabled) {
+      ctx.lineCap = "round";
+      ctx.lineWidth = 1.6;
+
+      for (let i = 0; i < drops.length; i++) {
+        const d = drops[i];
+        ctx.strokeStyle = `rgba(240, 248, 255, ${d.alpha})`;
+
+        ctx.beginPath();
+        ctx.moveTo(d.x, d.y);
+        ctx.lineTo(d.x + d.speedX * 2.2, d.y + d.len);
+        ctx.stroke();
+
+        d.x += d.speedX;
+        d.y += d.speedY;
+
+        if (d.y > canvas.height) {
+          if (Math.random() < 0.45 && splashes.length < 8) {
+            splashes.push({
+              x: d.x,
+              y: canvas.height - 4 - Math.random() * 8,
+              r: 0.8,
+              maxR: 3.5 + Math.random() * 2.5,
+              alpha: 0.75
+            });
+          }
+          d.y = -14;
+          d.x = Math.random() * (canvas.width + 24);
+        }
+        if (d.x < -10) {
+          d.x = canvas.width + 10;
+        }
+      }
+
+      // Draw cute water splash ripples on the window sill
+      for (let j = splashes.length - 1; j >= 0; j--) {
+        const s = splashes[j];
+        ctx.strokeStyle = `rgba(255, 255, 255, ${s.alpha})`;
+        ctx.lineWidth = 1.1;
+        ctx.beginPath();
+        ctx.ellipse(s.x, s.y, s.r * 1.6, s.r * 0.6, 0, 0, Math.PI * 2);
+        ctx.stroke();
+
+        s.r += 0.22;
+        s.alpha -= 0.035;
+        if (s.alpha <= 0 || s.r >= s.maxR) {
+          splashes.splice(j, 1);
+        }
+      }
+    }
+
+    rainCanvasAnimId = requestAnimationFrame(renderFrame);
+  }
+
+  renderFrame();
 }
 
 function startCozyRainAudio() {
