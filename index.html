@@ -861,6 +861,140 @@
     transition: background 0.5s ease;
   }
 
+  /* Room Cleaning Bar & Spider Webs */
+  .room-clean-bar {
+    position: absolute;
+    top: 7px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 25;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(10px);
+    border: 1.5px solid rgba(225, 61, 115, 0.25);
+    border-radius: 999px;
+    padding: 3px 5px 3px 10px;
+    box-shadow: 0 4px 14px rgba(44, 26, 38, 0.12);
+    max-width: 94%;
+    transition: all 0.3s ease;
+  }
+
+  body.dream-mode .room-clean-bar,
+  body[data-time-period="night"] .room-clean-bar {
+    background: rgba(38, 29, 64, 0.94);
+    border-color: rgba(220, 198, 240, 0.3);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  }
+
+  .room-clean-bar.all-cleaned {
+    border-color: rgba(92, 176, 142, 0.5);
+    background: rgba(245, 255, 250, 0.92);
+  }
+
+  body.dream-mode .room-clean-bar.all-cleaned,
+  body[data-time-period="night"] .room-clean-bar.all-cleaned {
+    background: rgba(30, 48, 40, 0.94);
+    border-color: rgba(140, 220, 180, 0.4);
+  }
+
+  .btn-clean-action {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-primary);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    padding: 3px 0;
+  }
+
+  .clean-broom-icon {
+    font-size: 14px;
+    animation: gentleWiggle 2.5s ease-in-out infinite;
+  }
+
+  .btn-clean-all {
+    font-size: 10px;
+    font-weight: 700;
+    color: #FFFFFF;
+    background: linear-gradient(135deg, var(--rose), var(--rose-light));
+    border: none;
+    border-radius: 999px;
+    padding: 4px 9px;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(225, 61, 115, 0.32);
+    transition: transform 0.15s ease, filter 0.2s ease;
+  }
+
+  .btn-clean-all:active {
+    transform: scale(0.93);
+  }
+
+  .room-cobwebs-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 12;
+  }
+
+  .cobweb-item {
+    position: absolute;
+    pointer-events: auto;
+    cursor: pointer;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+    filter: drop-shadow(0 2px 4px rgba(44, 26, 38, 0.16));
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .cobweb-item:hover {
+    transform: scale(1.08);
+  }
+
+  .cobweb-item:active {
+    transform: scale(0.85);
+  }
+
+  .cobweb-item.poof-cleaning {
+    animation: cobwebPoof 0.42s ease-out forwards;
+    pointer-events: none;
+  }
+
+  @keyframes cobwebPoof {
+    0% { transform: scale(1); opacity: 1; filter: brightness(1.2); }
+    45% { transform: scale(1.25) rotate(8deg); opacity: 0.8; filter: brightness(2) blur(1px); }
+    100% { transform: scale(0.08) rotate(-15deg); opacity: 0; filter: blur(3px); }
+  }
+
+  .spider-dangle {
+    transform-origin: top center;
+    animation: spiderSway 3.2s ease-in-out infinite alternate;
+  }
+
+  @keyframes spiderSway {
+    0% { transform: rotate(-6deg); }
+    100% { transform: rotate(6deg); }
+  }
+
+  .dust-sparkle {
+    position: absolute;
+    pointer-events: none;
+    font-size: 13px;
+    animation: dustFloat 0.75s ease-out forwards;
+    z-index: 30;
+  }
+
+  @keyframes dustFloat {
+    0% { transform: translate(0, 0) scale(0.5); opacity: 1; }
+    100% { transform: translate(var(--tx, 0px), var(--ty, -28px)) scale(1.2); opacity: 0; }
+  }
+
   /* Interactive Room Object Base */
   .room-object {
     position: absolute;
@@ -3902,6 +4036,20 @@
              ================================================================ -->
         <div id="view-home" class="tab-view active-view">
           <div class="room-scene-wrapper" id="room-scene">
+            <!-- Interactive Cleaning Bar (Sarang Laba-Laba & Sapu Bersih) -->
+            <div class="room-clean-bar" id="room-clean-bar">
+              <button type="button" class="btn-clean-action" id="btn-clean-action" title="Ketuk untuk melihat status kebersihan kamar">
+                <span class="clean-broom-icon">🧹</span>
+                <span id="clean-status-label">Bersihkan Sarang Laba-Laba (<strong id="clean-count-num">8</strong>)</span>
+              </button>
+              <button type="button" class="btn-clean-all" id="btn-clean-all" title="Sapu bersih semua sarang laba-laba sekaligus">
+                Sapu Semua ✨
+              </button>
+            </div>
+
+            <!-- Cobwebs Container -->
+            <div class="room-cobwebs-container" id="room-cobwebs-container"></div>
+
             <!-- Warm Twinkling Fairy String Lights -->
             <div class="room-fairy-lights" aria-hidden="true">
               <svg class="fairy-wire-svg" viewBox="0 0 400 36" preserveAspectRatio="none">
@@ -5327,7 +5475,8 @@ const AppState = {
   horrorOathSigned: false,
   memoriesUnlocked: false,
   enteredMemoriesPin: "",
-  horrorMusicEnabled: true
+  horrorMusicEnabled: true,
+  cobwebsCleaned: []
 };
 
 // Web Audio API Context for Fallback Melodies & Ambience
@@ -5384,6 +5533,13 @@ function cacheDOMReferences() {
   DOM.objFirstAid = document.getElementById("obj-first-aid");
   DOM.objCat = document.getElementById("obj-cat");
   DOM.objWarmMug = document.getElementById("obj-warm-mug");
+
+  DOM.roomCobwebsContainer = document.getElementById("room-cobwebs-container");
+  DOM.roomCleanBar = document.getElementById("room-clean-bar");
+  DOM.btnCleanAction = document.getElementById("btn-clean-action");
+  DOM.btnSweepAllWebs = document.getElementById("btn-sweep-all-webs");
+  DOM.cleanStatusLabel = document.getElementById("clean-status-label");
+  DOM.cleanCountNum = document.getElementById("clean-count-num");
 
   DOM.carePercentLabel = document.getElementById("care-percent-label");
   DOM.careFillBar = document.getElementById("care-fill-bar");
@@ -5525,6 +5681,9 @@ function loadState() {
     if (typeof parsed.horrorOathSigned === "boolean") {
       AppState.horrorOathSigned = parsed.horrorOathSigned;
     }
+    if (Array.isArray(parsed.cobwebsCleaned)) {
+      AppState.cobwebsCleaned = parsed.cobwebsCleaned;
+    }
 
     if (!APP_CONFIG.REQUIRE_PIN && parsed.authenticated) {
       AppState.authenticated = true;
@@ -5552,6 +5711,7 @@ function saveState() {
       voucherHistory: AppState.voucherHistory,
       horrorSins: AppState.horrorSins,
       horrorOathSigned: AppState.horrorOathSigned,
+      cobwebsCleaned: AppState.cobwebsCleaned,
       ambientAudio: {
         mode: AppState.ambientAudio.mode,
         volume: AppState.ambientAudio.volume
@@ -5630,6 +5790,7 @@ function initApp() {
   renderDailySurpriseState();
   renderVouchers();
   renderHorrorRoom();
+  renderCobwebs();
   createAmbientParticles();
   bindEventListeners();
   runSplashSequence();
@@ -5762,6 +5923,29 @@ function verifyPinInput() {
       switchScreen("main-screen");
       startVirtualPresenceLoop();
       triggerAvatarReaction("Seneng banget kamu udah masuk ke kamar kita.");
+
+      // Popup romantis: "aku tuh kangen banget sama kamu"
+      setTimeout(() => {
+        openModal({
+          icon: "🥺💗",
+          title: "Aku Tuh Kangen Banget Sama Kamu!",
+          bodyHtml: `
+            <div style="text-align:center;padding:4px 2px;">
+              <p style="font-size:15.5px;line-height:1.6;font-weight:700;color:var(--rose);margin-bottom:10px;">
+                "Aku tuh kangen banget, bangeet sama kamu... 🥺💗"
+              </p>
+              <p style="font-size:13px;line-height:1.65;color:var(--text-secondary);margin-bottom:12px;">
+                Makasih banyak ya udah dateng dan buka kamar kita lagi hari ini. Tiap detik rasanya pengen ada di sebelah kamu, denger suara kamu, dan meluk kamu langsung.
+              </p>
+              <div style="padding:10px 14px;border-radius:16px;background:rgba(225,61,115,0.08);border:1.5px dashed var(--rose);font-size:12px;color:var(--text-primary);line-height:1.55;text-align:left;">
+                🕸️ <strong>Ssst, ada sarang laba-laba!</strong><br>
+                Kamar kita sempet banyak sarang laba-laba nih karena kangen kamu. Yuk bantu bersihin! Kamu bisa langsung ketuk tiap sarang laba-laba di ruangan buat disapu yaa 🧹✨
+              </div>
+            </div>
+          `,
+          buttonText: "Peluk Dulu & Masuk Kamar ♥"
+        });
+      }, 420);
     }, 520);
   } else {
     // WRONG PIN -> Shake, Vibrate, Clear, Show Romantic Modal
@@ -6319,6 +6503,325 @@ function openWarmMugModal() {
       });
     });
   }
+}
+
+// ==========================================
+// 8C. SPIDER WEBS (SARANG LABA-LABA) & CLEANING SYSTEM
+// ==========================================
+
+const ROOM_COBWEBS = [
+  {
+    id: "web-top-left",
+    name: "Sarang Pojok Kiri Atas",
+    style: "top: 0; left: 0; width: 74px; height: 74px;",
+    type: "corner-left"
+  },
+  {
+    id: "web-top-right",
+    name: "Sarang Pojok Kanan Atas",
+    style: "top: 0; right: 0; width: 76px; height: 76px;",
+    type: "corner-right"
+  },
+  {
+    id: "web-ceiling-left",
+    name: "Sarang Lampu Kiri",
+    style: "top: 3px; left: 24%; width: 56px; height: 48px;",
+    type: "hanging"
+  },
+  {
+    id: "web-ceiling-right",
+    name: "Sarang Lampu Kanan",
+    style: "top: 3px; right: 24%; width: 56px; height: 48px;",
+    type: "hanging"
+  },
+  {
+    id: "web-wall-window",
+    name: "Sarang Samping Jendela",
+    style: "top: 170px; left: 4px; width: 62px; height: 56px;",
+    type: "corner-left"
+  },
+  {
+    id: "web-bookshelf",
+    name: "Sarang Rak Buku",
+    style: "top: 76px; left: 58%; width: 56px; height: 50px;",
+    type: "corner-right"
+  },
+  {
+    id: "web-floor-left",
+    name: "Sarang Kolong Meja",
+    style: "bottom: 8px; left: 6px; width: 64px; height: 52px;",
+    type: "floor-left"
+  },
+  {
+    id: "web-floor-right",
+    name: "Sarang Dekat Teddy",
+    style: "bottom: 8px; right: 6px; width: 65px; height: 55px;",
+    type: "floor-right"
+  }
+];
+
+function getCobwebSvg(type) {
+  if (type === "corner-left") {
+    return `
+      <svg viewBox="0 0 80 80" width="100%" height="100%" fill="none" aria-hidden="true">
+        <path d="M0 0 L80 0 M0 0 L0 80 M0 0 L70 30 M0 0 L55 55 M0 0 L30 70" stroke="rgba(255,255,255,0.78)" stroke-width="1.3"/>
+        <path d="M22 0 Q18 10 0 22" stroke="rgba(255,255,255,0.85)" stroke-width="1.2" fill="none"/>
+        <path d="M44 0 Q36 20 0 44" stroke="rgba(255,255,255,0.85)" stroke-width="1.2" fill="none"/>
+        <path d="M68 0 Q54 30 0 68" stroke="rgba(255,255,255,0.8)" stroke-width="1.2" fill="none"/>
+        <g class="spider-dangle" style="transform-origin: 50px 25px;">
+          <line x1="50" y1="25" x2="50" y2="52" stroke="rgba(255,255,255,0.8)" stroke-width="0.9" stroke-dasharray="2 1"/>
+          <path d="M46 54 Q42 50 44 48 M46 56 Q41 56 43 59 M54 54 Q58 50 56 48 M54 56 Q59 56 57 59" stroke="#3D2E3A" stroke-width="1.2" fill="none"/>
+          <circle cx="50" cy="54" r="4.2" fill="#3D2E3A"/>
+          <circle cx="48.5" cy="53" r="1.1" fill="#FFFFFF"/>
+          <circle cx="51.5" cy="53" r="1.1" fill="#FFFFFF"/>
+          <circle cx="48.8" cy="53.2" r="0.6" fill="#000000"/>
+          <circle cx="51.8" cy="53.2" r="0.6" fill="#000000"/>
+        </g>
+      </svg>
+    `;
+  }
+  if (type === "corner-right") {
+    return `
+      <svg viewBox="0 0 80 80" width="100%" height="100%" fill="none" aria-hidden="true">
+        <path d="M80 0 L0 0 M80 0 L80 80 M80 0 L10 30 M80 0 L25 55 M80 0 L50 70" stroke="rgba(255,255,255,0.78)" stroke-width="1.3"/>
+        <path d="M58 0 Q62 10 80 22" stroke="rgba(255,255,255,0.85)" stroke-width="1.2" fill="none"/>
+        <path d="M36 0 Q44 20 80 44" stroke="rgba(255,255,255,0.85)" stroke-width="1.2" fill="none"/>
+        <path d="M12 0 Q26 30 80 68" stroke="rgba(255,255,255,0.8)" stroke-width="1.2" fill="none"/>
+        <g class="spider-dangle" style="transform-origin: 30px 25px;">
+          <line x1="30" y1="20" x2="30" y2="48" stroke="rgba(255,255,255,0.8)" stroke-width="0.9" stroke-dasharray="2 1"/>
+          <path d="M26 50 Q22 46 24 44 M26 52 Q21 52 23 55 M34 50 Q38 46 36 44 M34 52 Q39 52 37 55" stroke="#3D2E3A" stroke-width="1.2" fill="none"/>
+          <circle cx="30" cy="50" r="4.2" fill="#3D2E3A"/>
+          <circle cx="28.5" cy="49" r="1.1" fill="#FFFFFF"/>
+          <circle cx="31.5" cy="49" r="1.1" fill="#FFFFFF"/>
+          <circle cx="28.8" cy="49.2" r="0.6" fill="#000000"/>
+          <circle cx="31.8" cy="49.2" r="0.6" fill="#000000"/>
+        </g>
+      </svg>
+    `;
+  }
+  if (type === "hanging") {
+    return `
+      <svg viewBox="0 0 60 50" width="100%" height="100%" fill="none" aria-hidden="true">
+        <path d="M5 0 Q30 20 55 0 M12 0 Q30 32 48 0 M22 0 Q30 42 38 0" stroke="rgba(255,255,255,0.8)" stroke-width="1.2"/>
+        <g class="spider-dangle" style="transform-origin: 30px 0;">
+          <line x1="30" y1="0" x2="30" y2="36" stroke="rgba(255,255,255,0.8)" stroke-width="0.9" stroke-dasharray="2 1"/>
+          <path d="M26 38 Q22 34 24 32 M26 40 Q21 40 23 43 M34 38 Q38 34 36 32 M34 40 Q39 40 37 43" stroke="#3D2E3A" stroke-width="1.1" fill="none"/>
+          <circle cx="30" cy="38" r="3.8" fill="#3D2E3A"/>
+          <circle cx="28.8" cy="37.2" r="1" fill="#FFFFFF"/>
+          <circle cx="31.2" cy="37.2" r="1" fill="#FFFFFF"/>
+          <circle cx="29" cy="37.4" r="0.5" fill="#000000"/>
+          <circle cx="31.4" cy="37.4" r="0.5" fill="#000000"/>
+        </g>
+      </svg>
+    `;
+  }
+  if (type === "floor-left") {
+    return `
+      <svg viewBox="0 0 70 60" width="100%" height="100%" fill="none" aria-hidden="true">
+        <path d="M0 60 L60 60 M0 60 L0 10 M0 60 L50 25 M0 60 L35 15 M0 60 L55 42" stroke="rgba(255,255,255,0.78)" stroke-width="1.2"/>
+        <path d="M20 60 Q15 50 0 40" stroke="rgba(255,255,255,0.82)" stroke-width="1.1" fill="none"/>
+        <path d="M40 60 Q30 38 0 20" stroke="rgba(255,255,255,0.82)" stroke-width="1.1" fill="none"/>
+        <circle cx="28" cy="42" r="3.6" fill="#3D2E3A"/>
+        <circle cx="27" cy="41.2" r="0.9" fill="#FFF"/>
+        <circle cx="29" cy="41.2" r="0.9" fill="#FFF"/>
+      </svg>
+    `;
+  }
+  // floor-right
+  return `
+    <svg viewBox="0 0 70 60" width="100%" height="100%" fill="none" aria-hidden="true">
+      <path d="M70 60 L10 60 M70 60 L70 10 M70 60 L20 25 M70 60 L35 15 M70 60 L15 42" stroke="rgba(255,255,255,0.78)" stroke-width="1.2"/>
+      <path d="M50 60 Q55 50 70 40" stroke="rgba(255,255,255,0.82)" stroke-width="1.1" fill="none"/>
+      <path d="M30 60 Q40 38 70 20" stroke="rgba(255,255,255,0.82)" stroke-width="1.1" fill="none"/>
+      <circle cx="42" cy="42" r="3.6" fill="#3D2E3A"/>
+      <circle cx="41" cy="41.2" r="0.9" fill="#FFF"/>
+      <circle cx="43" cy="41.2" r="0.9" fill="#FFF"/>
+    </svg>
+  `;
+}
+
+function playCobwebPoofSound() {
+  try {
+    ensureAudioContext();
+    if (!audioCtx) return;
+    const now = audioCtx.currentTime;
+
+    // Soft gentle sweeping brush swoosh
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(520, now);
+    osc.frequency.exponentialRampToValueAtTime(880, now + 0.12);
+    gain.gain.setValueAtTime(0.08, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start(now);
+    osc.stop(now + 0.18);
+
+    // Sparkle harmonic chime
+    setTimeout(() => {
+      if (!audioCtx) return;
+      playSoftNote(1046.5, 0.08); // High C6 sparkle
+    }, 70);
+  } catch (e) {}
+}
+
+function spawnDustSparkles(x, y) {
+  const chars = ["✨", "🧹", "✦", "💨", "✨"];
+  for (let i = 0; i < 5; i++) {
+    const spark = document.createElement("span");
+    spark.className = "dust-sparkle";
+    spark.textContent = chars[i];
+    spark.style.left = `${x}px`;
+    spark.style.top = `${y}px`;
+
+    const tx = (Math.random() - 0.5) * 60;
+    const ty = -18 - Math.random() * 32;
+    spark.style.setProperty("--tx", `${tx}px`);
+    spark.style.setProperty("--ty", `${ty}px`);
+
+    document.body.appendChild(spark);
+    setTimeout(() => spark.remove(), 750);
+  }
+}
+
+function renderCobwebs() {
+  if (!DOM.roomCobwebsContainer) return;
+  DOM.roomCobwebsContainer.innerHTML = "";
+
+  const uncleaned = ROOM_COBWEBS.filter(w => !AppState.cobwebsCleaned.includes(w.id));
+  const uncleanedCount = uncleaned.length;
+
+  if (DOM.cleanCountNum) DOM.cleanCountNum.textContent = String(uncleanedCount);
+
+  if (uncleanedCount === 0) {
+    if (DOM.roomCleanBar) DOM.roomCleanBar.classList.add("all-cleaned");
+    if (DOM.cleanStatusLabel) {
+      DOM.cleanStatusLabel.innerHTML = '✨ Rumah Bersih! (Ketuk buat bikin sarang lagi 🕸️)';
+    }
+    if (DOM.btnSweepAllWebs) DOM.btnSweepAllWebs.style.display = "none";
+    return;
+  }
+
+  if (DOM.roomCleanBar) DOM.roomCleanBar.classList.remove("all-cleaned");
+  if (DOM.cleanStatusLabel) {
+    DOM.cleanStatusLabel.innerHTML = `Bersihkan Sarang Laba-Laba (<strong id="clean-count-num">${uncleanedCount}</strong>)`;
+  }
+  if (DOM.btnSweepAllWebs) DOM.btnSweepAllWebs.style.display = "inline-block";
+
+  uncleaned.forEach(w => {
+    const el = document.createElement("div");
+    el.className = "cobweb-item";
+    el.id = `cobweb-${w.id}`;
+    el.style.cssText = w.style;
+    el.title = `Ketuk untuk bersihkan ${w.name} 🧹`;
+    el.setAttribute("role", "button");
+    el.setAttribute("aria-label", `Sarang laba-laba: ${w.name}`);
+    el.innerHTML = getCobwebSvg(w.type);
+
+    el.addEventListener("click", (e) => {
+      e.stopPropagation();
+      cleanSingleCobweb(w.id, el);
+    });
+
+    DOM.roomCobwebsContainer.appendChild(el);
+  });
+}
+
+function cleanSingleCobweb(webId, el) {
+  if (AppState.cobwebsCleaned.includes(webId)) return;
+
+  AppState.cobwebsCleaned.push(webId);
+  saveState();
+
+  playCobwebPoofSound();
+
+  const rect = el.getBoundingClientRect();
+  spawnDustSparkles(rect.left + rect.width / 2, rect.top + rect.height / 2);
+
+  el.classList.add("poof-cleaning");
+  setTimeout(() => {
+    el.remove();
+  }, 400);
+
+  const remaining = ROOM_COBWEBS.filter(w => !AppState.cobwebsCleaned.includes(w.id)).length;
+  if (DOM.cleanCountNum) DOM.cleanCountNum.textContent = String(remaining);
+
+  if (remaining > 0) {
+    showToast(`🧹 Swwshh! 1 sarang dibersihkan, tersisa ${remaining} lagi.`);
+  } else {
+    // All cleaned!
+    setTimeout(() => {
+      onAllCobwebsCleaned();
+    }, 450);
+  }
+}
+
+function sweepAllCobwebs() {
+  const uncleaned = ROOM_COBWEBS.filter(w => !AppState.cobwebsCleaned.includes(w.id));
+  if (uncleaned.length === 0) {
+    resetCobwebs();
+    return;
+  }
+
+  showToast("🧹 Menyapu bersih semua sarang laba-laba...");
+
+  uncleaned.forEach((w, idx) => {
+    setTimeout(() => {
+      const el = document.getElementById(`cobweb-${w.id}`);
+      if (el) {
+        cleanSingleCobweb(w.id, el);
+      } else {
+        if (!AppState.cobwebsCleaned.includes(w.id)) {
+          AppState.cobwebsCleaned.push(w.id);
+          saveState();
+        }
+      }
+      if (idx === uncleaned.length - 1) {
+        setTimeout(onAllCobwebsCleaned, 450);
+      }
+    }, idx * 110);
+  });
+}
+
+function onAllCobwebsCleaned() {
+  playSuccessChime();
+  spawnFloatingHearts(window.innerWidth / 2, window.innerHeight / 2, 10);
+
+  if (DOM.roomCleanBar) DOM.roomCleanBar.classList.add("all-cleaned");
+  if (DOM.cleanStatusLabel) {
+    DOM.cleanStatusLabel.innerHTML = '✨ Rumah Bersih! (Ketuk buat bikin sarang lagi 🕸️)';
+  }
+  if (DOM.btnSweepAllWebs) DOM.btnSweepAllWebs.style.display = "none";
+
+  openModal({
+    icon: "🧹✨",
+    title: "Kamar Kita Bersih Lagi!",
+    bodyHtml: `
+      <div style="text-align:center;padding:4px 0;">
+        <p style="font-size:15px;line-height:1.6;font-weight:700;color:var(--rose);margin-bottom:8px;">
+          "Wahh, makasih banyak ya Dila sayang! 🥰💖"
+        </p>
+        <p style="font-size:13px;line-height:1.65;color:var(--text-secondary);margin-bottom:12px;">
+          Semua sarang laba-laba udah bersih disapu! Sekarang kamar kita jadi rapi, wangi, dan nyaman lagi buat kita berdua singgah kapan aja.
+        </p>
+        <div style="padding:10px 14px;border-radius:16px;background:rgba(92,176,142,0.12);border:1px dashed #5CB08E;font-size:12px;color:var(--text-primary);line-height:1.5;">
+          🏠 <em>"Rumah ini selalu siap nyambut kamu pulang, kapan pun kamu butuh tempat istirahat."</em>
+        </div>
+      </div>
+    `,
+    buttonText: "Peluk Erat-Erat ♥"
+  });
+}
+
+function resetCobwebs() {
+  AppState.cobwebsCleaned = [];
+  saveState();
+  playSoftNote(659.25, 0.1);
+  renderCobwebs();
+  showToast("🕸️ Sarang laba-laba muncul lagi! Siap dibersihkan bareng-bareng yaa~");
 }
 
 function handleClockClick() {
@@ -8666,6 +9169,40 @@ function bindEventListeners() {
   if (DOM.objFirstAid) DOM.objFirstAid.addEventListener("click", openFirstAidModal);
   if (DOM.objCat) DOM.objCat.addEventListener("click", openCatPetModal);
   if (DOM.objWarmMug) DOM.objWarmMug.addEventListener("click", openWarmMugModal);
+
+  // Cobwebs Cleaning Controls
+  if (DOM.btnCleanAction) {
+    DOM.btnCleanAction.addEventListener("click", () => {
+      const remaining = ROOM_COBWEBS.filter(w => !AppState.cobwebsCleaned.includes(w.id)).length;
+      if (remaining === 0) {
+        resetCobwebs();
+      } else {
+        openModal({
+          icon: "🧹",
+          title: "Bersihkan Sarang Laba-Laba",
+          bodyHtml: `
+            <p style="font-size:13px;line-height:1.6;margin-bottom:10px;">
+              Ada <strong>${remaining} sarang laba-laba</strong> di sudut-sudut kamar kita!
+            </p>
+            <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.55;">
+              Kamu bisa langsung ketuk sarang laba-laba di dinding/sudut ruangan buat disapu, atau klik tombol di bawah buat langsung sapu bersih semuanya sekaligus:
+            </p>
+          `,
+          buttonText: "Sapu Semua Bersih ✨",
+          onConfirm: () => {
+            closeModal();
+            sweepAllCobwebs();
+          }
+        });
+      }
+    });
+  }
+  if (DOM.btnSweepAllWebs) {
+    DOM.btnSweepAllWebs.addEventListener("click", (e) => {
+      e.stopPropagation();
+      sweepAllCobwebs();
+    });
+  }
 
   // 3-in-1 Sweet Widget (Mood, Love Battery, & Janji Manis Checklist)
   if (DOM.sweetModeTabs) {
