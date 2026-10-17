@@ -5726,6 +5726,68 @@
     color: #292524;
   }
 
+
+  /* FIX FINAL: teks pertanyaan dan pilihan jawaban challenge harus terbaca
+     termasuk saat step masih berstatus locked. */
+  .dojo-seal-challenge-modal .seal-step-item.locked {
+    opacity: 1 !important;
+    background: #F8FAFC !important;
+    color: #1F2937 !important;
+    -webkit-text-fill-color: #1F2937 !important;
+  }
+
+  .dojo-seal-challenge-modal .seal-quiz-question,
+  .dojo-seal-challenge-modal .seal-quiz-question strong,
+  .dojo-seal-challenge-modal .seal-step-desc,
+  .dojo-seal-challenge-modal .oath-check-label,
+  .dojo-seal-challenge-modal .oath-check-text {
+    color: #1F2937 !important;
+    -webkit-text-fill-color: #1F2937 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .dojo-seal-challenge-modal .quiz-option-btn,
+  .dojo-seal-challenge-modal .quiz-option-btn .opt-text,
+  .dojo-seal-challenge-modal .quiz-option-btn .opt-label {
+    background-color: #FFFFFF !important;
+    color: #111827 !important;
+    -webkit-text-fill-color: #111827 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .dojo-seal-challenge-modal .quiz-option-btn {
+    border: 1px solid #94A3B8 !important;
+  }
+
+  .dojo-seal-challenge-modal .quiz-option-btn .opt-label {
+    background-color: #E2E8F0 !important;
+    color: #1E293B !important;
+    -webkit-text-fill-color: #1E293B !important;
+  }
+
+  .dojo-seal-challenge-modal .quiz-option-btn.opt-wrong,
+  .dojo-seal-challenge-modal .quiz-option-btn.opt-wrong .opt-text {
+    background-color: #FEE2E2 !important;
+    color: #991B1B !important;
+    -webkit-text-fill-color: #991B1B !important;
+  }
+
+  .dojo-seal-challenge-modal .quiz-option-btn.opt-correct,
+  .dojo-seal-challenge-modal .quiz-option-btn.opt-correct .opt-text {
+    background-color: #D1FAE5 !important;
+    color: #065F46 !important;
+    -webkit-text-fill-color: #065F46 !important;
+  }
+
+  .dojo-seal-challenge-modal .seal-step-item.locked .seal-step-body,
+  .dojo-seal-challenge-modal .seal-step-item.locked .seal-quiz-question,
+  .dojo-seal-challenge-modal .seal-step-item.locked .quiz-option-btn,
+  .dojo-seal-challenge-modal .seal-step-item.locked .quiz-option-btn .opt-text {
+    visibility: visible !important;
+  }
+
 </style>
 
 </head>
