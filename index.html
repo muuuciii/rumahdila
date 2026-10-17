@@ -15,7 +15,6 @@
 
   <!-- Include Styles.html in Google Apps Script -->
   <style>
-
   /* ==========================================================================
      HOME // AKU ADA DI SINI — COMPLETE STYLESHEET (Styles.html)
      Cozy Romantic Room + Soft Pastel Illustration + Subtle Glassmorphism
@@ -4971,10 +4970,736 @@
   .treat-arrow {
     font-size: 14px;
     font-weight: 700;
-    color: #2563EB;
+    color: var(--rose);
   }
 
+  /* ==========================================================================
+     SEGEL PEMERINTAH DOJO DILA (PITA GARIS POLISI / POLICE LINE CAUTION TAPE)
+     ========================================================================== */
+  .government-seal-wrap {
+    position: absolute;
+    inset: -2px -6px;
+    z-index: 10;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+    transition: opacity 0.4s ease, transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .obj-dojo-door:not(.is-sealed) .government-seal-wrap {
+    opacity: 0;
+    transform: scale(1.18) rotate(8deg);
+    pointer-events: none;
+  }
+
+  .obj-dojo-door.is-sealed .dojo-inner-light {
+    filter: grayscale(0.55) brightness(0.6);
+  }
+
+  .obj-dojo-door.is-sealed .shoji-leaf {
+    filter: brightness(0.82);
+  }
+
+  /* PITA GARIS POLISI (POLICE LINE BARRIER TAPE) */
+  .police-tape {
+    position: absolute;
+    left: -20px;
+    right: -20px;
+    height: 22px;
+    background: #FFDD00;
+    background: linear-gradient(180deg, #FFF04D 0%, #FFDD00 45%, #EAB308 100%);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.55), 0 1px 2px rgba(0, 0, 0, 0.4);
+    border-top: 2.5px solid #111827;
+    border-bottom: 2.5px solid #111827;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 4;
+    transition: transform 0.25s ease;
+  }
+
+  /* Diagonal hazard stripes pattern on top & bottom borders */
+  .police-tape-hazard {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2.5px;
+    background: repeating-linear-gradient(
+      -45deg,
+      #111827,
+      #111827 5px,
+      #FFDD00 5px,
+      #FFDD00 10px
+    );
+    z-index: 3;
+  }
+
+  .police-tape-hazard.top { top: 0; }
+  .police-tape-hazard.bottom { bottom: 0; }
+
+  /* Continuous bold police stencil typography */
+  .police-tape-marquee {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    padding: 0 4px;
+  }
+
+  .police-tape-marquee span {
+    font-family: 'Arial Black', Impact, 'Trebuchet MS', sans-serif;
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: 0.9px;
+    color: #0F172A;
+    text-transform: uppercase;
+    text-shadow: 0 0.5px 0 rgba(255, 255, 255, 0.7);
+    white-space: nowrap;
+  }
+
+  /* Glossy vinyl plastic sheen */
+  .tape-shine {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.55) 0%,
+      rgba(255, 255, 255, 0.1) 45%,
+      transparent 50%,
+      rgba(0, 0, 0, 0.2) 100%
+    );
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* Tape positions: 3 criss-crossing police lines */
+  .police-tape.seal-tape-1 {
+    top: 30px;
+    transform: rotate(-21deg);
+  }
+
+  .police-tape.seal-tape-2 {
+    bottom: 30px;
+    transform: rotate(19deg);
+  }
+
+  .police-tape.seal-tape-3 {
+    top: calc(50% - 11px);
+    transform: rotate(-2deg);
+    z-index: 5;
+  }
+
+  .obj-dojo-door:hover .police-tape.seal-tape-1 {
+    transform: rotate(-22deg) scale(1.02);
+  }
+  .obj-dojo-door:hover .police-tape.seal-tape-2 {
+    transform: rotate(20deg) scale(1.02);
+  }
+  .obj-dojo-door:hover .police-tape.seal-tape-3 {
+    transform: rotate(-1deg) scale(1.02);
+  }
+
+  /* Center Official Government Stamp / Police Badge */
+  .seal-center-badge {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #B91C1C 0%, #7F1D1D 100%);
+    color: #FFFFFF;
+    border: 2px solid #FDE047;
+    border-radius: 12px;
+    padding: 6px 10px;
+    box-shadow: 0 6px 20px rgba(185, 28, 28, 0.65), 0 2px 6px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.4);
+    animation: sealBadgePulse 2.2s infinite ease-in-out alternate;
+    text-align: center;
+    max-width: 95%;
+    white-space: nowrap;
+  }
+
+  @keyframes sealBadgePulse {
+    0% { transform: translate(-50%, -50%) scale(0.97); box-shadow: 0 4px 12px rgba(185, 28, 28, 0.5); }
+    100% { transform: translate(-50%, -50%) scale(1.03); box-shadow: 0 8px 24px rgba(239, 68, 68, 0.85); }
+  }
+
+  .seal-siren-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 2px;
+  }
+
+  .seal-police-siren {
+    font-size: 15px;
+    animation: sirenWiggle 0.5s infinite alternate;
+  }
+
+  .seal-police-beacon {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .seal-police-beacon.red {
+    background: #EF4444;
+    box-shadow: 0 0 8px #EF4444;
+    animation: beaconPulseRed 0.6s infinite alternate;
+  }
+
+  .seal-police-beacon.blue {
+    background: #3B82F6;
+    box-shadow: 0 0 8px #3B82F6;
+    animation: beaconPulseBlue 0.6s infinite alternate 0.3s;
+  }
+
+  @keyframes beaconPulseRed {
+    0% { opacity: 0.3; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1.3); }
+  }
+
+  @keyframes beaconPulseBlue {
+    0% { opacity: 0.3; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1.3); }
+  }
+
+  @keyframes sirenWiggle {
+    0% { transform: rotate(-10deg); }
+    100% { transform: rotate(10deg); }
+  }
+
+  .seal-badge-title {
+    font-family: 'Arial Black', Impact, sans-serif;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 0.7px;
+    color: #FEF08A;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+    white-space: nowrap;
+    line-height: 1.1;
+  }
+
+  .seal-badge-num {
+    font-size: 7px;
+    font-weight: 700;
+    color: #FCA5A5;
+    font-family: monospace;
+    letter-spacing: 0.4px;
+    margin-top: 1px;
+  }
+
+  .seal-badge-action {
+    font-size: 7.5px;
+    font-weight: 700;
+    color: #FFFFFF;
+    background: rgba(0, 0, 0, 0.38);
+    padding: 2px 6px;
+    border-radius: 999px;
+    margin-top: 3px;
+    display: inline-block;
+  }
+
+  /* Header button inside dojo to re-seal */
+  .dojo-seal-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 13px;
+    border-radius: 999px;
+    background: rgba(220, 38, 38, 0.12);
+    border: 1.5px solid rgba(220, 38, 38, 0.35);
+    color: #DC2626;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .dojo-seal-toggle-btn:hover {
+    background: #DC2626;
+    color: #FFFFFF;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.35);
+  }
+
+  /* Interactive Police Tape Mini-Preview in Challenge 1 */
+  .modal-police-tape-preview {
+    margin-bottom: 12px;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #0F172A;
+    padding: 10px 8px;
+    border: 1px solid #334155;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4);
+  }
+
+  .modal-tape-band {
+    position: relative;
+    width: 100%;
+    height: 38px;
+    background: linear-gradient(180deg, #FFF04D 0%, #FFDD00 50%, #EAB308 100%);
+    border-top: 3px solid #111827;
+    border-bottom: 3px solid #111827;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: transform 0.15s ease, filter 0.2s ease;
+  }
+
+  .modal-tape-band.hit-shake {
+    animation: tapeHitVibrate 0.3s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  }
+
+  @keyframes tapeHitVibrate {
+    0%, 100% { transform: translateX(0) rotate(0deg); }
+    20% { transform: translateX(-6px) rotate(-1deg); }
+    40% { transform: translateX(6px) rotate(1deg); }
+    60% { transform: translateX(-4px) rotate(-0.5deg); }
+    80% { transform: translateX(4px) rotate(0.5deg); }
+  }
+
+  .m-tape-hazard {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: repeating-linear-gradient(
+      -45deg,
+      #111827,
+      #111827 6px,
+      #FFDD00 6px,
+      #FFDD00 12px
+    );
+    z-index: 3;
+  }
+
+  .m-tape-hazard.top { top: 0; }
+  .m-tape-hazard.bottom { bottom: 0; }
+
+  .m-tape-text {
+    font-family: 'Arial Black', Impact, sans-serif;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1.2px;
+    color: #0F172A;
+    text-transform: uppercase;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+    z-index: 2;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  .m-tape-crack-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 900;
+    color: #DC2626;
+  }
+
+  .modal-tape-hit-label {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: #CBD5E1;
+    margin-top: 6px;
+  }
+
+  /* MODAL TANTANGAN PEMBUKA SEGEL */
+  .dojo-seal-challenge-modal .seal-challenge-card {
+    max-width: 480px;
+    width: 92%;
+    background: #FFFDF9;
+    border: 2px solid #EF4444;
+    border-radius: 20px;
+    box-shadow: 0 18px 45px rgba(220, 38, 38, 0.28), 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 22px 18px;
+    color: var(--text-primary);
+    position: relative;
+  }
+
+  .seal-gov-header {
+    text-align: center;
+    padding-bottom: 12px;
+    border-bottom: 1.5px dashed rgba(239, 68, 68, 0.3);
+    margin-bottom: 14px;
+  }
+
+  .seal-header-sirens {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+
+  .seal-gov-kicker {
+    font-size: 9.5px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    color: #DC2626;
+    text-transform: uppercase;
+  }
+
+  .seal-gov-title {
+    font-size: 20px;
+    font-weight: 900;
+    color: #991B1B;
+    letter-spacing: 1.5px;
+    margin: 2px 0 4px 0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  .seal-gov-badge-num {
+    font-size: 10px;
+    color: #6B7280;
+    font-family: monospace;
+    letter-spacing: 0.5px;
+  }
+
+  .seal-case-box {
+    background: #FEF2F2;
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    border-radius: 14px;
+    padding: 12px 14px;
+    margin-bottom: 14px;
+    position: relative;
+  }
+
+  .seal-case-stamp {
+    position: absolute;
+    top: -10px;
+    right: 14px;
+    background: #DC2626;
+    color: #FEF08A;
+    font-size: 9.5px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    padding: 2px 8px;
+    border-radius: 6px;
+    transform: rotate(3deg);
+    box-shadow: 0 2px 6px rgba(220, 38, 38, 0.4);
+  }
+
+  .seal-case-text {
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: #450A0A;
+    margin-bottom: 8px;
+  }
+
+  .seal-case-rule {
+    font-size: 11.5px;
+    color: #B91C1C;
+    line-height: 1.45;
+    border-top: 1px dashed rgba(239, 68, 68, 0.2);
+    padding-top: 8px;
+  }
+
+  /* Challenges List */
+  .seal-challenges-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .seal-step-item {
+    background: #FFFFFF;
+    border: 1.5px solid #E2E8F0;
+    border-radius: 14px;
+    padding: 12px;
+    transition: all 0.25s ease;
+  }
+
+  .seal-step-item.active-step {
+    border-color: #EF4444;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.12);
+  }
+
+  .seal-step-item.completed {
+    border-color: #10B981;
+    background: #F0FDF4;
+  }
+
+  .seal-step-item.locked {
+    opacity: 0.55;
+    background: #F8FAFC;
+    pointer-events: none;
+  }
+
+  .seal-step-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .seal-step-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #DC2626;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .seal-step-item.completed .seal-step-num {
+    background: #10B981;
+  }
+
+  .seal-step-titles {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .seal-step-main {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .seal-step-desc {
+    font-size: 11px;
+    color: var(--text-secondary);
+  }
+
+  .seal-step-badge {
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .badge-pending {
+    background: #FEF3C7;
+    color: #92400E;
+  }
+
+  .badge-completed {
+    background: #D1FAE5;
+    color: #065F46;
+  }
+
+  .badge-locked {
+    background: #E2E8F0;
+    color: #64748B;
+  }
+
+  .seal-step-body {
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px dashed #E2E8F0;
+  }
+
+  /* Challenge 1: Punch tape */
+  .tape-durability-box {
+    margin-bottom: 8px;
+  }
+
+  .tape-durability-track {
+    width: 100%;
+    height: 10px;
+    background: #E2E8F0;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .tape-durability-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #EF4444, #F59E0B);
+    transition: width 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .tape-durability-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-top: 4px;
+  }
+
+  .btn-punch-seal {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #DC2626, #B91C1C);
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: 800;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(220, 38, 38, 0.35);
+    transition: all 0.15s ease;
+  }
+
+  .btn-punch-seal:active {
+    transform: scale(0.96);
+  }
+
+  /* Challenge 2: Quiz */
+  .seal-quiz-question {
+    font-size: 12px;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    line-height: 1.45;
+  }
+
+  .seal-quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .quiz-option-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid #CBD5E1;
+    background: #FFFFFF;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s ease;
+  }
+
+  .quiz-option-btn:hover {
+    border-color: #EF4444;
+    background: #FEF2F2;
+  }
+
+  .quiz-option-btn.opt-wrong {
+    border-color: #EF4444;
+    background: #FEE2E2;
+    color: #991B1B;
+    animation: shakeWrong 0.35s ease;
+  }
+
+  .quiz-option-btn.opt-correct {
+    border-color: #10B981;
+    background: #D1FAE5;
+    color: #065F46;
+    font-weight: 700;
+  }
+
+  @keyframes shakeWrong {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+  }
+
+  .opt-label {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #E2E8F0;
+    color: #475569;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .quiz-feedback-box {
+    margin-top: 8px;
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 6px 10px;
+    border-radius: 8px;
+  }
+
+  /* Challenge 3: Oath */
+  .seal-oath-checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .oath-check-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 12px;
+    color: var(--text-primary);
+    line-height: 1.4;
+  }
+
+  .oath-check-label input {
+    width: 16px;
+    height: 16px;
+    accent-color: #DC2626;
+    cursor: pointer;
+  }
+
+  /* Master Unlock Button */
+  .btn-unlock-dojo-master {
+    width: 100%;
+    padding: 13px 18px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #10B981, #059669);
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+    transition: all 0.25s ease;
+  }
+
+  .btn-unlock-dojo-master:not(.disabled) {
+    animation: masterButtonPulse 1.8s infinite alternate;
+  }
+
+  @keyframes masterButtonPulse {
+    0% { transform: scale(1); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4); }
+    100% { transform: scale(1.025); box-shadow: 0 8px 24px rgba(16, 185, 129, 0.7); }
+  }
+
+  .btn-unlock-dojo-master.disabled {
+    background: #94A3B8;
+    color: #F1F5F9;
+    box-shadow: none;
+    cursor: not-allowed;
+    opacity: 0.7;
+    animation: none;
+  }
 </style>
+
 </head>
 <body data-time-period="morning" data-color-theme="rainy-cozy">
 
@@ -5400,6 +6125,51 @@
                     </div>
                     <!-- Center Karate Belt Silhouette -->
                     <div class="dojo-center-emblem">🥋</div>
+
+                    <!-- PITA & STEMPEL SEGEL PEMERINTAH (GARIS POLISI KUNING MENYILANG) -->
+                    <div class="government-seal-wrap" id="dojo-gov-seal" aria-hidden="false">
+                      <!-- Pita Polisi 1: Diagonal Kiri Atas ke Kanan Bawah -->
+                      <div class="police-tape seal-tape-1">
+                        <div class="police-tape-hazard top"></div>
+                        <div class="police-tape-marquee">
+                          <span>⚠️ DISEGEL PEMERINTAH ⚠️ GARIS POLISI ⚠️ DILARANG MELINTAS ⚠️</span>
+                        </div>
+                        <div class="police-tape-hazard bottom"></div>
+                        <div class="tape-shine"></div>
+                      </div>
+
+                      <!-- Pita Polisi 2: Diagonal Kiri Bawah ke Kanan Atas -->
+                      <div class="police-tape seal-tape-2">
+                        <div class="police-tape-hazard top"></div>
+                        <div class="police-tape-marquee">
+                          <span>⛔ POLISI CINTA ⛔ DISEGEL PEMERINTAH ⛔ SENSEI DILA ONLY ⛔</span>
+                        </div>
+                        <div class="police-tape-hazard bottom"></div>
+                        <div class="tape-shine"></div>
+                      </div>
+
+                      <!-- Pita Polisi 3: Melintang Horizontal di Tengah -->
+                      <div class="police-tape seal-tape-3">
+                        <div class="police-tape-hazard top"></div>
+                        <div class="police-tape-marquee">
+                          <span>⚠️ POLICE LINE DO NOT CROSS ⚠️ DISEGEL PEMERINTAH ⚠️</span>
+                        </div>
+                        <div class="police-tape-hazard bottom"></div>
+                        <div class="tape-shine"></div>
+                      </div>
+
+                      <!-- Stempel Segel Resmi & Sirine Polisi di Tengah -->
+                      <div class="seal-center-badge">
+                        <div class="seal-siren-box">
+                          <span class="seal-police-beacon red"></span>
+                          <span class="seal-police-siren">🚨</span>
+                          <span class="seal-police-beacon blue"></span>
+                        </div>
+                        <span class="seal-badge-title">DISEGEL PEMERINTAH</span>
+                        <span class="seal-badge-num">NO. 099/POL-CINTA/DILA</span>
+                        <span class="seal-badge-action">Ketuk Buka Challenge 🔓</span>
+                      </div>
+                    </div>
                   </div>
 
                   <!-- Right Pillar -->
@@ -5943,6 +6713,9 @@
                 <button type="button" class="dojo-taiko-toggle-btn active" id="btn-dojo-taiko-toggle" title="Suara Tabuhan Taiko & Kiai">
                   <span id="dojo-taiko-icon">🥁</span>
                 </button>
+                <button type="button" class="dojo-seal-toggle-btn" id="btn-dojo-seal-toggle" title="Kunci Kembali dengan Segel Pemerintah (Mode Iseng)">
+                  <span>🔒 Pasang Segel</span>
+                </button>
               </div>
 
               <div class="dojo-title-card">
@@ -6424,6 +7197,152 @@
     </div>
 
     <!-- ====================================================================
+         MODAL TANTANGAN PEMBUKA SEGEL PEMERINTAH (DOJO DILA)
+         ==================================================================== -->
+    <div class="modal-backdrop dojo-seal-challenge-modal" id="modal-dojo-seal-challenge" role="dialog" aria-modal="true" aria-labelledby="seal-modal-title">
+      <div class="modal-card seal-challenge-card" id="seal-challenge-card">
+        <button type="button" class="modal-close-btn" id="btn-close-seal-challenge" aria-label="Tutup Tantangan">✕</button>
+
+        <!-- Official Seal Header Banner -->
+        <div class="seal-gov-header">
+          <div class="seal-header-sirens">
+            <span class="siren-icon left">🚨</span>
+            <span class="seal-gov-kicker">KEMENTERIAN PERTAHANAN CINTA & KEAMANAN DOJO</span>
+            <span class="siren-icon right">🚨</span>
+          </div>
+          <h3 class="seal-gov-title" id="seal-modal-title">DISEGEL PEMERINTAH</h3>
+          <div class="seal-gov-badge-num">NO. BERITA ACARA: 099/SEGEL-CINTA/SENSEI-DILA</div>
+        </div>
+
+        <!-- Official Case Statement -->
+        <div class="seal-case-box">
+          <div class="seal-case-stamp">⚠️ RESMI DISEGEL ⚠️</div>
+          <p class="seal-case-text">
+            <strong>KETERANGAN RESMI:</strong> Pintu Dojo Dila resmi disegel dan dilarang beroperasi oleh pihak berwenang karena <strong>Sensei Dila dicurigai terlalu mempesona, galak tapi bikin kangen,</strong> serta jurus karate-nya bikin Muci klepek-klepek tak berdaya!
+          </p>
+          <div class="seal-case-rule">
+            ⚠️ <strong>SYARAT PEMBUKAAN SEGEL:</strong> Sensei Dila diwajibkan menuntaskan <strong>3 Tantangan Izin Operasi</strong> di bawah ini agar segel bisa dicabut:
+          </div>
+        </div>
+
+        <!-- 3 Interactive Challenges -->
+        <div class="seal-challenges-list">
+
+          <!-- TANTANGAN 1: UJI PUKULAN PEMUTUS PITA SEGEL -->
+          <div class="seal-step-item" id="seal-step-1">
+            <div class="seal-step-header">
+              <span class="seal-step-num">1</span>
+              <div class="seal-step-titles">
+                <span class="seal-step-main">Uji Pukulan Pemutus Pita Segel</span>
+                <span class="seal-step-desc">Pukul pita segel 5x sampai robek dan putus!</span>
+              </div>
+              <span class="seal-step-badge badge-pending" id="badge-step-1">0/5 Pukulan</span>
+            </div>
+            <div class="seal-step-body">
+              <!-- Visual Miniatur Pita Polisi yang Bisa Robek Saat Dipukul -->
+              <div class="modal-police-tape-preview" id="modal-tape-preview">
+                <div class="modal-tape-band" id="modal-tape-band">
+                  <div class="m-tape-hazard top"></div>
+                  <div class="m-tape-text">
+                    <span id="modal-tape-text-content">⚠️ DISEGEL PEMERINTAH ⚠️ GARIS POLISI ⚠️</span>
+                  </div>
+                  <div class="m-tape-hazard bottom"></div>
+                  <div class="m-tape-crack-overlay" id="modal-tape-crack"></div>
+                </div>
+                <div class="modal-tape-hit-label" id="modal-tape-hit-label">Kondisi Pita: Utuh & Kuat (0/5 Hit)</div>
+              </div>
+
+              <div class="tape-durability-box">
+                <div class="tape-durability-track">
+                  <div class="tape-durability-fill" id="tape-durability-fill" style="width: 100%;"></div>
+                </div>
+                <div class="tape-durability-labels">
+                  <span>Ketahanan Pita Segel</span>
+                  <span id="tape-durability-pct">100% (5 Pukulan Lagi)</span>
+                </div>
+              </div>
+              <button type="button" class="btn-punch-seal" id="btn-punch-seal">
+                👊 PUKUL PITA SEGEL! (CHIAT!) 💥
+              </button>
+            </div>
+          </div>
+
+          <!-- TANTANGAN 2: KUIS KEJUJURAN & VERIFIKASI SENSEI -->
+          <div class="seal-step-item locked" id="seal-step-2">
+            <div class="seal-step-header">
+              <span class="seal-step-num">2</span>
+              <div class="seal-step-titles">
+                <span class="seal-step-main">Kuis Kejujuran Sensei Dila</span>
+                <span class="seal-step-desc">Pilih jawaban paling jujur dari lubuk hati</span>
+              </div>
+              <span class="seal-step-badge badge-locked" id="badge-step-2">Terkunci</span>
+            </div>
+            <div class="seal-step-body">
+              <p class="seal-quiz-question">
+                <strong>Pertanyaan Pemerintah:</strong> Siapakah asisten setia, murid karate, sekaligus pemilik hati nomor satu Sensei Dila?
+              </p>
+              <div class="seal-quiz-options" id="seal-quiz-options">
+                <button type="button" class="quiz-option-btn" data-choice="wrong1">
+                  <span class="opt-label">A</span>
+                  <span class="opt-text">Cowok ganteng random di FYP TikTok</span>
+                </button>
+                <button type="button" class="quiz-option-btn" data-choice="wrong2">
+                  <span class="opt-label">B</span>
+                  <span class="opt-text">Aktor drama Korea yang cool</span>
+                </button>
+                <button type="button" class="quiz-option-btn" data-choice="correct">
+                  <span class="opt-label">C</span>
+                  <span class="opt-text">Muci tercinta yang sabar, setia, dan paling bucin ❤️</span>
+                </button>
+              </div>
+              <div class="quiz-feedback-box" id="quiz-feedback-box" style="display:none;"></div>
+            </div>
+          </div>
+
+          <!-- TANTANGAN 3: IKRAR & SUMPAH SENSEI DILA -->
+          <div class="seal-step-item locked" id="seal-step-3">
+            <div class="seal-step-header">
+              <span class="seal-step-num">3</span>
+              <div class="seal-step-titles">
+                <span class="seal-step-main">Penandatanganan Sumpah Sensei</span>
+                <span class="seal-step-desc">Centang 3 butir ikrar resmi pembukaan segel</span>
+              </div>
+              <span class="seal-step-badge badge-locked" id="badge-step-3">Terkunci</span>
+            </div>
+            <div class="seal-step-body">
+              <div class="seal-oath-checklist">
+                <label class="oath-check-label">
+                  <input type="checkbox" class="oath-checkbox" id="oath-check-1">
+                  <span class="oath-check-custom"></span>
+                  <span class="oath-check-text">Saya bersumpah tidak akan ngambek tanpa alasan yang jelas 🥺</span>
+                </label>
+                <label class="oath-check-label">
+                  <input type="checkbox" class="oath-checkbox" id="oath-check-2">
+                  <span class="oath-check-custom"></span>
+                  <span class="oath-check-text">Saya berjanji akan selalu makan & minum air tepat waktu setiap hari 🍱</span>
+                </label>
+                <label class="oath-check-label">
+                  <input type="checkbox" class="oath-checkbox" id="oath-check-3">
+                  <span class="oath-check-custom"></span>
+                  <span class="oath-check-text">Saya mengakui bahwa Muci adalah murid terfavorit nomor 1 selamanya! ❤️</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Master Unlock Button -->
+        <div class="seal-modal-footer">
+          <button type="button" class="btn-unlock-dojo-master disabled" id="btn-unlock-dojo-master" disabled>
+            🔒 Tuntaskan 3 Syarat untuk Membuka Segel
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ====================================================================
          GLOBAL CUSTOM TOAST NOTIFICATION
          ==================================================================== -->
     <div class="toast-container" id="global-toast" role="status" aria-live="polite"></div>
@@ -6432,7 +7351,6 @@
 
   <!-- Include Script.html in Google Apps Script -->
   <script>
-
 // ==========================================
 // PERSONAL CONTENT CONFIGURATION
 // EDIT THIS SECTION TO PERSONALIZE THE APP
@@ -6995,6 +7913,7 @@ const AppState = {
   enteredMemoriesPin: "",
   horrorMusicEnabled: true,
   dojo: {
+    isSealed: true,
     taikoAudioEnabled: true,
     brokenBoardsCount: 0,
     selectedTarget: "wood",
@@ -7057,12 +7976,34 @@ function cacheDOMReferences() {
   DOM.objChatShelf = document.getElementById("obj-chat-shelf");
   DOM.objFirstAid = document.getElementById("obj-first-aid");
   DOM.objDojoDoor = document.getElementById("obj-dojo-door");
+  DOM.dojoGovSeal = document.getElementById("dojo-gov-seal");
 
   // Dojo Dila References
   DOM.btnDojoBack = document.getElementById("btn-dojo-back");
   DOM.btnDojoTaikoToggle = document.getElementById("btn-dojo-taiko-toggle");
+  DOM.btnDojoSealToggle = document.getElementById("btn-dojo-seal-toggle");
   DOM.dojoTaikoIcon = document.getElementById("dojo-taiko-icon");
   DOM.dilaPoseBox = document.getElementById("dila-pose-box");
+
+  // Government Seal Challenge References
+  DOM.modalDojoSealChallenge = document.getElementById("modal-dojo-seal-challenge");
+  DOM.btnCloseSealChallenge = document.getElementById("btn-close-seal-challenge");
+  DOM.sealStep1 = document.getElementById("seal-step-1");
+  DOM.sealStep2 = document.getElementById("seal-step-2");
+  DOM.sealStep3 = document.getElementById("seal-step-3");
+  DOM.badgeStep1 = document.getElementById("badge-step-1");
+  DOM.badgeStep2 = document.getElementById("badge-step-2");
+  DOM.badgeStep3 = document.getElementById("badge-step-3");
+  DOM.tapeDurabilityFill = document.getElementById("tape-durability-fill");
+  DOM.tapeDurabilityPct = document.getElementById("tape-durability-pct");
+  DOM.btnPunchSeal = document.getElementById("btn-punch-seal");
+  DOM.modalTapeBand = document.getElementById("modal-tape-band");
+  DOM.modalTapeCrack = document.getElementById("modal-tape-crack");
+  DOM.modalTapeHitLabel = document.getElementById("modal-tape-hit-label");
+  DOM.sealQuizOptions = document.querySelectorAll(".quiz-option-btn");
+  DOM.quizFeedbackBox = document.getElementById("quiz-feedback-box");
+  DOM.oathCheckboxes = document.querySelectorAll(".oath-checkbox");
+  DOM.btnUnlockDojoMaster = document.getElementById("btn-unlock-dojo-master");
   DOM.karateSpeechBubble = document.getElementById("karate-speech-bubble");
   DOM.dojoVfxBurst = document.getElementById("dojo-vfx-burst");
   DOM.dilaSvgMouth = document.getElementById("dila-svg-mouth");
@@ -7236,6 +8177,9 @@ function loadState() {
       if (typeof parsed.dojo.taikoAudioEnabled === "boolean") {
         AppState.dojo.taikoAudioEnabled = parsed.dojo.taikoAudioEnabled;
       }
+      if (typeof parsed.dojo.isSealed === "boolean") {
+        AppState.dojo.isSealed = parsed.dojo.isSealed;
+      }
     }
 
     if (!APP_CONFIG.REQUIRE_PIN && parsed.authenticated) {
@@ -7265,6 +8209,7 @@ function saveState() {
       horrorSins: AppState.horrorSins,
       horrorOathSigned: AppState.horrorOathSigned,
       dojo: {
+        isSealed: AppState.dojo.isSealed,
         brokenBoardsCount: AppState.dojo.brokenBoardsCount,
         samsakHits: AppState.dojo.samsakHits,
         samsakMaxCombo: AppState.dojo.samsakMaxCombo,
@@ -8292,7 +9237,7 @@ const FIRST_AID_CAPSULES = [
     steps: [
       "Boleh cemberut 5 menit, tapi habis itu senyum dikit yaa 😊",
       "Klaim voucher jajan atau kartu 'Dila Selalu Benar' kalau perlu 🎟️",
-      "Aduin ke aku siapa/apa yang bikin kamu bete hari ini! ������"
+      "Aduin ke aku siapa/apa yang bikin kamu bete hari ini! 🥊"
     ],
     waText: "Sayang! Aku lagi buka Kapsul Anti-Badmood nih 😤 Bujuk aku sekarang biar mood-ku balik lagi! 💗"
   },
@@ -10850,12 +11795,347 @@ function toggleDojoTaikoAudio() {
   showToast(AppState.dojo.taikoAudioEnabled ? "🥁 Audio Dojo & Kiai diaktifkan" : "🔇 Audio Dojo dibisukan");
 }
 
+// ==========================================
+// GOVERNMENT SEAL CHALLENGE SYSTEM (DISEGEL PEMERINTAH)
+// ==========================================
+
+let sealChallengeState = {
+  tapePunches: 0,
+  tapeMaxPunches: 5,
+  quizPassed: false,
+  oathDone: false
+};
+
+function syncDojoDoorSealUI() {
+  if (DOM.objDojoDoor) {
+    if (AppState.dojo.isSealed) {
+      DOM.objDojoDoor.classList.add("is-sealed");
+      DOM.objDojoDoor.setAttribute("title", "⚠️ Pintu Dojo Dila DISEGEL PEMERINTAH! Ketuk untuk ikuti tantangan pembuka segel!");
+    } else {
+      DOM.objDojoDoor.classList.remove("is-sealed");
+      DOM.objDojoDoor.setAttribute("title", "Buka Pintu Menuju Dojo Dila 🥋");
+    }
+  }
+  if (DOM.dojoGovSeal) {
+    DOM.dojoGovSeal.style.display = AppState.dojo.isSealed ? "flex" : "none";
+  }
+}
+
+function resetSealChallenge() {
+  sealChallengeState.tapePunches = 0;
+  sealChallengeState.quizPassed = false;
+  sealChallengeState.oathDone = false;
+
+  // Reset Step 1
+  if (DOM.tapeDurabilityFill) DOM.tapeDurabilityFill.style.width = "100%";
+  if (DOM.tapeDurabilityPct) DOM.tapeDurabilityPct.textContent = "100% (5 Pukulan Lagi)";
+  if (DOM.badgeStep1) {
+    DOM.badgeStep1.className = "seal-step-badge badge-pending";
+    DOM.badgeStep1.textContent = "0/5 Pukulan";
+  }
+  if (DOM.sealStep1) DOM.sealStep1.classList.remove("completed");
+  if (DOM.btnPunchSeal) {
+    DOM.btnPunchSeal.disabled = false;
+    DOM.btnPunchSeal.textContent = "👊 PUKUL PITA SEGEL! (CHIAT!) 💥";
+    DOM.btnPunchSeal.style.background = "";
+  }
+  if (DOM.modalTapeBand) {
+    DOM.modalTapeBand.classList.remove("hit-shake", "broken");
+  }
+  if (DOM.modalTapeCrack) {
+    DOM.modalTapeCrack.textContent = "";
+  }
+  if (DOM.modalTapeHitLabel) {
+    DOM.modalTapeHitLabel.textContent = "Kondisi Pita: Utuh & Kuat (0/5 Hit)";
+    DOM.modalTapeHitLabel.style.color = "#CBD5E1";
+  }
+
+  // Reset Step 2
+  if (DOM.sealStep2) {
+    DOM.sealStep2.classList.add("locked");
+    DOM.sealStep2.classList.remove("completed");
+  }
+  if (DOM.badgeStep2) {
+    DOM.badgeStep2.className = "seal-step-badge badge-locked";
+    DOM.badgeStep2.textContent = "Terkunci";
+  }
+  if (DOM.sealQuizOptions) {
+    DOM.sealQuizOptions.forEach(b => {
+      b.className = "quiz-option-btn";
+      b.disabled = false;
+    });
+  }
+  if (DOM.quizFeedbackBox) {
+    DOM.quizFeedbackBox.style.display = "none";
+  }
+
+  // Reset Step 3
+  if (DOM.sealStep3) {
+    DOM.sealStep3.classList.add("locked");
+    DOM.sealStep3.classList.remove("completed");
+  }
+  if (DOM.badgeStep3) {
+    DOM.badgeStep3.className = "seal-step-badge badge-locked";
+    DOM.badgeStep3.textContent = "Terkunci";
+  }
+  if (DOM.oathCheckboxes) {
+    DOM.oathCheckboxes.forEach(cb => { cb.checked = false; });
+  }
+
+  // Reset Master Unlock Button
+  if (DOM.btnUnlockDojoMaster) {
+    DOM.btnUnlockDojoMaster.disabled = true;
+    DOM.btnUnlockDojoMaster.className = "btn-unlock-dojo-master disabled";
+    DOM.btnUnlockDojoMaster.innerHTML = "🔒 Selesaikan 3 Syarat untuk Membuka Segel";
+  }
+}
+
+function openGovernmentSealChallengeModal() {
+  resetSealChallenge();
+  playPoliceSirenSound();
+  if (DOM.modalDojoSealChallenge) {
+    DOM.modalDojoSealChallenge.classList.add("open");
+  }
+}
+
+function closeGovernmentSealChallengeModal() {
+  if (DOM.modalDojoSealChallenge) {
+    DOM.modalDojoSealChallenge.classList.remove("open");
+  }
+}
+
+function playPoliceSirenSound() {
+  if (!AppState.dojo.taikoAudioEnabled) return;
+  try {
+    ensureAudioContext();
+    if (!audioCtx) return;
+    const now = audioCtx.currentTime;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = "sawtooth";
+    osc.frequency.setValueAtTime(650, now);
+    osc.frequency.linearRampToValueAtTime(950, now + 0.22);
+    osc.frequency.linearRampToValueAtTime(650, now + 0.44);
+    osc.frequency.linearRampToValueAtTime(950, now + 0.66);
+    gain.gain.setValueAtTime(0.12, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.85);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start(now);
+    osc.stop(now + 0.88);
+  } catch (e) {}
+}
+
+function handlePunchSealTape() {
+  if (sealChallengeState.tapePunches >= sealChallengeState.tapeMaxPunches) return;
+
+  sealChallengeState.tapePunches++;
+  const remaining = sealChallengeState.tapeMaxPunches - sealChallengeState.tapePunches;
+  const pct = Math.max(0, Math.round((remaining / sealChallengeState.tapeMaxPunches) * 100));
+
+  if (DOM.tapeDurabilityFill) DOM.tapeDurabilityFill.style.width = `${pct}%`;
+  if (DOM.tapeDurabilityPct) DOM.tapeDurabilityPct.textContent = `${pct}% (${remaining} Pukulan Lagi)`;
+  if (DOM.badgeStep1) DOM.badgeStep1.textContent = `${sealChallengeState.tapePunches}/5 Pukulan`;
+
+  playKaratePunchSound();
+
+  if (DOM.btnPunchSeal) {
+    DOM.btnPunchSeal.classList.remove("hit-swing");
+    void DOM.btnPunchSeal.offsetWidth;
+    DOM.btnPunchSeal.classList.add("hit-swing");
+  }
+
+  // Animate and crack police tape preview in Challenge 1
+  if (DOM.modalTapeBand) {
+    DOM.modalTapeBand.classList.remove("hit-shake");
+    void DOM.modalTapeBand.offsetWidth;
+    DOM.modalTapeBand.classList.add("hit-shake");
+  }
+
+  const crackMessages = [
+    "",
+    "⚡ Retak 20% (Krak!)",
+    "⚡⚡ Retak 40% (Crack!)",
+    "💥⚡ Robek 60% (Krek!)",
+    "💥💥 Terkoyak 80% (Hampir Putus!)",
+    "✂️ PITA TERPUTUS TOTAL! 🔓"
+  ];
+  if (DOM.modalTapeCrack) {
+    DOM.modalTapeCrack.textContent = crackMessages[sealChallengeState.tapePunches] || "💥";
+  }
+  if (DOM.modalTapeHitLabel) {
+    DOM.modalTapeHitLabel.textContent = remaining > 0
+      ? `💥 Pukulan ${sealChallengeState.tapePunches}/5 mendarat! (${remaining} pukulan lagi)`
+      : `🎉 PITA SEGEL POLISI HANCUR BERANTAKAN!`;
+    DOM.modalTapeHitLabel.style.color = remaining > 0 ? "#FDE047" : "#34D399";
+  }
+
+  if (sealChallengeState.tapePunches >= sealChallengeState.tapeMaxPunches) {
+    playBoardBreakSound("wood");
+    if (DOM.modalTapeBand) {
+      DOM.modalTapeBand.classList.add("broken");
+    }
+    if (DOM.badgeStep1) {
+      DOM.badgeStep1.className = "seal-step-badge badge-completed";
+      DOM.badgeStep1.textContent = "✅ SELESAI (Pita Putus!)";
+    }
+    if (DOM.sealStep1) DOM.sealStep1.classList.add("completed");
+    if (DOM.btnPunchSeal) {
+      DOM.btnPunchSeal.disabled = true;
+      DOM.btnPunchSeal.textContent = "💥 PITA SEGEL BERHASIL PUTUS!";
+      DOM.btnPunchSeal.style.background = "#10B981";
+    }
+
+    // Unlock Step 2
+    if (DOM.sealStep2) DOM.sealStep2.classList.remove("locked");
+    if (DOM.badgeStep2) {
+      DOM.badgeStep2.className = "seal-step-badge badge-pending";
+      DOM.badgeStep2.textContent = "Pilih Jawaban";
+    }
+    showToast("💥 Pukulan Sensei Dila merobek pita segel! Lanjut ke Tantangan 2!");
+    checkCanUnlockDojo();
+  }
+}
+
+function handleAnswerQuiz(choice, btn) {
+  if (sealChallengeState.quizPassed) return;
+
+  if (choice === "correct") {
+    sealChallengeState.quizPassed = true;
+    if (DOM.sealQuizOptions) {
+      DOM.sealQuizOptions.forEach(b => {
+        b.classList.remove("opt-wrong");
+        b.disabled = true;
+      });
+    }
+    btn.classList.add("opt-correct");
+    playSuccessChime();
+
+    if (DOM.badgeStep2) {
+      DOM.badgeStep2.className = "seal-step-badge badge-completed";
+      DOM.badgeStep2.textContent = "✅ SELESAI (100% Valid!)";
+    }
+    if (DOM.sealStep2) DOM.sealStep2.classList.add("completed");
+    if (DOM.quizFeedbackBox) {
+      DOM.quizFeedbackBox.style.display = "block";
+      DOM.quizFeedbackBox.style.background = "#D1FAE5";
+      DOM.quizFeedbackBox.style.color = "#065F46";
+      DOM.quizFeedbackBox.textContent = "🎉 Jawaban diverifikasi 100% sah & jujur oleh Kementerian Cinta!";
+    }
+
+    // Unlock Step 3
+    if (DOM.sealStep3) DOM.sealStep3.classList.remove("locked");
+    if (DOM.badgeStep3) {
+      DOM.badgeStep3.className = "seal-step-badge badge-pending";
+      DOM.badgeStep3.textContent = "Beri Centang (0/3)";
+    }
+    showToast("❤️ Verifikasi sukses! Lanjut ke penandatanganan sumpah!");
+    checkCanUnlockDojo();
+  } else {
+    playSoftNote(220, 0.2);
+    btn.classList.add("opt-wrong");
+    setTimeout(() => btn.classList.remove("opt-wrong"), 600);
+    if (DOM.quizFeedbackBox) {
+      DOM.quizFeedbackBox.style.display = "block";
+      DOM.quizFeedbackBox.style.background = "#FEE2E2";
+      DOM.quizFeedbackBox.style.color = "#991B1B";
+      DOM.quizFeedbackBox.textContent = "❌ Jawaban salah! Petugas pemerintah tahu di hatimu cuma ada Muci! Coba pilih lagi!";
+    }
+  }
+}
+
+function handleCheckOath() {
+  if (!DOM.oathCheckboxes) return;
+  let checkedCount = 0;
+  DOM.oathCheckboxes.forEach(cb => {
+    if (cb.checked) checkedCount++;
+  });
+
+  if (DOM.badgeStep3 && !sealChallengeState.oathDone) {
+    DOM.badgeStep3.textContent = `Beri Centang (${checkedCount}/3)`;
+  }
+
+  if (checkedCount === 3) {
+    sealChallengeState.oathDone = true;
+    playSuccessChime();
+    if (DOM.badgeStep3) {
+      DOM.badgeStep3.className = "seal-step-badge badge-completed";
+      DOM.badgeStep3.textContent = "✅ SELESAI (Sumpah Sah!)";
+    }
+    if (DOM.sealStep3) DOM.sealStep3.classList.add("completed");
+    showToast("✍️ Sumpah resmi ditandatangani oleh Sensei Dila!");
+  } else {
+    sealChallengeState.oathDone = false;
+    if (DOM.badgeStep3) {
+      DOM.badgeStep3.className = "seal-step-badge badge-pending";
+      DOM.badgeStep3.textContent = `Beri Centang (${checkedCount}/3)`;
+    }
+    if (DOM.sealStep3) DOM.sealStep3.classList.remove("completed");
+  }
+
+  checkCanUnlockDojo();
+}
+
+function checkCanUnlockDojo() {
+  const isStep1Done = sealChallengeState.tapePunches >= sealChallengeState.tapeMaxPunches;
+  const isStep2Done = sealChallengeState.quizPassed;
+  const isStep3Done = sealChallengeState.oathDone;
+
+  if (isStep1Done && isStep2Done && isStep3Done) {
+    if (DOM.btnUnlockDojoMaster) {
+      DOM.btnUnlockDojoMaster.disabled = false;
+      DOM.btnUnlockDojoMaster.className = "btn-unlock-dojo-master";
+      DOM.btnUnlockDojoMaster.innerHTML = "🔓 RESMI CABUT SEGEL & MASUK DOJO DILA 🥋";
+    }
+  } else {
+    if (DOM.btnUnlockDojoMaster) {
+      DOM.btnUnlockDojoMaster.disabled = true;
+      DOM.btnUnlockDojoMaster.className = "btn-unlock-dojo-master disabled";
+      const remainingCount = (isStep1Done ? 0 : 1) + (isStep2Done ? 0 : 1) + (isStep3Done ? 0 : 1);
+      DOM.btnUnlockDojoMaster.innerHTML = `🔒 Selesaikan ${remainingCount} Syarat Lagi untuk Membuka Segel`;
+    }
+  }
+}
+
+function handleUnlockDojoMaster() {
+  AppState.dojo.isSealed = false;
+  saveState();
+  syncDojoDoorSealUI();
+
+  playBoardBreakSound("gold");
+  playDojoDoorOpenSound();
+  setTimeout(() => playTaikoDrumBeat(90), 200);
+
+  // Confetti / floating hearts burst
+  if (DOM.modalDojoSealChallenge) {
+    const rect = DOM.modalDojoSealChallenge.getBoundingClientRect();
+    spawnFloatingHearts(rect.left + rect.width / 2, rect.top + rect.height / 2, 20);
+  }
+
+  closeGovernmentSealChallengeModal();
+  showToast("🎉 SEGEL PEMERINTAH RESMI DICABUT! Selamat masuk, Sensei Dila! 🥋");
+
+  setTimeout(() => {
+    switchToTabView("view-dojo");
+  }, 450);
+}
+
+function handleResealDojo() {
+  AppState.dojo.isSealed = true;
+  saveState();
+  syncDojoDoorSealUI();
+  playPoliceSirenSound();
+  showToast("🔒 Pintu Dojo Dila resmi DISEGEL PEMERINTAH kembali!");
+  switchToTabView("view-home");
+}
+
 function initDojoSystem() {
   renderDojoBelts();
   renderDojoTrophies();
   renderDojoTreats();
   updateBreakScoreUI();
   updateSamsakStatsUI();
+  syncDojoDoorSealUI();
   if (DOM.btnDojoTaikoToggle) {
     if (AppState.dojo.taikoAudioEnabled) {
       DOM.btnDojoTaikoToggle.classList.add("active");
@@ -11301,8 +12581,36 @@ function bindEventListeners() {
   // Pintu Menuju Dojo Dila (Di Tengah Ruangan)
   if (DOM.objDojoDoor) {
     DOM.objDojoDoor.addEventListener("click", () => {
-      switchToTabView("view-dojo");
+      if (AppState.dojo.isSealed) {
+        openGovernmentSealChallengeModal();
+      } else {
+        switchToTabView("view-dojo");
+      }
     });
+  }
+
+  // Government Seal Challenge Controls
+  if (DOM.btnCloseSealChallenge) {
+    DOM.btnCloseSealChallenge.addEventListener("click", closeGovernmentSealChallengeModal);
+  }
+  if (DOM.btnPunchSeal) {
+    DOM.btnPunchSeal.addEventListener("click", handlePunchSealTape);
+  }
+  if (DOM.sealQuizOptions) {
+    DOM.sealQuizOptions.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const choice = btn.getAttribute("data-choice");
+        handleAnswerQuiz(choice, btn);
+      });
+    });
+  }
+  if (DOM.oathCheckboxes) {
+    DOM.oathCheckboxes.forEach(cb => {
+      cb.addEventListener("change", handleCheckOath);
+    });
+  }
+  if (DOM.btnUnlockDojoMaster) {
+    DOM.btnUnlockDojoMaster.addEventListener("click", handleUnlockDojoMaster);
   }
 
   // Dojo Dila Interactive Controls
@@ -11313,6 +12621,9 @@ function bindEventListeners() {
   }
   if (DOM.btnDojoTaikoToggle) {
     DOM.btnDojoTaikoToggle.addEventListener("click", toggleDojoTaikoAudio);
+  }
+  if (DOM.btnDojoSealToggle) {
+    DOM.btnDojoSealToggle.addEventListener("click", handleResealDojo);
   }
   if (DOM.dilaPoseBox) {
     DOM.dilaPoseBox.addEventListener("click", () => {
@@ -11525,6 +12836,11 @@ function bindEventListeners() {
       if (e.target === DOM.globalModal) closeModal();
     });
   }
+  if (DOM.modalDojoSealChallenge) {
+    DOM.modalDojoSealChallenge.addEventListener("click", (e) => {
+      if (e.target === DOM.modalDojoSealChallenge) closeGovernmentSealChallengeModal();
+    });
+  }
 }
 
 // Initialize when DOM is ready
@@ -11533,7 +12849,7 @@ if (document.readyState === "loading") {
 } else {
   initApp();
 }
-
 </script>
+
 </body>
 </html>
